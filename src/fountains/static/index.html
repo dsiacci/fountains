@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>fountains</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+<style>
+:root {
+  --bg: #f4f3ee; --surface: #ffffff; --ink: #1c2420; --muted: #5b6863; --line: #d9ddd5; --soft: #eceee8;
+  --water: #1d6a98; --water-soft: #e3eff6; --likely: #2a7a57; --uncertain: #9a6a12; --unlikely: #a24c2a; --not: #7d8581;
+  --unsure: #b07a12; --unsure-soft: #f7eedb; --warn-bg: #fff6e0; --warn-line: #e6c779; --box: #ff5a1f; --focus: #1d6a98;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111513; --surface: #1a201d; --ink: #e6ebe8; --muted: #9ba8a2; --line: #2d3531; --soft: #222925;
+    --water: #63b2e0; --water-soft: #16303f; --likely: #5cbc8e; --uncertain: #dfb35b; --unlikely: #e58c66; --not: #8d9591;
+    --unsure: #e0b25a; --unsure-soft: #3a3020; --warn-bg: #2b2414; --warn-line: #6d5a2a; --box: #ff7a45; --focus: #63b2e0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111513; --surface: #1a201d; --ink: #e6ebe8; --muted: #9ba8a2; --line: #2d3531; --soft: #222925;
+  --water: #63b2e0; --water-soft: #16303f; --likely: #5cbc8e; --uncertain: #dfb35b; --unlikely: #e58c66; --not: #8d9591;
+  --unsure: #e0b25a; --unsure-soft: #3a3020; --warn-bg: #2b2414; --warn-line: #6d5a2a; --box: #ff7a45; --focus: #63b2e0;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: var(--water); }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.wrap { max-width: 1320px; margin: 0 auto; padding: 0 16px; }
+header.top { padding: 18px 0 8px; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.brand { font-weight: 750; font-size: 22px; letter-spacing: -0.01em; }
+.brand::before { content: ""; display: inline-block; width: 11px; height: 15px; margin-right: 7px; background: var(--water); border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%; transform: translateY(1px); }
+.tag { color: var(--muted); margin: 0; }
+.warn { background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 8px; padding: 10px 14px; margin: 6px 0 18px; font-weight: 600; }
+h2 { font-size: 17px; margin: 0 0 10px; display: flex; align-items: center; gap: 10px; }
+h2 .n { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--bg); font-size: 13px; }
+section.step { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.drop { border: 2px dashed var(--line); border-radius: 10px; padding: 26px 16px; text-align: center; cursor: pointer; }
+.drop.over { border-color: var(--water); background: var(--water-soft); }
+.drop input { display: none; }
+.ridebar { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: baseline; }
+.ridebar strong { font-size: 16px; }
+.err { color: var(--unlikely); font-weight: 600; }
+.work { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+@media (min-width: 1000px) {
+  .work { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: start; }
+  .mapcol { position: sticky; top: 12px; }
+}
+#map { height: 46vh; min-height: 280px; border-radius: 10px; border: 1px solid var(--line); }
+@media (min-width: 1000px) { #map { height: calc(100vh - 80px); } }
+.status { display: grid; gap: 6px; margin-bottom: 10px; }
+.bar { height: 6px; background: var(--soft); border-radius: 4px; overflow: hidden; }
+.bar span { display: block; height: 100%; width: 0; background: var(--water); transition: width .4s; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 12px; }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 3px 11px; cursor: pointer; font-size: 13px; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.cards { display: grid; gap: 12px; }
+.card { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: grid; gap: 8px; scroll-margin-top: 12px; }
+.card.flash { box-shadow: 0 0 0 3px var(--water); }
+.card[data-verdict="not"] { opacity: .72; }
+.card .head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.card h3 { margin: 0; font-size: 16px; }
+.km { border: 0; background: var(--soft); border-radius: 6px; padding: 1px 7px; font-variant-numeric: tabular-nums; cursor: pointer; font-size: 13px; }
+.src { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 8px; }
+.src.clue { color: var(--unsure); border-color: var(--unsure); }
+.card p { margin: 0; }
+.photo { position: relative; border-radius: 8px; overflow: hidden; background: var(--soft); }
+.photo img { display: block; width: 100%; height: auto; }
+.photo .box { position: absolute; border: 2px solid var(--box); border-radius: 4px; box-shadow: 0 0 0 1px rgba(0,0,0,.35); pointer-events: none; }
+.photo .empty { padding: 18px 12px; color: var(--muted); font-size: 14px; }
+.thumbs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
+.thumbs button { padding: 0; border: 2px solid transparent; border-radius: 6px; background: none; cursor: pointer; flex: 0 0 auto; }
+.thumbs button[aria-pressed="true"] { border-color: var(--water); }
+.thumbs img { display: block; width: 92px; height: 39px; object-fit: cover; border-radius: 4px; }
+.maps { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.maps figure { margin: 0; position: relative; }
+.maps img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; background: var(--soft); }
+.maps .ring { position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border: 3px solid var(--box); border-radius: 50%; }
+.maps figcaption { font-size: 12px; color: var(--muted); }
+.verdict { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.verdict button { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 7px 4px; cursor: pointer; font-weight: 600; }
+.verdict button[aria-pressed="true"][data-v="fountain"] { background: var(--water); border-color: var(--water); color: #fff; }
+.verdict button[aria-pressed="true"][data-v="not"] { background: var(--not); border-color: var(--not); color: #fff; }
+.verdict button[aria-pressed="true"][data-v="unsure"] { background: var(--unsure); border-color: var(--unsure); color: #fff; }
+.pre { font-size: 12px; color: var(--muted); }
+.cards.only-todo .card:not([data-verdict="none"]) { display: none; }
+.cards.only-fountain .card:not([data-verdict="fountain"]) { display: none; }
+.cards.only-unsure .card:not([data-verdict="unsure"]) { display: none; }
+.cards.only-not .card:not([data-verdict="not"]) { display: none; }
+.cards.only-seen .card:not([data-seen="1"]) { display: none; }
+.seen { font-size: 13px; font-weight: 600; color: var(--box); }
+.unseen { font-size: 13px; color: var(--muted); }
+form.score { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: end; }
+form.score label { display: grid; gap: 3px; font-size: 13px; color: var(--muted); }
+form.score input { border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; background: var(--surface); min-width: 0; }
+form.score input[type="number"] { width: 92px; }
+.primary { border: 0; background: var(--water); color: #fff; border-radius: 8px; padding: 8px 16px; font-weight: 650; cursor: pointer; }
+.primary[disabled] { opacity: .5; cursor: default; }
+table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+th, td { text-align: left; padding: 7px 8px; border-top: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; color: var(--muted); font-weight: 600; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.band { display: inline-block; border-radius: 999px; padding: 1px 9px; color: #fff; font-weight: 650; font-size: 13px; white-space: nowrap; }
+.band.likely { background: var(--likely); } .band.uncertain { background: var(--uncertain); } .band.unlikely { background: var(--unlikely); }
+.gap { border-top: 1px solid var(--line); padding-top: 10px; margin-top: 10px; }
+.gap ul { margin: 6px 0 0; padding-left: 18px; }
+.open { color: var(--likely); font-weight: 600; } .closed { color: var(--unlikely); font-weight: 600; }
+.tablewrap { overflow-x: auto; }
+footer { color: var(--muted); font-size: 13px; padding: 4px 0 30px; }
+footer p { margin: 0 0 8px; }
+.leaflet-popup-content { margin: 10px 12px; }
+.addform { display: grid; gap: 6px; min-width: 200px; }
+.addform input { border: 1px solid #c9cec7; border-radius: 6px; padding: 5px 7px; color: #1c2420; background: #fff; }
+.addform button { border: 0; background: #1d6a98; color: #fff; border-radius: 6px; padding: 6px; font-weight: 650; cursor: pointer; }
+.hide { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">fountains</div>
+    <p class="tag">Will the fountains on my ride be running?</p>
+  </header>
+  <p class="warn" id="disclaimer" role="note"></p>
+
+  <section class="step" id="s1">
+    <h2><span class="n">1</span>Your ride</h2>
+    <label class="drop" id="drop">
+      <input type="file" id="file" accept=".gpx,application/gpx+xml">
+      <strong>Choose a GPX file</strong> or drop it here.<br>
+      <span class="muted small">Export it from your app or bike computer. It stays on this computer: only the positions of water points, and the box around the ride, are sent to the open-data services.</span>
+    </label>
+    <div class="ridebar hide" id="ridebar"></div>
+    <p class="err hide" id="uperr" role="alert"></p>
+  </section>
+
+  <div class="work hide" id="work">
+    <div class="mapcol">
+      <div id="map" role="region" aria-label="Map of the ride and its water points"></div>
+      <p class="muted small">Click the map to add a fountain you know that no map has.</p>
+    </div>
+    <div class="listcol">
+      <section class="step" id="s2">
+        <h2><span class="n">2</span>Check the water points</h2>
+        <div class="status">
+          <p class="small" id="lookmsg" aria-live="polite"></p>
+          <div class="bar" id="lookbar"><span></span></div>
+        </div>
+        <p class="small muted" id="counts"></p>
+        <div class="chips" role="group" aria-label="Show">
+          <button class="chip" data-f="all" aria-pressed="true">All</button>
+          <button class="chip" data-f="seen">Something on the photos</button>
+          <button class="chip" data-f="todo">To decide</button>
+          <button class="chip" data-f="fountain">Fountains</button>
+          <button class="chip" data-f="unsure">Not sure</button>
+          <button class="chip" data-f="not">Not fountains</button>
+        </div>
+        <div class="cards" id="cards"></div>
+      </section>
+    </div>
+  </div>
+
+  <section class="step hide" id="s3">
+    <h2><span class="n">3</span>Score the fountains you kept</h2>
+    <form class="score" id="scoreform">
+      <label>Day of the ride<input type="date" name="date" required></label>
+      <label>Start time<input type="time" name="start" placeholder="08:30"></label>
+      <label>Pace on the flat, km/h<input type="number" name="flat_kmh" min="5" max="45" step="1" value="20"></label>
+      <label>Climbing, m per hour<input type="number" name="climb_mh" min="100" max="1600" step="50" value="500"></label>
+      <label>Look for shops after, km<input type="number" name="gap_km" min="3" max="60" step="1" value="10"></label>
+      <button class="primary" id="scorebtn" type="submit">Score</button>
+    </form>
+    <p class="small muted">The start time and pace give the time you pass each point, so cafés and shops can be checked against their opening hours.</p>
+    <p class="small" id="scoremsg" aria-live="polite"></p>
+    <div id="results"></div>
+  </section>
+
+  <section class="step hide" id="s4">
+    <h2><span class="n">4</span>Take it on the ride</h2>
+    <p><a class="primary" id="gpxbtn" href="/api/gpx" download>Download the GPX</a></p>
+    <p class="small muted" id="gpxnote"></p>
+  </section>
+
+  <footer>
+    <p id="note"></p>
+    <p id="attribution"></p>
+    <p id="disclaimer2"></p>
+  </footer>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<script>
+"use strict";
+const $ = (s, el = document) => el.querySelector(s);
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+let S = null, version = null, timer = null, map = null, trackLayer = null, stopsLayer = null, markers = {}, filter = "all", fitted = null;
+
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v === null || v === undefined || v === false) continue;
+    if (k === "class") e.className = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v === true ? "" : v);
+  }
+  for (const k of kids.flat()) if (k !== null && k !== undefined && k !== false) e.append(k instanceof Node ? k : String(k));
+  return e;
+}
+const fmtDate = (iso) => iso ? iso.slice(8, 10) + "/" + iso.slice(5, 7) + "/" + iso.slice(0, 4) : "";
+const verdictOf = (p) => p.verdict || "none";
+
+async function api(path, body) {
+  const opt = body === undefined ? {} : { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) };
+  const r = await fetch(path, opt);
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || r.statusText);
+  return j;
+}
+
+async function refresh(force) {
+  try {
+    const j = await api("/api/state" + (version !== null && !force ? "?v=" + version : ""));
+    if (!j.same) apply(j);
+  } catch (e) { /* the server may be restarting: try again later */ }
+  schedule();
+}
+function schedule() {
+  clearTimeout(timer);
+  const running = S && S.ride && Object.values(S.ride.jobs || {}).some((j) => j.running);
+  timer = setTimeout(refresh, running ? 2000 : 20000);
+}
+function apply(j) {
+  S = j;
+  version = j.ride ? j.ride.version : null;
+  render();
+}
+
+// ---- 1. upload -------------------------------------------------------------
+const drop = $("#drop");
+async function upload(file) {
+  $("#uperr").classList.add("hide");
+  drop.querySelector("strong").textContent = "Reading " + file.name + "...";
+  try {
+    const text = await file.text();
+    apply(await api("/api/ride", { gpx: text, filename: file.name }));
+    fitted = null;
+    schedule();
+  } catch (e) {
+    $("#uperr").textContent = "This file could not be used: " + e.message;
+    $("#uperr").classList.remove("hide");
+  }
+  drop.querySelector("strong").textContent = "Choose a GPX file";
+}
+$("#file").addEventListener("change", (e) => e.target.files[0] && upload(e.target.files[0]));
+drop.addEventListener("dragover", (e) => { e.preventDefault(); drop.classList.add("over"); });
+drop.addEventListener("dragleave", () => drop.classList.remove("over"));
+drop.addEventListener("drop", (e) => { e.preventDefault(); drop.classList.remove("over"); if (e.dataTransfer.files[0]) upload(e.dataTransfer.files[0]); });
+
+// ---- rendering ---------------------------------------------------------------
+function render() {
+  $("#disclaimer").textContent = S.disclaimer;
+  $("#disclaimer2").textContent = S.disclaimer;
+  const r = S.ride;
+  for (const id of ["work", "s3", "s4"]) $("#" + id).classList.toggle("hide", !r);
+  if (!r) return;
+  $("#note").textContent = S.note || "";
+  $("#attribution").textContent = S.attribution || "";
+  const rb = $("#ridebar");
+  rb.replaceChildren(
+    h("strong", {}, r.name),
+    h("span", {}, r.length_km + " km" + (r.climb_m ? ", " + r.climb_m.toLocaleString("en") + " m climbing" : "")),
+    h("span", { class: "muted small" }, "from " + r.file),
+    h("button", { class: "chip", type: "button", onclick: () => $("#file").click() }, "Use another GPX"),
+  );
+  rb.classList.remove("hide");
+  drop.classList.add("hide");
+  renderMap(r);
+  renderLook(r);
+  renderCards(r);
+  renderScore(r);
+  renderGpx(r);
+}
+
+function renderLook(r) {
+  const j = r.jobs.look || {};
+  const pts = r.points;
+  const done = pts.filter((p) => ["done", "none", "error"].includes(p.photo_state)).length;
+  let msg = j.message || "";
+  if (j.error) msg = "Stopped: " + j.error + ". The points below can still be decided.";
+  else if (!j.running && j.finished) msg = "Street photos searched for every point.";
+  $("#lookmsg").textContent = msg;
+  $("#lookbar").classList.toggle("hide", !j.running);
+  $("#lookbar span").style.width = (pts.length ? Math.round(100 * done / pts.length) : 0) + "%";
+  const n = (o) => pts.filter((p) => p.origin === o).length;
+  const seen = pts.filter((p) => p.origin === "clue" && p.ranked && p.photos.length && p.photos[0].owl >= S.seen).length;
+  const ranked = pts.some((p) => p.ranked);
+  $("#counts").textContent = n("map") + " from the maps, counted as fountains until you say otherwise. " + n("clue") + " places found from clues" +
+    (ranked ? ", " + seen + " with something like a fountain on the photos" : "") + ": they stay out of your GPX unless you mark them." +
+    (n("you") ? " " + n("you") + " added by you." : "");
+}
+
+function photoBlock(p) {
+  const ph = p.photos || [];
+  if (!ph.length) {
+    const why = { waiting: "Street photos: waiting for their turn.", looking: "Looking for street photos around this point...",
+      error: "Street photos unavailable (" + (p.photo_error || "error") + ").", none: p.origin === "you" ? "Added by you." :
+      "No 360° street photo within 100 m. Decide from the plan, the aerial view or what you know; “Not sure” puts it in your GPX as a point to check on the spot." }[p.photo_state] || "";
+    return [h("div", { class: "photo" }, h("p", { class: "empty" }, why))];
+  }
+  const i = Math.min(p.chosen || 0, ph.length - 1), c = ph[i];
+  const wrap = h("div", { class: "photo" }, h("img", { src: "/crops/" + c.file, alt: "Street photo near this point, " + c.aim, width: c.w, height: c.h, loading: "lazy" }));
+  if (c.box && c.box.length === 4 && c.owl >= 0.1) {
+    const [x0, y0, x1, y1] = c.box;
+    wrap.append(h("span", { class: "box", style: `left:${100 * x0 / c.w}%;top:${100 * y0 / c.h}%;width:${100 * (x1 - x0) / c.w}%;height:${100 * (y1 - y0) / c.h}%` }));
+  }
+  const cap = h("p", { class: "small muted" }, "Photo " + fmtDate(c.date) + (c.license ? ", " + c.license : "") + (c.owl > 0 ? ". Box: what the vision model takes for a fountain (score " + c.owl.toFixed(2) + "). " : ". "),
+    h("a", { href: c.viewer, target: "_blank", rel: "noopener" }, "Look around in Panoramax"));
+  const shown = ph.map((t, k) => [t, k]).filter(([, k]) => k < 6 || k === i);
+  const thumbs = ph.length > 1 ? h("div", { class: "thumbs", role: "group", "aria-label": "Other photos" },
+    shown.map(([t, k]) => h("button", { type: "button", "aria-pressed": String(k === i), title: "Photo " + (k + 1) + (t.owl > 0 ? ", score " + t.owl.toFixed(2) : ""),
+      onclick: () => decide(p.id, { photo: k }) }, h("img", { src: "/crops/" + t.file, alt: "Photo " + (k + 1), loading: "lazy" })))) : null;
+  const best = ph[0].owl || 0;
+  const verdict = !p.ranked ? h("p", { class: "unseen" }, ph.length + " views, not ranked by the vision model yet.")
+    : best >= S.seen ? h("p", { class: "seen" }, "The vision model sees something like a fountain (score " + best.toFixed(2) + ").")
+    : h("p", { class: "unseen" }, "Nothing that looks like a fountain on these " + ph.length + " views (best score " + best.toFixed(2) + ").");
+  return [verdict, wrap, cap, thumbs, ph.length > shown.length ? h("p", { class: "small muted" }, (ph.length - shown.length) + " more views of the same place, less likely to show a fountain.") : null];
+}
+
+function sourceLabel(p) {
+  if (p.origin === "clue") return "clue: " + p.kind;
+  if (p.origin === "you") return "added by you";
+  return { "OSM": "OpenStreetMap", "IGN": "IGN BD TOPO", "OSM + IGN": "OpenStreetMap + IGN" }[p.source] || p.source;
+}
+function detail(p) {
+  const bits = [];
+  if (p.origin === "clue") bits.push((p.road ? p.road + ", " : "") + (p.road_m ? p.road_m + " m from the clue to the road" : "on the road"));
+  if (p.origin === "map") {
+    bits.push(p.off_track_m + " m from the track");
+    if (p.road_m > 15) bits.push("mapped " + p.road_m + " m from the nearest road");
+    const t = p.tags || {};
+    if (t.last_confirmed) bits.push("last checked " + fmtDate(t.last_confirmed));
+    if (t.seasonal) bits.push("seasonal=" + t.seasonal);
+    if (t.drinking_water === "conditional") bits.push("drinking water: conditional");
+    if (t.access === "customers") bits.push("customers only");
+  }
+  if (p.origin === "you") bits.push(p.off_track_m + " m from the track");
+  return bits.join(" · ");
+}
+
+function card(p) {
+  const v = verdictOf(p);
+  const btn = (val, label) => h("button", { type: "button", "data-v": val, "aria-pressed": String(p.verdict === val), onclick: () => decide(p.id, { verdict: val }) }, label);
+  const seen = p.ranked && p.photos && p.photos.length && p.photos[0].owl >= S.seen;
+  return h("article", { class: "card", id: "card-" + p.id, "data-verdict": v, "data-id": p.id, "data-seen": seen ? "1" : "0" },
+    h("div", { class: "head" },
+      h("button", { class: "km", type: "button", title: "Show on the map", onclick: () => focusPoint(p.id) }, "km " + p.km.toFixed(1)),
+      h("h3", {}, p.name || (p.origin === "clue" ? "Maybe a fountain" : p.kind)),
+      h("span", { class: "src" + (p.origin === "clue" ? " clue" : "") }, sourceLabel(p))),
+    h("p", { class: "small muted" }, detail(p)),
+    ...photoBlock(p),
+    h("div", { class: "maps" },
+      h("figure", {}, h("img", { src: p.plan, alt: "Plan IGN around the point", loading: "lazy" }), h("span", { class: "ring" }), h("figcaption", {}, "Plan IGN")),
+      h("figure", {}, h("img", { src: p.aerial, alt: "Aerial view of the point", loading: "lazy" }), h("span", { class: "ring" }), h("figcaption", {}, "Aerial (IGN)"))),
+    h("div", { class: "verdict", role: "group", "aria-label": "Is there a fountain here?" }, btn("fountain", "Fountain"), btn("not", "Not a fountain"), btn("unsure", "Not sure")),
+    p.prefilled ? h("p", { class: "pre" }, "From the map: counted as a fountain until you say otherwise.") : null);
+}
+
+function renderCards(r) {
+  const box = $("#cards");
+  const pts = [...r.points].sort((a, b) => a.km - b.km);
+  const seen = new Set();
+  let prev = null;
+  for (const p of pts) {
+    seen.add(p.id);
+    const sig = JSON.stringify([p.verdict, p.prefilled, p.photo_state, p.ranked, (p.photos || []).map((x) => x.file), p.chosen, p.name, p.road_m]);
+    let el = document.getElementById("card-" + p.id);
+    if (!el || el.dataset.sig !== sig) {
+      const fresh = card(p);
+      fresh.dataset.sig = sig;
+      if (el) el.replaceWith(fresh); else box.append(fresh);
+      el = fresh;
+    }
+    if (prev ? prev.nextElementSibling !== el : box.firstElementChild !== el) (prev ? prev.after(el) : box.prepend(el));
+    prev = el;
+  }
+  for (const el of [...box.children]) if (!seen.has(el.dataset.id)) el.remove();
+  box.className = "cards" + (filter === "all" ? "" : " only-" + filter);
+}
+
+document.querySelectorAll(".chip[data-f]").forEach((b) => b.addEventListener("click", () => {
+  filter = b.dataset.f;
+  document.querySelectorAll(".chip[data-f]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  $("#cards").className = "cards" + (filter === "all" ? "" : " only-" + filter);
+}));
+
+async function decide(id, body) {
+  try { apply(await api("/api/decide", { id, ...body })); } catch (e) { alert(e.message); }
+}
+
+// ---- map -----------------------------------------------------------------------
+function colour(p) {
+  const sc = S.ride.score && S.ride.score.fountains.find((f) => f.ref === p.id);
+  if (p.verdict === "fountain" && sc) return css("--" + sc.band);
+  return { fountain: css("--water"), unsure: css("--unsure"), not: css("--not") }[p.verdict] || css("--muted");
+}
+function renderMap(r) {
+  if (!map) {
+    const wmts = (layer, fmt) => "https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=" + layer + "&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=" + fmt;
+    const plan = L.tileLayer(wmts("GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2", "image/png"), { maxZoom: 19, attribution: "Plan IGN" });
+    const osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap contributors" });
+    const ortho = L.tileLayer(wmts("ORTHOIMAGERY.ORTHOPHOTOS", "image/jpeg"), { maxZoom: 19, attribution: "IGN BD ORTHO" });
+    map = L.map("map", { layers: [plan] });
+    L.control.layers({ "Plan IGN": plan, "OpenStreetMap": osm, "Aerial (IGN)": ortho }).addTo(map);
+    map.on("click", (e) => addPopup(e.latlng));
+  }
+  if (fitted !== r.id) {
+    if (trackLayer) trackLayer.remove();
+    trackLayer = L.polyline(r.line, { color: css("--ink"), weight: 3, opacity: .75 }).addTo(map);
+    map.fitBounds(trackLayer.getBounds().pad(0.05));
+    for (const m of Object.values(markers)) m.remove();
+    markers = {};
+    fitted = r.id;
+  }
+  const ids = new Set();
+  for (const p of r.points) {
+    ids.add(p.id);
+    const opts = { radius: p.origin === "clue" ? 6 : 8, color: "#fff", weight: 2, fillColor: colour(p), fillOpacity: p.verdict === "not" ? .35 : .95 };
+    if (!markers[p.id]) {
+      markers[p.id] = L.circleMarker([p.lat, p.lon], opts).addTo(map).on("click", (e) => { L.DomEvent.stopPropagation(e); showCard(p.id); });
+      markers[p.id].bindTooltip(() => "km " + p.km.toFixed(1) + " · " + (p.name || p.kind));
+    } else markers[p.id].setStyle(opts);
+  }
+  for (const [id, m] of Object.entries(markers)) if (!ids.has(id)) { m.remove(); delete markers[id]; }
+  const sc = r.score;
+  if (stopsLayer) stopsLayer.remove();
+  stopsLayer = L.layerGroup((sc ? sc.gaps.flatMap((g) => g.stops) : []).map((s) =>
+    L.circleMarker([s.lat, s.lon], { radius: 5, color: "#fff", weight: 1.5, fillColor: css("--muted"), fillOpacity: .9 })
+      .bindTooltip(s.kind + (s.name ? ": " + s.name : "") + (s.eta ? ", around " + s.eta : "")))).addTo(map);
+}
+function focusPoint(id) {
+  const p = S.ride.points.find((x) => x.id === id);
+  if (p && map) { map.setView([p.lat, p.lon], Math.max(map.getZoom(), 15)); markers[id] && markers[id].openTooltip(); }
+}
+function showCard(id) {
+  const el = document.getElementById("card-" + id);
+  if (!el) return;
+  if (getComputedStyle(el).display === "none") $(".chip[data-f='all']").click();
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  el.classList.add("flash");
+  setTimeout(() => el.classList.remove("flash"), 1600);
+}
+function addPopup(latlng) {
+  const name = h("input", { type: "text", placeholder: "Name (optional)", "aria-label": "Name of the fountain" });
+  const err = h("p", { class: "small", style: "color:#a24c2a;margin:0" });
+  const form = h("form", { class: "addform", onsubmit: async (e) => {
+    e.preventDefault();
+    try { apply(await api("/api/add", { lat: latlng.lat, lon: latlng.lng, name: name.value })); map.closePopup(); }
+    catch (x) { err.textContent = x.message; }
+  } }, h("strong", {}, "A fountain you know here?"), name, h("button", { type: "submit" }, "Add it as a fountain"), err);
+  L.popup().setLatLng(latlng).setContent(form).openOn(map);
+}
+
+// ---- 3. score ------------------------------------------------------------------
+const form = $("#scoreform");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const body = Object.fromEntries(new FormData(form).entries());
+  try { apply(await api("/api/score", body)); schedule(); } catch (x) { $("#scoremsg").textContent = x.message; }
+});
+function renderScore(r) {
+  const st = r.settings || {};
+  const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  if (!form.date.value) form.date.value = st.date || today;
+  for (const k of ["start", "flat_kmh", "climb_mh", "gap_km"]) if (st[k] !== undefined && !form.dataset.touched) form[k].value = st[k];
+  form.dataset.touched = "1";
+  const kept = r.points.filter((p) => p.verdict === "fountain").length;
+  const j = r.jobs.score || {};
+  $("#scorebtn").textContent = j.running ? "Scoring..." : "Score " + kept + " fountain" + (kept === 1 ? "" : "s");
+  $("#scorebtn").disabled = !!j.running || !kept;
+  $("#scoremsg").textContent = j.error ? "Stopped: " + j.error : (j.running ? j.message || "" : "");
+  const res = $("#results");
+  const sc = r.score;
+  if (!sc) { res.replaceChildren(); return; }
+  const m = sc.meta;
+  const near = sc.fountains.filter((f) => f.reachable), far = sc.fountains.filter((f) => !f.reachable);
+  const row = (f) => h("tr", {},
+    h("td", { class: "num" }, f.km.toFixed(1) + (f.eta ? " · " + f.eta : "")),
+    h("td", {}, h("strong", {}, f.name || f.kind), h("br"), h("span", { class: "small muted" }, (f.detour_m ?? "?") + " m off the route")),
+    h("td", {}, h("span", { class: "band " + f.band }, f.band)),
+    h("td", { class: "small" }, f.reason, ...f.notes.map((n) => [h("br"), "Note: " + n])));
+  const head = h("tr", {}, h("th", {}, "km" + (m.start ? " · time" : "")), h("th", {}, "Fountain"), h("th", {}, "Band"), h("th", {}, "Why"));
+  const pb = m.calibration.per_band;
+  const share = (b) => pb[b] && pb[b].n ? Math.round(100 * pb[b].rate) + " % of " + pb[b].n.toLocaleString("en") : "no case";
+  res.replaceChildren(
+    h("p", {}, h("strong", {}, "Ride on " + fmtDate(m.day) + (m.start ? ", start " + m.start : "")), " · rain from Météo-France gauges up to " + fmtDate(m.gauges_last_day) + (m.forecast_used ? ", then the Météo-France forecast." : ".")),
+    h("p", { class: "warn" }, S.disclaimer),
+    near.length ? h("div", { class: "tablewrap" }, h("table", {}, h("thead", {}, head), h("tbody", {}, near.map(row)))) : h("p", {}, "No fountain within " + m.max_detour_m + " m of the track along roads and paths."),
+    far.length ? [h("p", { class: "small muted", style: "margin-top:12px" }, "Close as the crow flies, but more than " + m.max_detour_m + " m away by road or path:"),
+      h("div", { class: "tablewrap" }, h("table", {}, h("tbody", {}, far.map(row))))] : null,
+    h("div", {}, sc.gaps.map((g) => h("div", { class: "gap" },
+      h("strong", {}, "km " + g.from_km.toFixed(1) + " to " + g.to_km.toFixed(1) + " (" + g.length_km + " km) without a likely fountain"),
+      g.stops.length ? h("ul", {}, g.stops.map((s) => h("li", {}, "km " + s.km.toFixed(1) + ": " + s.kind + (s.name ? ", " + s.name : "") + ", " + s.detour_m + " m off the route",
+        s.eta ? [" · around " + s.eta + ": ", h("span", { class: s.open_then === true ? "open" : s.open_then === false ? "closed" : "" }, s.open_then === true ? "open" : s.open_then === false ? "closed" : "hours unknown")] : null,
+        s.opening_hours ? h("span", { class: "small muted" }, " (" + s.opening_hours + ")") : null)))
+        : h("p", { class: "small muted" }, "No café, shop or fuel station on the maps within reach.")))),
+    h("p", { class: "small muted", style: "margin-top:12px" }, "How to read the bands: when " + m.calibration.n_stations + " Corsican streams were each hidden from the model in turn, “likely” streams were flowing in " + share("likely") + " cases, “uncertain” in " + share("uncertain") + ", “unlikely” in " + share("unlikely") + "."),
+  );
+}
+
+// ---- 4. GPX ----------------------------------------------------------------------
+function renderGpx(r) {
+  const n = (v) => r.points.filter((p) => p.verdict === v).length;
+  const stops = r.score ? r.score.gaps.reduce((a, g) => a + g.stops.length, 0) : 0;
+  $("#gpxnote").textContent = "The track, with a waypoint for each of the " + n("fountain") + " fountains you kept" + (r.score ? " (named after its band)" : " (score them first to get their band)") +
+    ", the " + n("unsure") + " points you were not sure about (“check”)" + (stops ? ", and " + stops + " cafés and shops on long stretches" : "") +
+    ". Names start with the band, so a bike computer that shortens names still shows it. Garmin: import it as a course in Garmin Connect, then send it to your device.";
+}
+
+refresh(true);
+</script>
+</body>
+</html>

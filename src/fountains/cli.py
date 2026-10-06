@@ -93,6 +93,13 @@ def cmd_discover(a: argparse.Namespace) -> None:
     print(page)
 
 
+def cmd_serve(a: argparse.Namespace) -> None:
+    from .serve import serve
+
+    serve(host=a.host, port=a.port, work_dir=Path(a.work_dir) if a.work_dir else None, vision=not a.no_vision,
+          max_pictures=a.max_pictures, corridor_m=a.corridor, max_detour_m=a.max_detour, allowed_hosts=tuple(a.allow_host))
+
+
 def cmd_trim(a: argparse.Namespace) -> None:
     from .gpx import read_gpx, trim_track, write_track
 
@@ -151,6 +158,17 @@ def main(argv: list[str] | None = None) -> None:
     dsc.add_argument("--no-models", action="store_true", help="only collect the photos, do not run the vision models")
     dsc.add_argument("--max-pictures", type=int, default=8, help="360° photos per clue, spread along the road (default 8)")
     dsc.set_defaults(func=cmd_discover)
+
+    sv = sub.add_parser("serve", help="a local web page: upload a GPX, check the points on photos, score them, download a GPX")
+    sv.add_argument("--host", default="127.0.0.1", help="address to listen on (default 127.0.0.1: this computer only)")
+    sv.add_argument("--port", type=int, default=8765)
+    sv.add_argument("--work-dir", help="where rides, photos and decisions are kept (default: the user cache)")
+    sv.add_argument("--no-vision", action="store_true", help="show the street photos without ranking them with OWLv2")
+    sv.add_argument("--max-pictures", type=int, default=4, help="360° photos looked at around each point (default 4)")
+    sv.add_argument("--corridor", type=float, default=100.0, help="clues on roads within this many metres of the track (default 100)")
+    sv.add_argument("--max-detour", type=float, default=250.0, help="water points within this many metres of the track (default 250)")
+    sv.add_argument("--allow-host", action="append", default=[], help="extra host name the page may be reached by")
+    sv.set_defaults(func=cmd_serve)
 
     t = sub.add_parser("trim", help="cut the start and end of a track before sharing it")
     t.add_argument("track")
