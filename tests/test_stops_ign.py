@@ -92,5 +92,37 @@ def test_gaps_are_printed_with_opening_state():
     gaps = [Gap(18.0, 39.2, [Stop("node/7", "U Fornu", "bakery", 41.9, 8.8, 27.3, 60, "Mo-Sa 06:30-13:00", "10:05", False)]), Gap(0.0, 18.0, [])]
     text = text_table([], meta, gaps)
     assert "km 18.0 to 39.2 (21.2 km)" in text
-    assert "bakery: U Fornu, 60 m off the route around 10:05: closed (Mo-Sa 06:30-13:00)" in text
+    assert "   km  27.3  bakery: U Fornu, 60 m off the route around 10:05: closed (Mo-Sa 06:30-13:00)" in text
     assert "no café, shop or fuel station on the maps within reach" in text
+
+
+def stop(km, kind="café", open_then=None, detour=50, name=""):
+    return Stop(f"node/{int(km * 10)}", name or kind, kind, 41.9, 8.8, km, detour, "", "10:00", open_then)
+
+
+def test_a_few_stops_are_suggested_never_a_closed_one_nor_one_just_after_the_start():
+    from fountains.score import suggest_stops
+
+    stops = [stop(0.7, "fuel station", True), stop(4.0, "restaurant", True), stop(5.0, "bakery", None), stop(8.0, "café", False),
+             stop(14.0, "bar", None, detour=200), stop(16.0, "bar", True, detour=240), stop(16.5, "small shop", None, detour=10),
+             stop(29.0, "restaurant", None), stop(43.0, "café", False)]
+    got = [(s.km, s.kind) for s in suggest_stops(stops, 0.0, 44.8, 10.0)]
+    # windows of 8.36 km from km 3: [3, 11.4) [11.4, 19.7) [19.7, 28.1) [28.1, 36.4) [36.4, 44.8]
+    assert got == [(4.0, "restaurant"), (16.0, "bar"), (29.0, "restaurant")]
+    assert suggest_stops([stop(12.0, "café", False)], 0.0, 20.0, 10.0) == []
+
+
+def test_only_suggested_stops_go_in_the_gpx(tmp_path):
+    from fountains.report import write_outputs
+
+    meta = {
+        "track": "Boucle", "day": "2026-10-11", "start": "08:30", "max_detour_m": 250.0, "gap_km": 10.0, "length_km": 30.0,
+        "gauges_last_day": "2026-10-09", "forecast_used": True, "excluded_private": 0,
+        "calibration": {"n_stations": 33, "per_band": {}},
+    }
+    a, b = stop(12.0, "bar", True), stop(13.0, "bakery", None)
+    a.suggested = True
+    paths = write_outputs([], meta, tmp_path, "t", gaps=[Gap(0.0, 30.0, [a, b])])
+    gpx = next(p for p in paths if p.suffix == ".gpx").read_text()
+    assert "bar - open" in gpx and "bakery" not in gpx
+    assert "-> km  12.0  bar" in next(p for p in paths if p.suffix == ".txt").read_text()

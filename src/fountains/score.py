@@ -63,6 +63,7 @@ class Stop:
     opening_hours: str
     eta: str
     open_then: bool | None
+    suggested: bool = False
 
 
 @dataclass
@@ -114,6 +115,30 @@ def find_gaps(length_km: float, water_km: list[float], min_gap_km: float) -> lis
     """Stretches of at least `min_gap_km` between the start, the likely fountains and the end."""
     marks = [0.0] + sorted(water_km) + [length_km]
     return [(a, b) for a, b in zip(marks, marks[1:]) if b - a >= min_gap_km]
+
+
+FRESH_KM = 3.0  # just after the start or a likely fountain, bottles are full
+
+
+def suggest_stops(stops: list[Stop], from_km: float, to_km: float, every_km: float) -> list[Stop]:
+    """A few places to suggest on a long stretch: at most one per window of about `every_km`.
+
+    The windows start FRESH_KM after the start of the stretch. In each one:
+    open when you pass first, then hours unknown; cafés, bakeries, shops and
+    fuel stations before restaurants; then the shortest detour. A place whose
+    opening hours say it is closed then is never suggested.
+    """
+    a0 = min(from_km + FRESH_KM, to_km)
+    n = max(1, math.ceil((to_km - a0) / every_km - 1e-9))
+    width = (to_km - a0) / n
+    out = []
+    for i in range(n):
+        a, b = a0 + i * width, a0 + (i + 1) * width
+        cand = [s for s in stops if s.open_then is not False and a <= s.km and (s.km < b or (i == n - 1 and s.km <= b))]
+        if cand:
+            out.append(min(cand, key=lambda s: (s.open_then is not True, s.kind == "restaurant",
+                                                s.detour_m if s.detour_m is not None else math.inf, s.km)))
+    return out
 
 
 def _clock(start: dt.datetime | None, minutes: float) -> tuple[str, dt.datetime | None]:
@@ -258,6 +283,8 @@ def score_track(
             stops.append(Stop(ref=f["osm_id"], name=f.get("name", ""), kind=f["kind"], lat=f["lat"], lon=f["lon"],
                               km=round(km, 1), detour_m=round(det), opening_hours=f.get("opening_hours", ""),
                               eta=eta, open_then=is_open(f.get("opening_hours"), when) if when else None))
+        for st in suggest_stops(stops, a, b, gap_km):
+            st.suggested = True
         gaps.append(Gap(from_km=a, to_km=b, stops=sorted(stops, key=lambda x: x.km)))
 
     meta = {

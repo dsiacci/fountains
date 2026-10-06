@@ -55,7 +55,8 @@ def _stop_line(s) -> str:
         state = {True: "open", False: "closed", None: "hours unknown"}[s.open_then]
         when = f" around {s.eta}: {state}"
     hours = f" ({s.opening_hours})" if s.opening_hours else ""
-    return f"  km {s.km:5.1f}  {s.kind}: {s.name or 'no name'}, {s.detour_m} m off the route{when}{hours}  [osm {s.ref}]"
+    mark = "->" if s.suggested else "  "
+    return f"  {mark} km {s.km:5.1f}  {s.kind}: {s.name or 'no name'}, {s.detour_m} m off the route{when}{hours}  [osm {s.ref}]"
 
 
 def text_table(scored: list[ScoredFountain], meta: dict, gaps: list[Gap] | None = None) -> str:
@@ -90,7 +91,8 @@ def text_table(scored: list[ScoredFountain], meta: dict, gaps: list[Gap] | None 
         lines.append(f"\n{meta['excluded_private']} private point(s) (access=private or no) left out.")
     if gaps:
         lines.append("")
-        lines.append(f"Stretches of {meta['gap_km']:.0f} km or more without a likely fountain, and where else to fill a bottle:")
+        lines.append(f"Stretches of {meta['gap_km']:.0f} km or more without a likely fountain, and where else to fill a bottle")
+        lines.append(f"(-> suggested: about one per {meta['gap_km']:.0f} km, open when you pass first, never one known to be closed; these go in the GPX):")
         for g in gaps:
             lines.append(f"  km {g.from_km:.1f} to {g.to_km:.1f} ({g.length_km} km)")
             if g.stops:
@@ -143,7 +145,7 @@ def to_geojson(scored: list[ScoredFountain], meta: dict, gaps: list[Gap] | None 
                     "geometry": {"type": "Point", "coordinates": [s.lon, s.lat]},
                     "properties": {"ref": s.ref, "source": "OSM", "name": s.name, "kind": s.kind, "stop": True, "km": s.km,
                                    "eta": s.eta, "detour_m": s.detour_m, "opening_hours": s.opening_hours,
-                                   "open_then": s.open_then, "gap_km": [g.from_km, g.to_km]},
+                                   "open_then": s.open_then, "suggested": s.suggested, "gap_km": [g.from_km, g.to_km]},
                 }
             )
     return {"type": "FeatureCollection", "disclaimer": DISCLAIMER, "note": TRANSFER_NOTE, "meta": meta, "attribution": ATTRIBUTION, "features": feats}
@@ -168,7 +170,7 @@ def write_outputs(scored: list[ScoredFountain], meta: dict, out_dir: Path, stem:
     p = out_dir / f"{stem}-waypoints.gpx"
     wpts = [{"lat": f.lat, "lon": f.lon, "name": waypoint_name(f), "desc": reason(f)} for f in scored]
     for g in gaps or []:
-        for s in g.stops:
+        for s in (s for s in g.stops if s.suggested):
             state = {True: "open", False: "closed", None: "hours?"}[s.open_then] if s.eta else "hours?"
             wpts.append({"lat": s.lat, "lon": s.lon, "name": f"{s.kind} - {state}"[:40], "desc": f"{s.name} {s.opening_hours}".strip()})
     write_waypoints(wpts, p, metadata_desc=DISCLAIMER)
