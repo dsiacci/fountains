@@ -18,6 +18,7 @@ TRANSFER_NOTE = (
 )
 ATTRIBUTION = (
     "Water points © OpenStreetMap contributors (ODbL) and IGN BD TOPO® (Licence Ouverte 2.0). "
+    "Street photos: Panoramax contributors, licence shown with each photo; plan and aerial views: IGN (Licence Ouverte 2.0). "
     "Rain: Météo-France (Licence Ouverte 2.0); forecast via Open-Meteo (CC BY 4.0). "
     "Streams: OFB, ONDE via Hub'Eau (Licence Ouverte 2.0). Built with PriorLabs-TabPFN."
 )
@@ -75,6 +76,9 @@ def text_table(scored: list[ScoredFountain], meta: dict, gaps: list[Gap] | None 
             lines.append(f"            {reason(f)}")
             for n in f.notes:
                 lines.append(f"            note: {n}")
+            st = (f.views or {}).get("street")
+            if st:
+                lines.append(f"            see it: {st['viewer']} (street photo {_fmt_date(st['date'])}, {st['distance_m']} m away)")
     if far:
         lines.append("")
         lines.append(f"Close as the crow flies, but more than {meta['max_detour_m']:.0f} m away by road or path:")
@@ -127,6 +131,7 @@ def to_geojson(scored: list[ScoredFountain], meta: dict, gaps: list[Gap] | None 
                     "elevation_m": f.elevation_m, "reason": reason(f), "notes": f.notes,
                     "last_checked": f.last_confirmed,
                     "model_probability_streams": round(f.p, 3),
+                    "views": f.views,
                 },
             }
         )
@@ -183,10 +188,15 @@ def html_map(scored: list[ScoredFountain], meta: dict, gaps: list[Gap] | None = 
 <title>{title}</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-:root {{ --bg:#f4f6f5; --fg:#1b2320; --likely:#2a7a57; --uncertain:#a8761c; --unlikely:#a24c2a; --stop:#4b5b8c; }}
+:root {{ --bg:#f4f6f5; --fg:#1b2320; --muted:#5a6a65; --likely:#2a7a57; --uncertain:#a8761c; --unlikely:#a24c2a; --stop:#4b5b8c; --aim:#a24c2a; }}
 body {{ margin:0; font:15px/1.4 system-ui,sans-serif; background:var(--bg); color:var(--fg); }}
 header {{ padding:10px 16px; }} h1 {{ font-size:18px; margin:0 0 4px; }}
-.warn {{ font-weight:600; }} #map {{ height:70vh; }} footer {{ padding:10px 16px; font-size:13px; }}
+.warn {{ font-weight:600; }} #map {{ height:72vh; }} footer {{ padding:10px 16px; font-size:13px; }}
+.pop {{ width:300px; display:grid; gap:6px; }} .pop p {{ margin:0; }} .cap {{ color:var(--muted); font-size:12px; }}
+.pano {{ position:relative; width:300px; height:169px; border-radius:6px; background-color:#dde3e0; background-repeat:repeat-x; cursor:grab; overflow:hidden; touch-action:pan-y; }}
+.pano .aim {{ position:absolute; top:4px; transform:translateX(-50%); background:var(--aim); color:#fff; font-size:11px; font-weight:700; padding:1px 6px; border-radius:9px; white-space:nowrap; pointer-events:none; }}
+.plan {{ position:relative; }} .plan img {{ width:300px; height:170px; border-radius:6px; display:block; }}
+.plan .ring {{ position:absolute; left:50%; top:50%; width:20px; height:20px; margin:-10px 0 0 -10px; border:3px solid var(--aim); border-radius:50%; }}
 </style></head><body>
 <header><h1>{title}</h1><p class="warn">{html.escape(DISCLAIMER)}</p></header>
 <div id="map"></div>
@@ -196,14 +206,55 @@ header {{ padding:10px 16px; }} h1 {{ font-size:18px; margin:0 0 4px; }}
 const data = {data};
 const css = getComputedStyle(document.documentElement);
 const colour = (p) => css.getPropertyValue(p.stop ? '--stop' : '--' + p.band);
-const map = L.map('map');
-L.tileLayer('https://tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'}}).addTo(map);
+const wmts = (layer, fmt) => 'https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=' + layer + '&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={{z}}&TILEROW={{y}}&TILECOL={{x}}&FORMAT=' + fmt;
+const osm = L.tileLayer('https://tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'}});
+const plan = L.tileLayer(wmts('GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2', 'image/png'), {{maxZoom: 19, attribution: 'Plan IGN'}});
+const ortho = L.tileLayer(wmts('ORTHOIMAGERY.ORTHOPHOTOS', 'image/jpeg'), {{maxZoom: 19, attribution: 'IGN BD ORTHO'}});
+const map = L.map('map', {{layers: [osm]}});
+L.control.layers({{'OpenStreetMap': osm, 'Plan IGN': plan, 'Aerial (IGN)': ortho}}).addTo(map);
+function el(tag, cls, text) {{ const e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }}
+function popup(p) {{
+  const box = el('div', 'pop');
+  box.append(el('strong', '', (p.name || p.kind) + (p.stop ? '' : ' (' + p.band + ')')));
+  box.append(el('p', '', 'km ' + p.km + (p.eta ? ' around ' + p.eta : '') + ', ' + (p.detour_m ?? '?') + ' m off the route. ' + (p.reason || p.opening_hours || '')));
+  const v = p.views || {{}};
+  if (v.street && v.street.sd && v.street.fov === 360 && v.street.relative !== null) {{
+    const pano = el('div', 'pano'); pano.dataset.src = v.street.sd; pano.dataset.rel = v.street.relative; pano.dataset.view = v.street.relative;
+    pano.append(el('span', 'aim', 'water point')); box.append(pano);
+  }} else if (v.street && v.street.thumb) {{
+    const img = el('img'); img.src = v.street.thumb; img.width = 300; img.alt = 'Street photo near the water point'; box.append(img);
+  }} else if (v.aerial) {{
+    const fr = el('div', 'plan'); const img = el('img'); img.src = v.aerial; img.alt = 'Aerial view'; fr.append(img, el('span', 'ring')); box.append(fr);
+  }}
+  if (v.street) {{
+    const cap = el('p', 'cap', 'Street photo ' + v.street.date + ', ' + v.street.distance_m + ' m from the point, ' + (v.street.authors.length ? v.street.authors.join(', ') + ', ' : '') + (v.street.license || 'licence on Panoramax') + '. ');
+    const a = el('a', '', 'Open in Panoramax'); a.href = v.street.viewer; a.target = '_blank'; a.rel = 'noopener'; cap.append(a); box.append(cap);
+  }}
+  if (v.plan) {{ const fr = el('div', 'plan'); const img = el('img'); img.src = v.plan; img.alt = 'Plan IGN around the water point'; fr.append(img, el('span', 'ring')); box.append(fr); }}
+  return box;
+}}
+function drawPano(p) {{
+  const w = p.clientWidth, h = p.clientHeight; if (!w) return;
+  const W = 4 * w, H = 2 * w, view = Number(p.dataset.view), rel = Number(p.dataset.rel);
+  const x = (((0.5 + view / 360) * W) % W + W) % W;
+  p.style.backgroundSize = W + 'px ' + H + 'px';
+  p.style.backgroundPosition = (w / 2 - x) + 'px ' + (h / 2 - H / 2) + 'px';
+  const d = ((rel - view) % 360 + 540) % 360 - 180, ax = w / 2 + d / 360 * W, aim = p.querySelector('.aim');
+  aim.hidden = ax < 0 || ax > w; aim.style.left = ax + 'px';
+}}
+function setupPano(p) {{
+  if (p.dataset.ready) return drawPano(p);
+  p.dataset.ready = '1'; p.style.backgroundImage = 'url(' + p.dataset.src + ')';
+  let x0 = null, v0 = 0;
+  p.addEventListener('pointerdown', (e) => {{ x0 = e.clientX; v0 = Number(p.dataset.view); p.setPointerCapture(e.pointerId); }});
+  p.addEventListener('pointermove', (e) => {{ if (x0 === null) return; p.dataset.view = v0 - (e.clientX - x0) / (4 * p.clientWidth) * 360; drawPano(p); }});
+  p.addEventListener('pointerup', () => {{ x0 = null; }});
+  drawPano(p);
+}}
+map.on('popupopen', (e) => {{ for (const p of e.popup.getElement().querySelectorAll('.pano')) setupPano(p); }});
 const layer = L.geoJSON(data, {{
   pointToLayer: (f, ll) => L.circleMarker(ll, {{radius: f.properties.stop ? 6 : 8, color: colour(f.properties), fillOpacity: 0.85}}),
-  onEachFeature: (f, l) => {{ const p = f.properties; const e = document.createElement('div');
-    const h = document.createElement('strong'); h.textContent = (p.name || p.kind) + (p.stop ? '' : ' (' + p.band + ')'); e.append(h);
-    const r = document.createElement('p'); r.textContent = 'km ' + p.km + (p.eta ? ' around ' + p.eta : '') + ', ' + (p.detour_m ?? '?') + ' m off the route. ' + (p.reason || p.opening_hours || ''); e.append(r);
-    l.bindPopup(e); }}
+  onEachFeature: (f, l) => l.bindPopup(() => popup(f.properties), {{maxWidth: 320}})
 }}).addTo(map);
 if (data.features.length) map.fitBounds(layer.getBounds().pad(0.2)); else map.setView([42.0, 9.0], 8);
 </script></body></html>

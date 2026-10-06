@@ -19,6 +19,7 @@ from .model import BAND_LIKELY, FEATURE_SETS, band, fit_predict, load_bands, rea
 from .network import build_graph, detour_m, distances_from_track
 from .osm import load_fountains, ways_near_points
 from .stops import is_open, passing_minutes
+from .views import aerial_url, plan_url, street_view
 
 NEARBY_STREAM_KM = 15.0
 
@@ -44,6 +45,7 @@ class ScoredFountain:
     stream: dict | None
     notes: list[str] = field(default_factory=list)
     eta: str = ""  # passing time, when a start time is given
+    views: dict = field(default_factory=dict)  # street (Panoramax picture or None), plan, aerial (image URLs)
 
     def label(self) -> str:
         return self.name or self.kind
@@ -132,6 +134,7 @@ def score_track(
     flat_kmh: float = 20.0,
     climb_mh: float = 500.0,
     gap_km: float = 15.0,
+    photos: bool = True,
     log=print,
 ) -> tuple[list[ScoredFountain], list[Gap], dict]:
     if not all(in_corsica(lat, lon) for lat, lon in track.points[:: max(1, len(track.points) // 50)]):
@@ -197,6 +200,17 @@ def score_track(
     bands = load_bands(data_dir / "calibration.json")
     obs = onde.read_observations_csv(data_dir / "onde-observations.csv")
 
+    def look(f: dict) -> dict:
+        street = None
+        if photos:
+            try:
+                street = street_view(f["lat"], f["lon"])
+            except Exception as e:  # noqa: BLE001 - a missing photo never stops the score
+                log(f"Panoramax unavailable for {f['ref']}: {e}")
+        return {"street": street, "plan": plan_url(f["lat"], f["lon"]), "aerial": aerial_url(f["lat"], f["lon"])}
+
+    if photos and near:
+        log("Looking for street photos of those points on Panoramax...")
     scored = []
     for (f, d, s), r, p in zip(near, rows, probs):
         det = detours.get(f["ref"])
@@ -218,7 +232,7 @@ def score_track(
                 reachable=det is not None and det <= max_detour_m, access=f.get("access", ""),
                 elevation_m=r["elevation_m"], p=float(p), band=band(float(p), bands), rain=r,
                 last_confirmed=f.get("last_confirmed", ""), stream=nearest_stream(obs, f["lat"], f["lon"], day),
-                notes=notes, eta=_clock(start_dt, minutes_at(s))[0],
+                notes=notes, eta=_clock(start_dt, minutes_at(s))[0], views=look(f),
             )
         )
     scored.sort(key=lambda x: x.km)

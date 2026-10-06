@@ -42,7 +42,7 @@ It prints the table and writes four files:
 | `<track>-<date>.txt` | the table above, to read before leaving |
 | `<track>-<date>-waypoints.gpx` | waypoints for a bike computer, named like `Funtana Vechja - likely`, with the reason in the description |
 | `<track>-<date>.geojson` | everything, for a map or another tool |
-| `<track>-<date>.html` | a map (with `--html`) |
+| `<track>-<date>.html` | a map (with `--html`): OpenStreetMap, Plan IGN or IGN aerial photos as background; click a point to see it from the street, turned toward it, and on the plan |
 
 Every point within the detour limit is listed, in riding order. None is hidden, none is ranked. Points that are close as the crow flies but further than the limit by road or path are listed in a second section with their real detour. Points tagged `access=private` or `access=no` are left out and counted; `access=customers` is shown with a note.
 
@@ -64,6 +64,10 @@ Two open sources, merged:
 A pair from both sources within 30 m is shown once, as the OpenStreetMap point with the IGN name when OSM has none. Natural springs, captured springs, cisterns and wash houses (also in BD TOPO) are left out: most are not places to fill a bottle. Nobody records whether a fountain runs, which is the gap this tool tries to fill.
 
 Each point is attached to the nearest road or path, and the detour is measured along the network from the route. A fountain 40 m from the road as the crow flies can be 400 m away if the only access is a loop through the village.
+
+### Seeing the place before going
+
+For each point, the tool looks on [Panoramax](https://panoramax.fr), the open street-imagery commons, for a picture that looks at it. Around Corsican roads most are IGN's 360° captures of spring 2025, so the map shows the panorama already turned toward the point (drag to look around) and links to the Panoramax viewer at the same heading. Each picture keeps its date, distance and licence. Without a picture within 60 m, an IGN aerial view takes its place. A Plan IGN extract, centred on the point, is always there. `--no-photos` skips the Panoramax lookup.
 
 ### Where else to fill a bottle
 
@@ -119,7 +123,7 @@ This assumption is tested on real fountains in two ways, both small:
 
 ## Privacy
 
-The tool reads a GPX file that you export yourself, from any app. It never connects to Strava or any other account, and your track is never used to train anything. The track itself never leaves your machine: fountains and shops are matched against local snapshots, and to fetch roads and paths the tool sends Overpass only the positions of the public points it found near your route; Open-Meteo and IGN receive the positions of the fountains.
+The tool reads a GPX file that you export yourself, from any app. It never connects to Strava or any other account, and your track is never used to train anything. The track itself never leaves your machine: fountains and shops are matched against local snapshots, and to fetch roads and paths the tool sends Overpass only the positions of the public points it found near your route; Open-Meteo, IGN and Panoramax receive the positions of the fountains.
 
 ## Data sources and licenses
 
@@ -131,6 +135,8 @@ The tool reads a GPX file that you export yourself, from any app. It never conne
 | Daily rain | Météo-France, « Données climatologiques de base - quotidiennes » (data.gouv.fr), department 20 | Licence Ouverte 2.0. Source: Météo-France | normals and training table in `data/`; current-year file downloaded at run time |
 | Rain forecast | Météo-France models through Open-Meteo (`/v1/meteofrance`) | CC BY 4.0 | at run time |
 | Altitude | IGN, Géoplateforme altimetry service | Licence Ouverte 2.0 | training table; fountains at run time |
+| Street photos | Panoramax contributors (in Corsica mostly IGN's 2025 captures), federated API `api.panoramax.xyz` | each photo's own licence (IGN: Licence Ouverte 2.0), shown with it | looked up at run time, linked, not copied |
+| Plan and aerial views | IGN, Plan IGN and BD ORTHO®, Géoplateforme WMS / WMTS | Licence Ouverte 2.0 | map backgrounds and point views, at run time |
 | Model weights | Prior Labs, TabPFN v2 classifier (`Prior-Labs/TabPFN-v2-clf`) | Prior Labs License 1.1 (Apache 2.0 with an attribution clause), copy in `licenses/` | downloaded at run time |
 
 The code is under the Apache License 2.0 (`LICENSE`, `NOTICE`). The tool only reads OpenStreetMap; it never edits it.
