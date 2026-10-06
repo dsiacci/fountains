@@ -45,8 +45,8 @@ Open http://localhost:8765 (with Docker, it is already running) and drop a GPX f
 1. **The water points the maps know** within 250 m of the track appear at once, in riding order, counted as fountains until you say otherwise. A minute later come the **places found from clues** (see *Fountains no map has*); they stay out of your GPX unless you mark them.
 2. **Every point gets the street photos around it**: the Panoramax 360° pictures within 100 m, cropped toward both roadsides and toward the mapped position. An open vision model (OWLv2) puts first the views where it sees something like a fountain, and draws a box on it. Next to them, Plan IGN and the aerial view of the spot.
 3. **You decide**, point by point: *Fountain*, *Not a fountain* or *Not sure*. A point with no photo can be decided too, from the plan, the aerial view or what you know, and a fountain you know can be added by clicking the map.
-4. **Score**: the day, your start time and pace. Each fountain you kept gets its band, and cafés and shops are listed on long stretches without a likely fountain (the same rules as the command line below).
-5. **Download the GPX**: your track with a waypoint for each fountain kept (`likely: Funtana di Leccia`), each point you were not sure about (`check: ...`), and each café or shop on the long stretches. Names start with the band, so a bike computer that shortens names still shows it.
+4. **Score**: the day, your start time and pace. Each fountain you kept gets its band, and on long stretches without a likely fountain a few cafés, shops or fuel stations are suggested (the same rules as the command line below).
+5. **Download the GPX**: your track with a waypoint for each fountain kept (`likely: Funtana di Leccia`), each point you were not sure about (`check: ...`), and each café or shop suggested on the long stretches. Names start with the band, so a bike computer that shortens names still shows it.
 
 Your decisions are saved: drop the same file again and they are still there. The page listens on this computer only (`127.0.0.1`).
 
@@ -61,7 +61,7 @@ It scores every point the maps know, without the photo check.
 - `--date`: the day you ride (default: today). Rain measured up to the last Météo-France report is used, then the Météo-France forecast for the days in between. Forecast days that are not available yet count as dry, so a missing forecast never makes a fountain look wetter.
 - `--max-detour 250`: how far off the route you are willing to go, one way, along roads and paths, in metres.
 - `--start 08:30`: when you leave. The tool then gives a passing time for every point and checks the opening hours of cafés and shops at that time. Passing times come from a plain pace model, `--flat-kmh 20` on the flat plus `--climb-mh 500` metres climbed per hour, using the elevation in the GPX file when it has some. Set them to your own pace.
-- `--gap-km 10`: stretches at least this long without a likely fountain get their list of cafés, shops and fuel stations.
+- `--gap-km 10`: stretches at least this long without a likely fountain get their list of cafés, shops and fuel stations, and about one suggestion per 10 km.
 - `--out out/`: where the files go.
 
 It prints the table and writes four files:
@@ -69,7 +69,7 @@ It prints the table and writes four files:
 | File | For |
 |---|---|
 | `<track>-<date>.txt` | the table above, to read before leaving |
-| `<track>-<date>-waypoints.gpx` | waypoints for a bike computer, named like `Funtana Vechja - likely`, with the reason in the description |
+| `<track>-<date>-waypoints.gpx` | waypoints for a bike computer, named like `likely: Funtana Vechja`, with the reason in the description |
 | `<track>-<date>.geojson` | everything, for a map or another tool |
 | `<track>-<date>.html` | a map (with `--html`): OpenStreetMap, Plan IGN or IGN aerial photos as background; click a point to see it from the street, turned toward it, and on the plan |
 

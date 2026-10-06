@@ -152,9 +152,10 @@ def to_geojson(scored: list[ScoredFountain], meta: dict, gaps: list[Gap] | None 
 
 
 def waypoint_name(f: ScoredFountain) -> str:
-    name = f"{f.label()} - {f.band}"
+    """`likely: Funtana Vechja`: the band first, so a head unit that shortens names still shows it."""
+    name = f"{f.band}: {f.label()}"
     if not f.reachable:
-        name += f" - {f.detour_m} m off" if f.detour_m is not None else " - no path"
+        name += f" ({f.detour_m} m off)" if f.detour_m is not None else " (no path)"
     return name[:40]
 
 

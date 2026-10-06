@@ -487,7 +487,8 @@ class App:
                     f = scored.get(p["id"])
                     if f:
                         desc = f["reason"] + "".join(f". Note: {n}" for n in f["notes"])
-                        wpts.append({"lat": lat, "lon": lon, "name": f"{f['band']}: {label}"[:30], "desc": desc, "type": "Water"})
+                        wpts.append({"lat": lat, "lon": lon, "name": f"{f['band']}: {label}"[:30] if f.get("reachable", True) else f["waypoint"],
+                                     "desc": desc, "type": "Water"})
                     else:
                         wpts.append({"lat": lat, "lon": lon, "name": f"fountain: {label}"[:30], "desc": "not scored for a day yet", "type": "Water"})
                 elif p["verdict"] == "unsure":

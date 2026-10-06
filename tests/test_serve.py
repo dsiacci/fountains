@@ -125,7 +125,8 @@ def test_gpx_has_the_track_and_only_the_points_kept_or_to_check(app, tmp_path):
     app.decide("M02", "unsure")
     app.add(41.9002, 8.815, "Pastore")
     st["score"] = {"meta": {"day": "2026-10-10"}, "gaps": [], "fountains": [
-        {"ref": "M01", "band": "likely", "reason": "rain in the last 90 days 120 mm", "notes": ["OSM says seasonal=summer"]}]}
+        {"ref": "M01", "band": "likely", "reason": "rain in the last 90 days 120 mm", "notes": ["OSM says seasonal=summer"], "reachable": True,
+         "waypoint": "likely: Funtana"}]}
     fname, body = app.gpx()
     assert fname == "Test-loop-fountains-2026-10-10.gpx"
     root = ET.fromstring(body)
