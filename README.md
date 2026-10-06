@@ -30,7 +30,7 @@ docker build -t fountains .
 docker run --rm -p 127.0.0.1:8765:8765 -v fountains-cache:/cache fountains
 ```
 
-The `fountains-cache` volume keeps the models, the data, your rides and your decisions between runs.
+The `fountains-cache` volume keeps the models, the data, your rides and your decisions between runs. Give Docker at least 4 GB of memory (Docker Desktop: Settings, Resources).
 
 ## Use
 
@@ -180,7 +180,7 @@ This assumption is tested on real fountains in two ways, both small:
 - **Only what the maps and the clues reveal.** A fountain that is on no map, near no clue, or out of sight of the street photos does not exist for this tool. Map positions can be off by tens of metres.
 - **Street photos** cover the main roads (IGN's 2025 captures); many small roads have none. The vision model misses fountains hidden in shade or behind a car, and sees fountains in ornamental urns and road furniture: it orders photos, it decides nothing.
 - **Rain is interpolated** between gauges that can be 10 to 20 km away and hundreds of metres lower; mountain rain is underestimated.
-- **The forecast** reaches 2 to 4 days ahead; beyond that, the days count as dry.
+- **The forecast** reaches 2 to 4 days ahead; beyond that, the days count as dry. It also moves: on 6 October 2026, the Météo-France forecast for Marato on the 8th went from 80 mm to 17 mm between two runs, two hours apart. Score again the evening before.
 - **Potability**: never assessed. `drinking_water=yes` in OpenStreetMap is what a mapper wrote, not a water test.
 - **Corsica only**: the stream observations and the rain gauges are Corsican; the tool refuses tracks elsewhere.
 - **Opening hours** are often missing from OpenStreetMap, and passing times come from a pace you set, not from your past rides.
