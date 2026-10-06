@@ -247,7 +247,7 @@ def crop_equirect(img, heading_rel: float, fov_deg: float = 100.0, up_deg: float
     return out
 
 
-def make_crops(clues: list[Clue], bbox, out_dir: Path, log=print) -> list[Crop]:
+def make_crops(clues: list[Clue], bbox, out_dir: Path, max_pictures: int = MAX_PICTURES, log=print) -> list[Crop]:
     from PIL import Image
 
     proj = Projection((bbox[0] + bbox[2]) / 2)
@@ -255,7 +255,7 @@ def make_crops(clues: list[Clue], bbox, out_dir: Path, log=print) -> list[Crop]:
     out_dir.mkdir(parents=True, exist_ok=True)
     crops: list[Crop] = []
     for c in clues:
-        pics = pictures_near(c.road_lat, c.road_lon)
+        pics = pictures_near(c.road_lat, c.road_lon)[:max_pictures]
         log(f"{c.id} {'/'.join(c.kinds)} {c.name}: {len(pics)} pictures")
         for f in pics:
             p = f["properties"]
@@ -282,8 +282,13 @@ def make_crops(clues: list[Clue], bbox, out_dir: Path, log=print) -> list[Crop]:
     return crops
 
 
-def score_crops(crops: list[Crop], owl_top: int = 40, log=print) -> None:
-    """SigLIP ranks every crop; OWLv2 looks for a fountain in the best ones."""
+def score_crops(crops: list[Crop], owl_top: int | None = None, log=print) -> None:
+    """SigLIP scores every crop; OWLv2 looks for a fountain, a spout or a trough.
+
+    On the first test (Marato), SigLIP's zero-shot scores barely separated the
+    fountain from the roadside, while OWLv2 boxed it in the best crop: OWLv2
+    looks at every crop unless `owl_top` limits it to SigLIP's best.
+    """
     import torch
     from PIL import Image
     from transformers import AutoModel, AutoProcessor, Owlv2ForObjectDetection, Owlv2Processor
@@ -303,7 +308,7 @@ def score_crops(crops: list[Crop], owl_top: int = 40, log=print) -> None:
     log(f"SigLIP scored {len(crops)} crops")
     oproc = Owlv2Processor.from_pretrained("google/owlv2-base-patch16-ensemble")
     omodel = Owlv2ForObjectDetection.from_pretrained("google/owlv2-base-patch16-ensemble").eval()
-    best = sorted(crops, key=lambda c: c.siglip, reverse=True)[:owl_top]
+    best = sorted(crops, key=lambda c: c.siglip, reverse=True)[:owl_top] if owl_top else crops
     with torch.no_grad():
         for c in best:
             img = Image.open(c.path).convert("RGB")

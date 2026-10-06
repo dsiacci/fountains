@@ -15,7 +15,11 @@ from pathlib import Path
 
 from . import cache_dir
 
-OVERPASS_URL = "https://overpass-api.de/api/interpreter"
+OVERPASS_URLS = (
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
+    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+)
 USER_AGENT = "fountains/0.1 (+https://github.com/dsiacci/fountains)"
 
 # Corsica: the two departments, by their ISO 3166-2 codes in OSM.
@@ -44,18 +48,19 @@ KEEP_TAGS = (
 
 
 def overpass(query: str, *, retries: int = 3, timeout: int = 240) -> dict:
-    """Run an Overpass query, with a small retry loop for busy servers."""
+    """Run an Overpass query; on a busy or failing server, try the next public instance."""
     body = urllib.parse.urlencode({"data": query}).encode()
     last = None
     for attempt in range(retries):
-        req = urllib.request.Request(OVERPASS_URL, data=body, headers={"User-Agent": USER_AGENT})
-        try:
-            with urllib.request.urlopen(req, timeout=timeout) as r:
-                return json.load(r)
-        except Exception as e:  # noqa: BLE001 - network errors of every kind get the same retry
-            last = e
-            time.sleep(10 * (attempt + 1))
-    raise RuntimeError(f"Overpass query failed after {retries} attempts: {last}")
+        for url in OVERPASS_URLS:
+            req = urllib.request.Request(url, data=body, headers={"User-Agent": USER_AGENT})
+            try:
+                with urllib.request.urlopen(req, timeout=timeout) as r:
+                    return json.load(r)
+            except Exception as e:  # noqa: BLE001 - network errors of every kind get the same retry
+                last = e
+        time.sleep(10 * (attempt + 1))
+    raise RuntimeError(f"Overpass query failed after {retries} rounds on {len(OVERPASS_URLS)} servers: {last}")
 
 
 def fountain_kind(tags: dict) -> str:

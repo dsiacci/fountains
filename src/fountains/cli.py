@@ -79,7 +79,7 @@ def cmd_discover(a: argparse.Namespace) -> None:
     clues = d.find_clues(bbox, water_points(DATA_DIR))
     log(f"{len(clues)} places to check")
     out = Path(a.out)
-    crops = d.make_crops(clues, bbox, out, log=log)
+    crops = d.make_crops(clues, bbox, out, max_pictures=a.max_pictures, log=log)
     if crops and not a.no_models:
         d.score_crops(crops, log=log)
     page = d.write_report(clues, crops, out, a.title or "Fountains to check")
@@ -141,6 +141,7 @@ def main(argv: list[str] | None = None) -> None:
     dsc.add_argument("--out", default="out/discover")
     dsc.add_argument("--title", default="")
     dsc.add_argument("--no-models", action="store_true", help="only collect the photos, do not run the vision models")
+    dsc.add_argument("--max-pictures", type=int, default=8, help="360° photos per clue, spread along the road (default 8)")
     dsc.set_defaults(func=cmd_discover)
 
     t = sub.add_parser("trim", help="cut the start and end of a track before sharing it")
