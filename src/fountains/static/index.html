@@ -440,7 +440,7 @@ function renderMap(r) {
   for (const [id, m] of Object.entries(markers)) if (!ids.has(id)) { m.remove(); delete markers[id]; }
   const sc = r.score;
   if (stopsLayer) stopsLayer.remove();
-  stopsLayer = L.layerGroup((sc ? sc.gaps.flatMap((g) => g.stops) : []).map((s) =>
+  stopsLayer = L.layerGroup((sc ? sc.gaps.flatMap((g) => g.stops.filter((s) => s.suggested)) : []).map((s) =>
     L.circleMarker([s.lat, s.lon], { radius: 5, color: "#fff", weight: 1.5, fillColor: css("--muted"), fillOpacity: .9 })
       .bindTooltip(s.kind + (s.name ? ": " + s.name : "") + (s.eta ? ", around " + s.eta : "")))).addTo(map);
 }
@@ -504,22 +504,32 @@ function renderScore(r) {
     near.length ? h("div", { class: "tablewrap" }, h("table", {}, h("thead", {}, head), h("tbody", {}, near.map(row)))) : h("p", {}, "No fountain within " + m.max_detour_m + " m of the track along roads and paths."),
     far.length ? [h("p", { class: "small muted", style: "margin-top:12px" }, "Close as the crow flies, but more than " + m.max_detour_m + " m away by road or path:"),
       h("div", { class: "tablewrap" }, h("table", {}, h("tbody", {}, far.map(row))))] : null,
-    h("div", {}, sc.gaps.map((g) => h("div", { class: "gap" },
-      h("strong", {}, "km " + g.from_km.toFixed(1) + " to " + g.to_km.toFixed(1) + " (" + g.length_km + " km) without a likely fountain"),
-      g.stops.length ? h("ul", {}, g.stops.map((s) => h("li", {}, "km " + s.km.toFixed(1) + ": " + s.kind + (s.name ? ", " + s.name : "") + ", " + s.detour_m + " m off the route",
-        s.eta ? [" · around " + s.eta + ": ", h("span", { class: s.open_then === true ? "open" : s.open_then === false ? "closed" : "" }, s.open_then === true ? "open" : s.open_then === false ? "closed" : "hours unknown")] : null,
-        s.opening_hours ? h("span", { class: "small muted" }, " (" + s.opening_hours + ")") : null)))
-        : h("p", { class: "small muted" }, "No café, shop or fuel station on the maps within reach.")))),
+    h("div", {}, sc.gaps.map((g) => {
+      const sug = g.stops.filter((s) => s.suggested), rest = g.stops.filter((s) => !s.suggested);
+      return h("div", { class: "gap" },
+        h("strong", {}, "km " + g.from_km.toFixed(1) + " to " + g.to_km.toFixed(1) + " (" + g.length_km + " km) without a likely fountain"),
+        !g.stops.length ? h("p", { class: "small muted" }, "No café, shop or fuel station on the maps within reach.") : [
+          sug.length ? [h("p", { class: "small muted", style: "margin:6px 0 0" }, "Suggested, and in your GPX: about one every " + m.gap_km + " km, open when you pass first, never one known to be closed."),
+            h("ul", {}, sug.map(stopItem))] : h("p", { class: "small muted" }, "None to suggest: the places on the maps are closed when you pass, or just after the start of the stretch."),
+          rest.length ? h("details", {}, h("summary", { class: "small" }, rest.length + " more on the maps"), h("ul", {}, rest.map(stopItem))) : null]);
+    })),
     h("p", { class: "small muted", style: "margin-top:12px" }, "How to read the bands: when " + m.calibration.n_stations + " Corsican streams were each hidden from the model in turn, “likely” streams were flowing in " + share("likely") + " cases, “uncertain” in " + share("uncertain") + ", “unlikely” in " + share("unlikely") + "."),
   );
+}
+
+function stopItem(s) {
+  const state = s.open_then === true ? "open" : s.open_then === false ? "closed" : "hours unknown";
+  return h("li", {}, "km " + s.km.toFixed(1) + ": " + s.kind + (s.name ? ", " + s.name : "") + ", " + s.detour_m + " m off the route",
+    s.eta ? [" · around " + s.eta + ": ", h("span", { class: s.open_then === true ? "open" : s.open_then === false ? "closed" : "" }, state)] : null,
+    s.opening_hours ? h("span", { class: "small muted" }, " (" + s.opening_hours + ")") : null);
 }
 
 // ---- 4. GPX ----------------------------------------------------------------------
 function renderGpx(r) {
   const n = (v) => r.points.filter((p) => p.verdict === v).length;
-  const stops = r.score ? r.score.gaps.reduce((a, g) => a + g.stops.length, 0) : 0;
+  const stops = r.score ? r.score.gaps.reduce((a, g) => a + g.stops.filter((s) => s.suggested).length, 0) : 0;
   $("#gpxnote").textContent = "The track, with a waypoint for each of the " + n("fountain") + " fountains you kept" + (r.score ? " (named after its band)" : " (score them first to get their band)") +
-    ", the " + n("unsure") + " points you were not sure about (“check”)" + (stops ? ", and " + stops + " cafés and shops on long stretches" : "") +
+    ", the " + n("unsure") + " points you were not sure about (“check”)" + (stops ? ", and the " + stops + " cafés and shops suggested on long stretches" : "") +
     ". Names start with the band, so a bike computer that shortens names still shows it. Garmin: import it as a course in Garmin Connect, then send it to your device.";
 }
 

@@ -492,7 +492,7 @@ class App:
                     wpts.append({"lat": lat, "lon": lon, "name": f"check: {label}"[:30], "type": "Water",
                                  "desc": "not confirmed: look on the spot, and do not count on it"})
             for g in (st.get("score") or {}).get("gaps", []):
-                for s in g["stops"]:
+                for s in (s for s in g["stops"] if s.get("suggested")):
                     state = {True: "open", False: "closed", None: "hours?"}[s["open_then"]] if s["eta"] else "hours?"
                     wpts.append({"lat": s["lat"], "lon": s["lon"], "name": f"{s['kind']} {state}: {s['name']}"[:30],
                                  "desc": " ".join(x for x in (s["name"], s["opening_hours"], f"around {s['eta']}" if s["eta"] else "") if x),
@@ -529,15 +529,18 @@ class Handler(BaseHTTPRequestHandler):
         return host in self.app.allowed_hosts
 
     def _send(self, code: int, body: bytes, ctype: str, headers: dict | None = None) -> None:
-        self.send_response(code)
-        self.send_header("Content-Type", ctype)
-        self.send_header("Content-Length", str(len(body)))
-        self.send_header("Cache-Control", "no-store")
-        self.send_header("X-Content-Type-Options", "nosniff")
-        for k, v in (headers or {}).items():
-            self.send_header(k, v)
-        self.end_headers()
-        self.wfile.write(body)
+        headers = {"Cache-Control": "no-store", **(headers or {})}
+        try:
+            self.send_response(code)
+            self.send_header("Content-Type", ctype)
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("X-Content-Type-Options", "nosniff")
+            for k, v in headers.items():
+                self.send_header(k, v)
+            self.end_headers()
+            self.wfile.write(body)
+        except (BrokenPipeError, ConnectionResetError):
+            pass  # the browser gave up on this request (a reload, a closed tab)
 
     def _json(self, obj, code: int = 200) -> None:
         self._send(code, json.dumps(obj, ensure_ascii=False).encode(), "application/json; charset=utf-8")
@@ -560,7 +563,7 @@ class Handler(BaseHTTPRequestHandler):
             ride = self.app.ride
             if ride is None or not CROP_NAME.match(name) or not (ride.crops / name).is_file():
                 return self._send(404, b"not found", "text/plain")
-            return self._send(200, (ride.crops / name).read_bytes(), "image/jpeg")
+            return self._send(200, (ride.crops / name).read_bytes(), "image/jpeg", {"Cache-Control": "private, max-age=86400, immutable"})
         if url.path == "/api/gpx":
             try:
                 fname, body = self.app.gpx()
