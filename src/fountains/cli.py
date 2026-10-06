@@ -64,6 +64,28 @@ def cmd_check_memories(a: argparse.Namespace) -> None:
     print(check_memories(Path(a.memories), n_estimators=a.n_estimators))
 
 
+def cmd_discover(a: argparse.Namespace) -> None:
+    from . import discover as d
+    from .score import water_points
+
+    if a.bbox:
+        bbox = tuple(float(v) for v in a.bbox.split(","))
+    else:
+        lat, lon = (float(v) for v in a.around.split(","))
+        dlat = a.radius / 111_195
+        dlon = dlat / __import__("math").cos(__import__("math").radians(lat))
+        bbox = (lat - dlat, lon - dlon, lat + dlat, lon + dlon)
+    log = lambda m: print(m, file=sys.stderr)  # noqa: E731
+    clues = d.find_clues(bbox, water_points(DATA_DIR))
+    log(f"{len(clues)} places to check")
+    out = Path(a.out)
+    crops = d.make_crops(clues, bbox, out, log=log)
+    if crops and not a.no_models:
+        d.score_crops(crops, log=log)
+    page = d.write_report(clues, crops, out, a.title or "Fountains to check")
+    print(page)
+
+
 def cmd_trim(a: argparse.Namespace) -> None:
     from .gpx import read_gpx, trim_track, write_track
 
@@ -110,6 +132,16 @@ def main(argv: list[str] | None = None) -> None:
     m.add_argument("memories", help="CSV with ref (node/123 or IGN PAIHYDRO...), date, state (flowing, weak or dry)")
     m.add_argument("--n-estimators", type=int, default=4)
     m.set_defaults(func=cmd_check_memories)
+
+    dsc = sub.add_parser("discover", help="list places where an unmapped fountain may be, with street photos to check")
+    where = dsc.add_mutually_exclusive_group(required=True)
+    where.add_argument("--bbox", help="south,west,north,east")
+    where.add_argument("--around", help="lat,lon")
+    dsc.add_argument("--radius", type=float, default=2000.0, help="metres around --around (default 2000)")
+    dsc.add_argument("--out", default="out/discover")
+    dsc.add_argument("--title", default="")
+    dsc.add_argument("--no-models", action="store_true", help="only collect the photos, do not run the vision models")
+    dsc.set_defaults(func=cmd_discover)
 
     t = sub.add_parser("trim", help="cut the start and end of a track before sharing it")
     t.add_argument("track")
