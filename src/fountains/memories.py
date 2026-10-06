@@ -20,7 +20,6 @@ from .calibrate import wilson
 from .elevation import elevations
 from .features import RainContext, rain_features
 from .model import band, fit_predict, load_bands, read_table
-from .osm import load_fountains
 
 REMEMBERED = {"flowing": 1, "weak": 1, "dry": 0}
 
@@ -30,15 +29,17 @@ def check_memories(path: Path, n_estimators: int = 4, data_dir: Path = DATA_DIR)
         mem = [r for r in csv.DictReader(f) if r.get("state") in REMEMBERED]
     if not mem:
         return "No usable memory (state must be flowing, weak or dry)."
-    fountains = {f["osm_id"]: f for f in load_fountains(data_dir / "fountains-corsica.geojson")}
-    mem = [m for m in mem if m["osm_id"] in fountains]
+    from .score import water_points
+
+    fountains = {f["ref"]: f for f in water_points(data_dir)}
+    mem = [m for m in mem if m["ref"] in fountains]
     days = [dt.date.fromisoformat(m["date"]) for m in mem]
     g = meteo.read_gauges(meteo.download_gauge_files(("latest",)), start=min(days) - dt.timedelta(days=400))
     ctx = RainContext.load(g, data_dir / "gauge-normals-1991-2020.json")
-    zs = elevations([(fountains[m["osm_id"]]["lat"], fountains[m["osm_id"]]["lon"]) for m in mem])
+    zs = elevations([(fountains[m["ref"]]["lat"], fountains[m["ref"]]["lon"]) for m in mem])
     rows = []
     for m, d, z in zip(mem, days, zs):
-        f = fountains[m["osm_id"]]
+        f = fountains[m["ref"]]
         r = rain_features(ctx, f["lat"], f["lon"], d, forecast=None)
         r["elevation_m"] = z
         rows.append(r)
@@ -49,11 +50,11 @@ def check_memories(path: Path, n_estimators: int = 4, data_dir: Path = DATA_DIR)
     lines = ["| Date | Fountain | Remembered | Band | 90-day rain |", "|---|---|---|---|---|"]
     per_band: dict[str, list[int]] = {}
     for m, d, r, pi, yi in zip(mem, days, rows, p, y):
-        f = fountains[m["osm_id"]]
+        f = fountains[m["ref"]]
         b = band(float(pi), bands)
         per_band.setdefault(b, []).append(int(yi))
         name = f.get("name") or f["kind"]
-        lines.append(f"| {d.isoformat()} | {name} ({m['osm_id']}) | {m['state']} | {b} | {r['rain_90']} mm |")
+        lines.append(f"| {d.isoformat()} | {name} ({f['source']}) | {m['state']} | {b} | {r['rain_90']} mm |")
     lines.append("")
     for b in ("likely", "uncertain", "unlikely"):
         v = per_band.get(b, [])

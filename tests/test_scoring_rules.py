@@ -66,9 +66,9 @@ def test_summary_counts_every_prediction():
     assert sum(v["n"] for v in s["per_band"].values()) == 5
 
 
-def fountain(osm_id, km, band_, reachable=True, detour=40):
+def fountain(ref, km, band_, reachable=True, detour=40, source="OSM"):
     return ScoredFountain(
-        osm_id=osm_id, name="", kind="drinking water", lat=42.0, lon=9.0 + km / 100, km=km, off_track_m=30,
+        ref=ref, source=source, name="", kind="drinking water", lat=42.0, lon=9.0 + km / 100, km=km, off_track_m=30,
         detour_m=detour, reachable=reachable, access="", elevation_m=500.0, p=0.5, band=band_,
         rain={"rain_30": 10.0, "rain_90": 40.0, "ratio_90": 0.5, "forecast_mm": 0.0, "assumed_dry_days": []},
         last_confirmed="", stream=None,
@@ -76,7 +76,7 @@ def fountain(osm_id, km, band_, reachable=True, detour=40):
 
 
 META = {
-    "track": "Boucle", "day": "2026-10-11", "max_detour_m": 250.0, "length_km": 60.0,
+    "track": "Boucle", "day": "2026-10-11", "start": "", "max_detour_m": 250.0, "gap_km": 15.0, "length_km": 60.0,
     "gauges_last_day": "2026-10-09", "forecast_used": True, "excluded_private": 1,
     "calibration": {"brier": 0.1, "brier_month_rate": 0.14, "n_observations": 3831, "n_stations": 33,
                     "per_band": {"likely": {"n": 10, "rate": 0.92}, "uncertain": {"n": 5, "rate": 0.7}, "unlikely": {"n": 3, "rate": 0.3}}},
@@ -85,10 +85,11 @@ META = {
 
 def test_every_fountain_is_shown_everywhere_and_the_warning_too(tmp_path):
     scored = [fountain("node/1", 3.0, "likely"), fountain("node/2", 12.5, "unlikely"),
-              fountain("node/3", 20.0, "uncertain", reachable=False, detour=420), fountain("node/4", 30.0, "uncertain", reachable=False, detour=None)]
+              fountain("node/3", 20.0, "uncertain", reachable=False, detour=420), fountain("node/4", 30.0, "uncertain", reachable=False, detour=None),
+              fountain("IGN PAIHYDRO0000000108328715", 44.8, "uncertain", source="IGN")]
     text = text_table(scored, META)
     for f in scored:
-        assert f.osm_id in text
+        assert f.ref in text
     assert text.count(DISCLAIMER) == 2
     assert "no mapped path" in text and "420 m by road or path" in text
     gj = to_geojson(scored, META)
