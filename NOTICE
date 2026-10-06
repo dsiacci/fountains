@@ -1,0 +1,24 @@
+fountains
+Copyright 2026 Dominique Siacci
+
+Built with PriorLabs-TabPFN.
+
+This software uses the TabPFN v2 classifier weights by Prior Labs GmbH, under
+the Prior Labs License 1.1 (Apache License 2.0 with an additional attribution
+provision). A copy of that license is in licenses/PriorLabs-License-1.1.txt.
+The weights are downloaded at run time from
+https://huggingface.co/Prior-Labs/TabPFN-v2-clf and are not included here.
+The tabpfn Python package is licensed under the Apache License 2.0.
+
+Data shipped in data/ (details and links in data/README.md):
+- fountains-corsica.geojson: © OpenStreetMap contributors, Open Database
+  License (ODbL) 1.0, https://www.openstreetmap.org/copyright
+- onde-observations.csv, training.csv: stream observations of the ONDE network
+  (Office français de la biodiversité), through Hub'Eau, Licence Ouverte 2.0
+- gauge-normals-1991-2020.json, training.csv: computed from Météo-France daily
+  climatological data (« Données climatologiques de base - quotidiennes »),
+  Licence Ouverte 2.0. Source: Météo-France.
+- Elevations in training.csv: IGN (Géoplateforme altimetry), Licence Ouverte 2.0
+
+At run time the tool also reads the Météo-France forecast models through
+Open-Meteo (https://open-meteo.com, CC BY 4.0).
