@@ -54,6 +54,7 @@ NEGATIVE = [
     "a guard rail",
 ]
 DETECT = ["a water fountain", "a water spout", "a stone water trough", "a water tap"]
+BOTTOM_BAND = 0.9  # boxes reaching below 90 % of the crop height sit on the camera car
 
 
 @dataclass
@@ -309,19 +310,49 @@ def score_crops(crops: list[Crop], owl_top: int | None = None, log=print) -> Non
     oproc = Owlv2Processor.from_pretrained("google/owlv2-base-patch16-ensemble")
     omodel = Owlv2ForObjectDetection.from_pretrained("google/owlv2-base-patch16-ensemble").eval()
     best = sorted(crops, key=lambda c: c.siglip, reverse=True)[:owl_top] if owl_top else crops
-    with torch.no_grad():
-        for c in best:
-            img = Image.open(c.path).convert("RGB")
-            inputs = oproc(text=[DETECT], images=img, return_tensors="pt")
-            out = omodel(**inputs)
-            size = max(img.size)
-            post = getattr(oproc, "post_process_grounded_object_detection", None) or oproc.post_process_object_detection
-            res = post(out, threshold=0.0, target_sizes=torch.tensor([[size, size]]))[0]
-            if len(res["scores"]):
-                k = int(res["scores"].argmax())
-                c.owl = round(float(res["scores"][k]), 3)
-                c.box = [round(float(v)) for v in res["boxes"][k]]
+    owl_score(best, oproc, omodel)
     log(f"OWLv2 looked at the {len(best)} best crops")
+
+
+def owl_score(crops: list[Crop], oproc=None, omodel=None) -> None:
+    """Best OWLv2 box per crop, ignoring boxes that touch the bottom edge.
+
+    The bottom of a car-mounted 360° picture shows the car itself (bonnet,
+    roof rails), which OWLv2 sometimes takes for a trough; a fountain by the
+    road sits above that band.
+    """
+    import torch
+    from PIL import Image
+    from transformers import Owlv2ForObjectDetection, Owlv2Processor
+
+    oproc = oproc or Owlv2Processor.from_pretrained("google/owlv2-base-patch16-ensemble")
+    omodel = omodel or Owlv2ForObjectDetection.from_pretrained("google/owlv2-base-patch16-ensemble").eval()
+    post = getattr(oproc, "post_process_grounded_object_detection", None) or oproc.post_process_object_detection
+    with torch.no_grad():
+        for c in crops:
+            img = Image.open(c.path).convert("RGB")
+            out = omodel(**oproc(text=[DETECT], images=img, return_tensors="pt"))
+            size = max(img.size)
+            res = post(out, threshold=0.0, target_sizes=torch.tensor([[size, size]]))[0]
+            c.owl, c.box = 0.0, []
+            for k in res["scores"].argsort(descending=True).tolist():
+                box = [float(v) for v in res["boxes"][k]]
+                if box[3] < BOTTOM_BAND * img.height:
+                    c.owl = round(float(res["scores"][k]), 3)
+                    c.box = [round(v) for v in box]
+                    break
+
+
+def rescore(out_dir: Path, log=print) -> list[Crop]:
+    """Run OWLv2 again on the crops of an earlier search (results.json in out_dir)."""
+    data = json.loads((out_dir / "results.json").read_text(encoding="utf-8"))
+    names = {f for f in Crop.__dataclass_fields__}
+    crops = [Crop(**{k: v for k, v in c.items() if k in names}) for c in data["crops"]]
+    owl_score(crops)
+    log(f"OWLv2 scored {len(crops)} crops again")
+    data["crops"] = [asdict(c) for c in crops]
+    (out_dir / "results.json").write_text(json.dumps(data, indent=1), encoding="utf-8")
+    return crops
 
 
 def write_report(clues: list[Clue], crops: list[Crop], out_dir: Path, title: str) -> Path:

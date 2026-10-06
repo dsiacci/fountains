@@ -68,6 +68,13 @@ def cmd_discover(a: argparse.Namespace) -> None:
     from . import discover as d
     from .score import water_points
 
+    if a.rescore:
+        crops = d.rescore(Path(a.out), log=lambda m: print(m, file=sys.stderr))
+        data = json.loads((Path(a.out) / "results.json").read_text(encoding="utf-8"))
+        clues = [d.Clue(**c) for c in data["clues"]]
+        print(d.write_report(clues, crops, Path(a.out), a.title or "Fountains to check"))
+        return
+
     if a.bbox:
         bbox = tuple(float(v) for v in a.bbox.split(","))
     else:
@@ -135,6 +142,7 @@ def main(argv: list[str] | None = None) -> None:
 
     dsc = sub.add_parser("discover", help="list places where an unmapped fountain may be, with street photos to check")
     where = dsc.add_mutually_exclusive_group(required=True)
+    where.add_argument("--rescore", action="store_true", help="run OWLv2 again on the crops already in --out")
     where.add_argument("--bbox", help="south,west,north,east")
     where.add_argument("--around", help="lat,lon")
     dsc.add_argument("--radius", type=float, default=2000.0, help="metres around --around (default 2000)")
