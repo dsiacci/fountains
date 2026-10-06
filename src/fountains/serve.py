@@ -329,8 +329,10 @@ class App:
                     p["photo_error"] = str(e)[:200]
             ride.save()
         if vision:
+            # The mapped points first (most likely real), then IGN clues, then stream crossings.
             with ride.lock:
-                todo = sorted((p for p in ride.state["points"] if p.get("photos") and not p.get("ranked")), key=lambda p: p["km"])
+                todo = sorted((p for p in ride.state["points"] if p.get("photos") and not p.get("ranked")),
+                              key=lambda p: (p["origin"] != "map", "stream crossing" in p["kind"], p["km"]))
             for n, p in enumerate(todo, 1):
                 if ride.cancelled:
                     return
