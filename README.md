@@ -4,7 +4,7 @@
 
 Will the fountains along your ride be running on the day you ride?
 
-You export your route as a GPX file, run one command, and get every fountain that OpenStreetMap or IGN (the French national mapping agency) knows within a short detour of the route, each with a band (**likely**, **uncertain** or **unlikely** to be running), the reason, and the date anyone last checked it. On long stretches without a likely fountain, it also lists the cafés, bakeries, small shops and fuel stations, and whether they are open when you should pass. Everything goes onto your bike computer as waypoints. The screen part takes a minute; the rest happens outside.
+You export your route as a GPX file and drop it on a local page. It lists every fountain that OpenStreetMap or IGN (the French national mapping agency) knows within a short detour of the route, adds the places where clues in open data suggest a fountain no map has, and shows each one on street photos so you can say which are real. The fountains you keep get a band (**likely**, **uncertain** or **unlikely** to be running) for the day you ride, with the reason and the date anyone last checked them. On long stretches without a likely fountain, it also lists the cafés, bakeries, small shops and fuel stations, and whether they are open when you should pass. Everything goes onto your bike computer as one GPX. The screen part takes a few minutes; the rest happens outside.
 
 It works in Corsica only, because that is where the model learned.
 
@@ -18,16 +18,45 @@ Python 3.10 or newer. Everything runs on a CPU; no GPU, no account, no API key.
 git clone https://github.com/dsiacci/fountains && cd fountains
 python3 -m venv .venv && . .venv/bin/activate
 pip install torch --index-url https://download.pytorch.org/whl/cpu   # the CPU build, much smaller
-pip install -e .     # editable: the tool reads its data from the data/ folder of this checkout
+pip install -e ".[photos]"   # editable: the tool reads its data from the data/ folder of this checkout
 ```
 
-The first run downloads the TabPFN v2 classifier weights (29 MB, from Hugging Face, `Prior-Labs/TabPFN-v2-clf`) and the Météo-France daily file of the current year (about 1 MB, refreshed every 6 hours).
+`[photos]` adds the vision model that ranks the street photos (`transformers`, `pillow`); without it, the photos are shown unranked. The first run downloads the TabPFN v2 classifier weights (29 MB, from Hugging Face, `Prior-Labs/TabPFN-v2-clf`), the OWLv2 detector (0.6 GB, `google/owlv2-base-patch16-ensemble`) and the Météo-France daily file of the current year (about 1 MB, refreshed every 6 hours).
+
+Or with Docker (macOS, Windows, Linux), nothing else to install:
+
+```bash
+docker build -t fountains .
+docker run --rm -p 127.0.0.1:8765:8765 -v fountains-cache:/cache fountains
+```
+
+The `fountains-cache` volume keeps the models, the data, your rides and your decisions between runs.
 
 ## Use
+
+### The page: check every point on photos, then score the ones you keep
+
+```bash
+fountains serve
+```
+
+Open http://localhost:8765 (with Docker, it is already running) and drop a GPX file on it.
+
+1. **The water points the maps know** within 250 m of the track appear at once, in riding order, counted as fountains until you say otherwise. A minute later come the **places found from clues** (see *Fountains no map has*); they stay out of your GPX unless you mark them.
+2. **Every point gets the street photos around it**: the Panoramax 360° pictures within 100 m, cropped toward both roadsides and toward the mapped position. An open vision model (OWLv2) puts first the views where it sees something like a fountain, and draws a box on it. Next to them, Plan IGN and the aerial view of the spot.
+3. **You decide**, point by point: *Fountain*, *Not a fountain* or *Not sure*. A point with no photo can be decided too, from the plan, the aerial view or what you know, and a fountain you know can be added by clicking the map.
+4. **Score**: the day, your start time and pace. Each fountain you kept gets its band, and cafés and shops are listed on long stretches without a likely fountain (the same rules as the command line below).
+5. **Download the GPX**: your track with a waypoint for each fountain kept (`likely: Funtana di Leccia`), each point you were not sure about (`check: ...`), and each café or shop on the long stretches. Names start with the band, so a bike computer that shortens names still shows it.
+
+Your decisions are saved: drop the same file again and they are still there. The page listens on this computer only (`127.0.0.1`).
+
+### The command line
 
 ```bash
 fountains score my-ride.gpx --date 2026-10-11 --html
 ```
+
+It scores every point the maps know, without the photo check.
 
 - `--date`: the day you ride (default: today). Rain measured up to the last Météo-France report is used, then the Météo-France forecast for the days in between. Forecast days that are not available yet count as dry, so a missing forecast never makes a fountain look wetter.
 - `--max-detour 250`: how far off the route you are willing to go, one way, along roads and paths, in metres.
@@ -48,6 +77,7 @@ Every point within the detour limit is listed, in riding order. None is hidden, 
 
 Other commands:
 
+- `fountains discover --around 41.76,8.77` looks for fountains no map has around a place, and writes a page of street photos to look at.
 - `fountains trim ride.gpx shared.gpx --start 1500 --end 1500` cuts the first and last 1.5 km of a track and drops every timestamp and author field, before you share a track.
 - `fountains check-memories memories.csv` compares the bands with what someone remembers seeing (see below).
 - `fountains calibrate` and `fountains build-data --all` rebuild the model's measurements and the files in `data/` from the open sources.
@@ -61,7 +91,7 @@ Two open sources, merged:
 - **OpenStreetMap**, through the Overpass API: every `amenity=drinking_water` and `amenity=water_point`, plus springs, taps, wells and decorative fountains tagged `drinking_water=yes` or `conditional`, minus anything tagged `drinking_water=no`. On 6 October 2026 that is 608 points in Corsica. Only 2 of them say whether they are seasonal (`seasonal=*`).
 - **IGN BD TOPO®**, the national topographic database, open since 1 January 2021: its « détail hydrographique » features of nature « Fontaine », 1,493 in Corsica, 414 of them named. Only 250 have an OpenStreetMap drinking-water point within 30 m. BD TOPO says nothing about drinking water, so an IGN-only fountain carries a note saying so.
 
-A pair from both sources within 30 m is shown once, as the OpenStreetMap point with the IGN name when OSM has none. Natural springs, captured springs, cisterns and wash houses (also in BD TOPO) are left out: most are not places to fill a bottle. Nobody records whether a fountain runs, which is the gap this tool tries to fill.
+A pair from both sources within 30 m is shown once, as the OpenStreetMap point with the IGN name when OSM has none. Natural springs, captured springs, cisterns and wash houses (also in BD TOPO) are not listed as fountains, since most are not places to fill a bottle; the page uses them as clues instead (see *Fountains no map has*). Nobody records whether a fountain runs, which is the gap this tool tries to fill.
 
 Each point is attached to the nearest road or path, and the detour is measured along the network from the route. A fountain 40 m from the road as the crow flies can be 400 m away if the only access is a loop through the village.
 
@@ -69,9 +99,20 @@ Each point is attached to the nearest road or path, and the detour is measured a
 
 For each point, the tool looks on [Panoramax](https://panoramax.fr), the open street-imagery commons, for a picture that looks at it. Around Corsican roads most are IGN's 360° captures of spring 2025, so the map shows the panorama already turned toward the point (drag to look around) and links to the Panoramax viewer at the same heading. Each picture keeps its date, distance and licence. Without a picture within 60 m, an IGN aerial view takes its place. A Plan IGN extract, centred on the point, is always there. `--no-photos` skips the Panoramax lookup.
 
+### Fountains no map has
+
+Many roadside fountains are on no map, or mapped in the wrong place. The page looks for clues along the track, in open data only:
+
+- IGN BD TOPO fountains, wash houses, water points, springs and captured springs close to a paved road;
+- the places where a stream crosses a paved road, because a spout is often built where the slope brings water down to the road.
+
+Only the paved roads and streams within 400 m of the track are kept, and a clue counts if its road passes within 100 m of the track. Each one becomes a place to check, with the street photos around it: four 100° views per picture, set diagonally to the road, so a fountain a few metres off the road is in frame whatever the spacing of the pictures, plus one toward the clue when it lies away from the road. OWLv2, an open-vocabulary object detector (Apache 2.0), looks in every view for "a water fountain", "a water spout", "a stone water trough" or "a water tap"; boxes that touch the bottom tenth of a view are ignored, because that is where the camera car's roof and bonnet show.
+
+The model only orders the photos. You decide, and nothing is ever added to a map by the tool; if a place turns out to be a fountain, you can map it yourself on OpenStreetMap.
+
 ### Where else to fill a bottle
 
-No model here. Cafés, bars, restaurants, bakeries, small shops, supermarkets and fuel stations come from OpenStreetMap (a snapshot of Corsica in `data/`). On every stretch of `--gap-km` or more between likely fountains (counting the start and the end), the ones within the detour limit are listed with the time you should pass them and their state at that time: open, closed, or hours unknown. The opening hours are read from OpenStreetMap's `opening_hours` tag with a deliberately small parser: anything it does not understand (comments, sunrise, week numbers) is reported as unknown rather than guessed, and public holidays are not modelled.
+No model here. Cafés, bars, restaurants, bakeries, small shops, supermarkets and fuel stations come from OpenStreetMap (a snapshot of Corsica in `data/`). On every stretch of `--gap-km` or more between likely fountains (counting the start and the end), the ones within the detour limit are listed with the time you should pass them and their state at that time: open, closed, or hours unknown. A few of them are suggested, about one per `--gap-km`: open when you pass first, then hours unknown, cafés, bakeries, shops and fuel stations before restaurants, then the shortest detour; never one whose hours say it is closed, and none in the first 3 km of a stretch, where bottles are still full. Only the suggested ones go into the GPX (on a wet October day, the first 45 km of the author's loop have 56 places within 250 m of the road). The opening hours are read from OpenStreetMap's `opening_hours` tag with a deliberately small parser: anything it does not understand (comments, sunrise, week numbers) is reported as unknown rather than guessed, and public holidays are not modelled.
 
 ### 2. The rain
 
@@ -113,17 +154,18 @@ This assumption is tested on real fountains in two ways, both small:
 ## Limits
 
 - **Streams are not fountains** (above). This is the main one.
-- **Only what OpenStreetMap knows.** A fountain that is not mapped does not exist for this tool, and positions can be off by tens of metres.
+- **Only what the maps and the clues reveal.** A fountain that is on no map, near no clue, or out of sight of the street photos does not exist for this tool. Map positions can be off by tens of metres.
+- **Street photos** cover the main roads (IGN's 2025 captures); many small roads have none. The vision model misses fountains hidden in shade or behind a car, and sees fountains in ornamental urns and road furniture: it orders photos, it decides nothing.
 - **Rain is interpolated** between gauges that can be 10 to 20 km away and hundreds of metres lower; mountain rain is underestimated.
 - **The forecast** reaches 2 to 4 days ahead; beyond that, the days count as dry.
 - **Potability**: never assessed. `drinking_water=yes` in OpenStreetMap is what a mapper wrote, not a water test.
 - **Corsica only**: the stream observations and the rain gauges are Corsican; the tool refuses tracks elsewhere.
 - **Opening hours** are often missing from OpenStreetMap, and passing times come from a pace you set, not from your past rides.
-- **CPU time**: TabPFN reads its 3,831 rows of context at each run; on a small 2-core machine a score takes one to two minutes.
+- **CPU time**: TabPFN reads its 3,831 rows of context at each run; on a small 2-core machine a score takes one to two minutes. Ranking the street photos is longer: a few seconds per view on such a machine, and a 70 km ride has several hundred views. The page can be used while it runs.
 
 ## Privacy
 
-The tool reads a GPX file that you export yourself, from any app. It never connects to Strava or any other account, and your track is never used to train anything. The track itself never leaves your machine: fountains and shops are matched against local snapshots, and to fetch roads and paths the tool sends Overpass only the positions of the public points it found near your route; Open-Meteo, IGN and Panoramax receive the positions of the fountains.
+The tool reads a GPX file that you export yourself, from any app. It never connects to Strava or any other account, and your track is never used to train anything. The track itself never leaves your machine: fountains and shops are matched against local snapshots, and to fetch roads and paths the tool sends Overpass only the positions of the public points it found near your route; Open-Meteo, IGN and Panoramax receive the positions of the fountains. Looking for clues (the page, `discover`) sends the bounding box of the ride, with a 400 m margin, to Overpass and to IGN's WFS service: that reveals the area you ride in, not the route. The map in the page loads its tiles from IGN and OpenStreetMap, which see the area on screen. The page itself is served from your machine, to your machine only.
 
 ## Data sources and licenses
 
@@ -135,7 +177,9 @@ The tool reads a GPX file that you export yourself, from any app. It never conne
 | Daily rain | Météo-France, « Données climatologiques de base - quotidiennes » (data.gouv.fr), department 20 | Licence Ouverte 2.0. Source: Météo-France | normals and training table in `data/`; current-year file downloaded at run time |
 | Rain forecast | Météo-France models through Open-Meteo (`/v1/meteofrance`) | CC BY 4.0 | at run time |
 | Altitude | IGN, Géoplateforme altimetry service | Licence Ouverte 2.0 | training table; fountains at run time |
-| Street photos | Panoramax contributors (in Corsica mostly IGN's 2025 captures), federated API `api.panoramax.xyz` | each photo's own licence (IGN: Licence Ouverte 2.0), shown with it | looked up at run time, linked, not copied |
+| Street photos | Panoramax contributors (in Corsica mostly IGN's 2025 captures), federated API `api.panoramax.xyz` | each photo's own licence (IGN: Licence Ouverte 2.0), shown with it | looked up at run time and linked; the page crops them on your machine to show them |
+| Hydrographic details (springs, wash houses, water points) | IGN, BD TOPO®, through the Géoplateforme WFS | Licence Ouverte 2.0 | clues, fetched at run time for the ride's bounding box |
+| Photo ranking | Google, OWLv2 (`google/owlv2-base-patch16-ensemble`), through Hugging Face `transformers` | Apache 2.0 | downloaded at run time |
 | Plan and aerial views | IGN, Plan IGN and BD ORTHO®, Géoplateforme WMS / WMTS | Licence Ouverte 2.0 | map backgrounds and point views, at run time |
 | Model weights | Prior Labs, TabPFN v2 classifier (`Prior-Labs/TabPFN-v2-clf`) | Prior Labs License 1.1 (Apache 2.0 with an attribution clause), copy in `licenses/` | downloaded at run time |
 
@@ -147,4 +191,4 @@ The code is under the Apache License 2.0 (`LICENSE`, `NOTICE`). The tool only re
 pip install pytest && pytest
 ```
 
-The tests cover the geometry, the OpenStreetMap selection rule, the detour along the network, the rain windows and normals, and the rules the tool must never break: every point is shown, in riding order, with the warning, in every output.
+The tests cover the geometry, the OpenStreetMap selection rule, the detour along the network, the rain windows and normals, the local page (what it lists, the decisions, the GPX it gives, the hosts and requests it refuses), and the rules the tool must never break: every point is shown, in riding order, with the warning, in every output.

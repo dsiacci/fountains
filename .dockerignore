@@ -1,0 +1,11 @@
+.git
+.venv
+.cache
+.gstack
+out
+docs
+tests
+**/__pycache__
+*.egg-info
+*.local.gpx
+HANDOFF.md
