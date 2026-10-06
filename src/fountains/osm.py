@@ -17,9 +17,13 @@ from . import cache_dir
 
 OVERPASS_URLS = (
     "https://overpass-api.de/api/interpreter",
-    "https://overpass.kumi.systems/api/interpreter",
     "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
 )
+# What a query around a ride declares it may use. Public servers turn away
+# (HTTP 504) queries that ask for more than they can spare at the moment, even
+# small ones: [timeout:180] with the default 512 MiB was refused where this
+# passed in a second.
+SMALL_QUERY = "[out:json][timeout:90][maxsize:268435456];"
 USER_AGENT = "fountains/0.1 (+https://github.com/dsiacci/fountains)"
 
 # Corsica: the two departments, by their ISO 3166-2 codes in OSM.
@@ -47,7 +51,7 @@ KEEP_TAGS = (
 )
 
 
-def overpass(query: str, *, retries: int = 3, timeout: int = 240) -> dict:
+def overpass(query: str, *, retries: int = 3, timeout: int = 150) -> dict:
     """Run an Overpass query; on a busy or failing server, try the next public instance."""
     body = urllib.parse.urlencode({"data": query}).encode()
     last = None
@@ -150,7 +154,7 @@ def ways_near_points(points: list[tuple[float, float]], radius_m: float) -> dict
     OpenStreetMap objects: the track itself is never sent anywhere.
     """
     parts = "\n".join(f' way["highway"](around:{int(radius_m)},{lat:.6f},{lon:.6f});' for lat, lon in points)
-    query = "[out:json][timeout:180];\n(\n" + parts + "\n);\n(._;>;);\nout body qt;\n"
+    query = SMALL_QUERY + "\n(\n" + parts + "\n);\n(._;>;);\nout body qt;\n"
     key = hashlib.sha256(query.encode()).hexdigest()[:20]
     path = cache_dir("overpass") / f"ways-{key}.json"
     if path.exists():

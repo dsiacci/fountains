@@ -103,7 +103,10 @@ class Polyline:
         With `within_m`, only segments that can be that close are examined, and
         the distance is `inf` when none is.
         """
-        p = self.proj.xy(lat, lon)
+        return self.nearest_xy(self.proj.xy(lat, lon), within_m)
+
+    def nearest_xy(self, p: tuple[float, float], within_m: float | None = None) -> tuple[float, float]:
+        """`nearest` for a point already in this polyline's projection."""
         if within_m is None:
             candidates = range(1, len(self.xy))
         else:
