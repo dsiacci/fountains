@@ -18,6 +18,7 @@ from .geo import Polyline
 class Track:
     name: str
     points: list[tuple[float, float]]
+    ele: list[float | None] | None = None  # metres, when the file has them
 
 
 def _local(tag: str) -> str:
@@ -30,30 +31,42 @@ def read_gpx(path: str | Path) -> Track:
     trk, rte, name = [], [], None
     for el in root.iter():
         tag = _local(el.tag)
-        if tag == "trkpt":
-            trk.append((float(el.get("lat")), float(el.get("lon"))))
-        elif tag == "rtept":
-            rte.append((float(el.get("lat")), float(el.get("lon"))))
+        if tag in ("trkpt", "rtept"):
+            ele = next((c.text for c in el if _local(c.tag) == "ele" and c.text), None)
+            (trk if tag == "trkpt" else rte).append((float(el.get("lat")), float(el.get("lon")), None if ele is None else float(ele)))
         elif tag == "name" and name is None and el.text:
             name = el.text.strip()
     points = trk or rte
     if len(points) < 2:
         raise ValueError(f"{path}: no track or route with at least two points")
-    return Track(name=name or Path(path).stem, points=points)
+    eles = [p[2] for p in points]
+    return Track(
+        name=name or Path(path).stem,
+        points=[(p[0], p[1]) for p in points],
+        ele=eles if any(e is not None for e in eles) else None,
+    )
 
 
 def trim_track(track: Track, start_m: float, end_m: float) -> Track:
     """Drop the first `start_m` and last `end_m` metres (to keep a home address private)."""
     line = Polyline(track.points)
-    keep = [p for p, s in zip(track.points, line.cum) if start_m <= s <= line.length_m - end_m]
-    if len(keep) < 2:
+    idx = [i for i, s in enumerate(line.cum) if start_m <= s <= line.length_m - end_m]
+    if len(idx) < 2:
         raise ValueError("nothing left after trimming")
-    return Track(name=track.name, points=keep)
+    return Track(
+        name=track.name,
+        points=[track.points[i] for i in idx],
+        ele=[track.ele[i] for i in idx] if track.ele else None,
+    )
 
 
 def write_track(track: Track, path: str | Path) -> None:
-    """Write a bare track: no time, no author, no device metadata."""
-    pts = "\n".join(f'      <trkpt lat="{lat:.6f}" lon="{lon:.6f}"/>' for lat, lon in track.points)
+    """Write a bare track: no time, no author, no device metadata (elevation kept)."""
+    eles = track.ele or [None] * len(track.points)
+    pts = "\n".join(
+        f'      <trkpt lat="{lat:.6f}" lon="{lon:.6f}">' + (f"<ele>{e:.1f}</ele>" if e is not None else "") + "</trkpt>"
+        for (lat, lon), e in zip(track.points, eles)
+    )
     Path(path).write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<gpx version="1.1" creator="fountains" xmlns="http://www.topografix.com/GPX/1/1">\n'

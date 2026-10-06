@@ -11,8 +11,10 @@ https://huggingface.co/Prior-Labs/TabPFN-v2-clf and are not included here.
 The tabpfn Python package is licensed under the Apache License 2.0.
 
 Data shipped in data/ (details and links in data/README.md):
-- fountains-corsica.geojson: © OpenStreetMap contributors, Open Database
-  License (ODbL) 1.0, https://www.openstreetmap.org/copyright
+- fountains-corsica.geojson, stops-corsica.geojson: © OpenStreetMap
+  contributors, Open Database License (ODbL) 1.0,
+  https://www.openstreetmap.org/copyright
+- fountains-ign-corsica.geojson: IGN, BD TOPO®, Licence Ouverte 2.0. Source: IGN
 - onde-observations.csv, training.csv: stream observations of the ONDE network
   (Office français de la biodiversité), through Hub'Eau, Licence Ouverte 2.0
 - gauge-normals-1991-2020.json, training.csv: computed from Météo-France daily

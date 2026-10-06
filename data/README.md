@@ -6,6 +6,8 @@ Everything here comes from open sources and can be rebuilt with
 | File | What | Source | License |
 |---|---|---|---|
 | `fountains-corsica.geojson` | Drinking-water points in Corsica (selection rule in the main README), with the tags the tool uses | OpenStreetMap via the Overpass API | ODbL 1.0, © OpenStreetMap contributors |
+| `fountains-ign-corsica.geojson` | IGN fountains in Corsica (BD TOPO « détail hydrographique », nature « Fontaine »): id, name, state, IGN confirmation date | IGN, BD TOPO®, through the Géoplateforme WFS | Licence Ouverte 2.0 (Etalab). Source: IGN |
+| `stops-corsica.geojson` | Cafés, bars, restaurants, bakeries, small shops, supermarkets and fuel stations in Corsica, with their `opening_hours` | OpenStreetMap via the Overpass API | ODbL 1.0, © OpenStreetMap contributors |
 | `onde-observations.csv` | Every usable observation of the ONDE network in Corsica: station, date, flow class, label | OFB, Observatoire national des étiages (ONDE), via Hub'Eau (`/api/v1/ecoulement`) | Licence Ouverte 2.0 (etalab-2.0) |
 | `gauge-normals-1991-2020.json` | For each Météo-France rain gauge with enough data, the mean rain of the 30, 90 and 180 days before each day of the year, over 1991-2020 | Computed from Météo-France « Données climatologiques de base - quotidiennes », department 20 | Licence Ouverte 2.0. Source: Météo-France |
 | `training.csv` | The model's context: one row per ONDE observation, with the rain before that day at the station (interpolated from the gauges), the ratio to the 1991-2020 normal, the day of the year, the altitude and the label | Built from the three sources above and IGN altitudes | Licence Ouverte 2.0 |

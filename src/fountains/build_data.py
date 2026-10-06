@@ -3,9 +3,11 @@
     fountains build-data --all
 
 1. OpenStreetMap drinking-water points in Corsica      -> fountains-corsica.geojson
-2. ONDE stream observations in Corsica (Hub'Eau)      -> onde-observations.csv
-3. Météo-France gauge normals over 1991-2020           -> gauge-normals-1991-2020.json
-4. The training table (features + label per observation) -> training.csv
+2. IGN BD TOPO fountains in Corsica                     -> fountains-ign-corsica.geojson
+3. OpenStreetMap cafés, shops and fuel stations         -> stops-corsica.geojson
+4. ONDE stream observations in Corsica (Hub'Eau)      -> onde-observations.csv
+5. Météo-France gauge normals over 1991-2020           -> gauge-normals-1991-2020.json
+6. The training table (features + label per observation) -> training.csv
 """
 
 from __future__ import annotations
@@ -15,16 +17,30 @@ import datetime as dt
 import json
 from pathlib import Path
 
-from . import DATA_DIR, meteo, onde
+from . import DATA_DIR, ign, meteo, onde
 from .elevation import elevations
 from .features import RainContext, save_normals
 from .osm import FOUNTAIN_QUERY, fountains_from_overpass, overpass
+from .stops import STOP_QUERY, stops_from_overpass
 
 
 def refresh_osm(data_dir: Path = DATA_DIR, log=print) -> None:
     fc = fountains_from_overpass(overpass(FOUNTAIN_QUERY))
     (data_dir / "fountains-corsica.geojson").write_text(json.dumps(fc, ensure_ascii=False, indent=0), encoding="utf-8")
     log(f"OSM: {len(fc['features'])} drinking-water points (data as of {fc['osm_base']})")
+
+
+def refresh_ign(data_dir: Path = DATA_DIR, log=print) -> None:
+    fc = ign.fetch_fountains()
+    (data_dir / "fountains-ign-corsica.geojson").write_text(json.dumps(fc, ensure_ascii=False, indent=0), encoding="utf-8")
+    log(f"IGN BD TOPO: {len(fc['features'])} fountains")
+
+
+def refresh_stops(data_dir: Path = DATA_DIR, log=print) -> None:
+    fc = stops_from_overpass(overpass(STOP_QUERY))
+    (data_dir / "stops-corsica.geojson").write_text(json.dumps(fc, ensure_ascii=False, indent=0), encoding="utf-8")
+    with_hours = sum(1 for f in fc["features"] if f["properties"].get("opening_hours"))
+    log(f"OSM: {len(fc['features'])} cafés, shops and fuel stations ({with_hours} with opening hours)")
 
 
 def refresh_onde(data_dir: Path = DATA_DIR, log=print) -> None:
