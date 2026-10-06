@@ -152,6 +152,7 @@ footer p { margin: 0 0 8px; }
         <div class="status">
           <p class="small" id="lookmsg" aria-live="polite"></p>
           <div class="bar" id="lookbar"><span></span></div>
+          <p class="hide" id="retry"><button class="chip" type="button" id="retrybtn">Look again for the missing photos</button></p>
         </div>
         <p class="small muted" id="counts"></p>
         <div class="chips" role="group" aria-label="Show">
@@ -294,9 +295,9 @@ function renderLook(r) {
   const done = pts.filter((p) => ["done", "none", "error"].includes(p.photo_state)).length;
   let msg = j.message || "";
   if (j.error) msg = "Stopped: " + j.error + ". The points below can still be decided.";
-  else if (!j.running && j.finished) msg = "Street photos searched for every point.";
   $("#lookmsg").textContent = msg;
   $("#lookbar").classList.toggle("hide", !j.running);
+  $("#retry").classList.toggle("hide", !!j.running || !(pts.some((p) => p.photo_state === "error") || j.error));
   $("#lookbar span").style.width = (pts.length ? Math.round(100 * done / pts.length) : 0) + "%";
   const n = (o) => pts.filter((p) => p.origin === o).length;
   const seen = pts.filter((p) => p.origin === "clue" && p.ranked && p.photos.length && p.photos[0].owl >= S.seen).length;
@@ -403,6 +404,10 @@ document.querySelectorAll(".chip[data-f]").forEach((b) => b.addEventListener("cl
 async function decide(id, body) {
   try { apply(await api("/api/decide", { id, ...body })); } catch (e) { alert(e.message); }
 }
+
+$("#retrybtn").addEventListener("click", async () => {
+  try { apply(await api("/api/look", {})); schedule(); } catch (e) { $("#lookmsg").textContent = e.message; }
+});
 
 // ---- map -----------------------------------------------------------------------
 function colour(p) {

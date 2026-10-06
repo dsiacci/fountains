@@ -339,8 +339,14 @@ class App:
                 log(f"Vision model (OWLv2) {n}/{len(todo)}: km {p['km']:.1f} {point_label(p)}, {len(p['photos'])} views")
                 self._rank(ride, p)
                 ride.save()
-        log("Done: every point has its photos, or a note saying there is none within 100 m."
-            + ("" if vision else " The photos are not ranked: start again with the vision model to rank them."))
+        with ride.lock:
+            errors = [p for p in ride.state["points"] if p["photo_state"] == "error"]
+        if errors:
+            log(f"Done, but {len(errors)} point(s) have no photos because of an error ({errors[0].get('photo_error', '')}). "
+                "Look again when the connection is back; they can be decided without photos meanwhile.")
+        else:
+            log("Done: every point has its photos, or a note saying there is none within 100 m."
+                + ("" if vision else " The photos are not ranked: start again with the vision model to rank them."))
 
     def _fetch(self, ride: Ride, p: dict, corridor) -> list[dict]:
         """Every crop around the point: the ones aimed at its mapped position first, then by picture."""
