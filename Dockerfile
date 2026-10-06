@@ -13,6 +13,9 @@ ENV PIP_NO_CACHE_DIR=1 PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 \
 
 # PyTorch for the processor only: TabPFN and OWLv2 need no GPU here.
 RUN pip install "torch>=2.4,<3" --index-url https://download.pytorch.org/whl/cpu
+# The dependencies of pyproject.toml (with the [photos] extra) in their own layer,
+# so that a change in the code or the data does not download them again.
+RUN pip install "numpy>=1.24" "tabpfn>=9.1,<10" "transformers>=4.46" "pillow>=10"
 
 WORKDIR /app
 COPY pyproject.toml README.md LICENSE NOTICE ./
@@ -20,7 +23,7 @@ COPY licenses ./licenses
 COPY data ./data
 COPY src ./src
 # Editable install: the data/ folder is read from the checkout.
-RUN pip install -e ".[photos]" \
+RUN pip install --no-deps -e . \
  && useradd --create-home --uid 1000 rider \
  && mkdir -p /cache && chown rider /cache
 USER rider
