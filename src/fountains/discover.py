@@ -490,6 +490,11 @@ def owl_score(crops: list[Crop], oproc=None, omodel=None) -> None:
     The bottom of a car-mounted 360° picture shows the car itself (bonnet,
     roof rails), which OWLv2 sometimes takes for a trough; a fountain by the
     road sits above that band.
+
+    One crop per forward pass. Stacking two crops in one image halves the
+    time (OWLv2 pads every image to a square, and a crop is 2.4 times wider
+    than tall), but it changes the scores: on the Marato crops, the view of
+    the fountain fell from 0.20 to 0.13 while empty roadsides rose.
     """
     import torch
     from PIL import Image
