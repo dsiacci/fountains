@@ -1,0 +1,179 @@
+{
+ "method": "leave-one-station-out over the ONDE observations in Corsica",
+ "features": [
+  "doy",
+  "elevation_m",
+  "rain_30",
+  "rain_90",
+  "rain_180",
+  "ratio_90",
+  "ratio_180"
+ ],
+ "n_estimators": 4,
+ "n_observations": 3831,
+ "n_stations": 33,
+ "flowing_rate": 0.833,
+ "brier": 0.1141,
+ "brier_logistic_regression": 0.1153,
+ "brier_base_rate": 0.141,
+ "brier_month_rate": 0.1272,
+ "brier_skill_vs_month": 0.103,
+ "reliability": [
+  {
+   "from": 0.0,
+   "to": 0.1,
+   "n": 43,
+   "mean_p": 0.079,
+   "flowing": 8,
+   "rate": 0.186,
+   "ci95": [
+    0.097,
+    0.326
+   ]
+  },
+  {
+   "from": 0.1,
+   "to": 0.2,
+   "n": 44,
+   "mean_p": 0.153,
+   "flowing": 19,
+   "rate": 0.432,
+   "ci95": [
+    0.297,
+    0.578
+   ]
+  },
+  {
+   "from": 0.2,
+   "to": 0.3,
+   "n": 51,
+   "mean_p": 0.251,
+   "flowing": 21,
+   "rate": 0.412,
+   "ci95": [
+    0.288,
+    0.548
+   ]
+  },
+  {
+   "from": 0.3,
+   "to": 0.4,
+   "n": 52,
+   "mean_p": 0.362,
+   "flowing": 27,
+   "rate": 0.519,
+   "ci95": [
+    0.387,
+    0.649
+   ]
+  },
+  {
+   "from": 0.4,
+   "to": 0.5,
+   "n": 104,
+   "mean_p": 0.45,
+   "flowing": 59,
+   "rate": 0.567,
+   "ci95": [
+    0.471,
+    0.658
+   ]
+  },
+  {
+   "from": 0.5,
+   "to": 0.6,
+   "n": 161,
+   "mean_p": 0.55,
+   "flowing": 96,
+   "rate": 0.596,
+   "ci95": [
+    0.519,
+    0.669
+   ]
+  },
+  {
+   "from": 0.6,
+   "to": 0.7,
+   "n": 194,
+   "mean_p": 0.652,
+   "flowing": 125,
+   "rate": 0.644,
+   "ci95": [
+    0.575,
+    0.708
+   ]
+  },
+  {
+   "from": 0.7,
+   "to": 0.8,
+   "n": 291,
+   "mean_p": 0.757,
+   "flowing": 192,
+   "rate": 0.66,
+   "ci95": [
+    0.604,
+    0.712
+   ]
+  },
+  {
+   "from": 0.8,
+   "to": 0.9,
+   "n": 467,
+   "mean_p": 0.853,
+   "flowing": 336,
+   "rate": 0.719,
+   "ci95": [
+    0.677,
+    0.758
+   ]
+  },
+  {
+   "from": 0.9,
+   "to": 1.0,
+   "n": 2424,
+   "mean_p": 0.979,
+   "flowing": 2309,
+   "rate": 0.953,
+   "ci95": [
+    0.943,
+    0.96
+   ]
+  }
+ ],
+ "bands": {
+  "likely_from": 0.956,
+  "unlikely_to": 0.288,
+  "likely_target": 0.9,
+  "unlikely_target": 0.5
+ },
+ "per_band": {
+  "likely": {
+   "n": 1965,
+   "flowing": 1917,
+   "rate": 0.976,
+   "ci95": [
+    0.968,
+    0.982
+   ]
+  },
+  "unlikely": {
+   "n": 132,
+   "flowing": 43,
+   "rate": 0.326,
+   "ci95": [
+    0.252,
+    0.41
+   ]
+  },
+  "uncertain": {
+   "n": 1734,
+   "flowing": 1232,
+   "rate": 0.71,
+   "ci95": [
+    0.689,
+    0.731
+   ]
+  }
+ },
+ "feature_set": "anomaly"
+}

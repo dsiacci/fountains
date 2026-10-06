@@ -128,9 +128,9 @@ Nobody publishes whether fountains run. What France does publish is whether smal
 
 The model answers one question: *is flowing water visible?* ONDE records four states; "flowing, normal" and "flowing, weak" count as yes, "water but no visible flow" and "dry" count as no. A fountain fills a bottle only if water flows, and this is also the only split that means the same thing in every year: from 2016 to 2019 and in 2022, Corsican observers recorded only "flowing", without the normal/weak distinction.
 
-Inputs: the day of the year, the altitude, the rain of the last 30, 90 and 180 days [and how it compares with the 1991-2020 normal: *kept or dropped by the validation below*].
+Inputs: the day of the year, the altitude, the rain of the last 30, 90 and 180 days, and how the last 90 and 180 days compare with the 1991-2020 normal there. The two ratios to normal were kept by the validation below: they lowered the Brier score from 0.118 to 0.114.
 
-[TabPFN](https://github.com/PriorLabs/TabPFN) (Prior Labs) is a tabular foundation model: a transformer pre-trained on millions of synthetic tables, which takes the training rows as context and predicts new rows in one forward pass. There is no training loop, no hyperparameter search, and it returns probabilities that are usually well calibrated, which is what this tool needs. It runs here on a CPU with the open v2 weights.
+[TabPFN](https://github.com/PriorLabs/TabPFN) (Prior Labs) is a tabular foundation model: a transformer pre-trained on millions of synthetic tables, which takes the training rows as context and predicts new rows in one forward pass. There is no training loop and no hyperparameter search. It runs here on a CPU with the open v2 weights.
 
 ### 4. How far to trust it
 
@@ -138,7 +138,30 @@ Inputs: the day of the year, the altitude, the rain of the last 30, 90 and 180 d
 
 The bands come from that curve and from targets fixed before the first run: **likely** where at least 90 % of the hidden cases were flowing, **unlikely** where at most 50 % were, **uncertain** in between. The tool shows bands, not percentages, because a percentage measured on streams would claim more than we know about fountains.
 
-*Results: filled in after the run (`data/calibration.json`, `docs/reliability.svg`).*
+Results, pooled over the 3,831 hidden observations (`data/calibration.json`; the run without the ratios is in `data/calibration-base.json`):
+
+| | Brier score (lower is better) |
+|---|---|
+| TabPFN v2, 7 inputs (kept) | 0.114 |
+| Logistic regression, same 7 inputs | 0.115 |
+| TabPFN v2, without the ratios to normal | 0.118 |
+| Logistic regression, without the ratios | 0.116 |
+| The rate for the month | 0.127 |
+| Always the overall rate (83 % flowing) | 0.141 |
+
+TabPFN is a little better than a logistic regression on the same inputs, by a margin too small to matter, and both beat the calendar by about 10 %. The model knows something, not much; the bands say how much.
+
+![How often hidden streams were flowing, by the probability TabPFN gave them](docs/reliability.svg)
+
+On streams it has never seen, TabPFN's probabilities are too extreme: cases scored around 0.85 were flowing 72 % of the time, cases scored around 0.15 were flowing 43 % of the time. The bands absorb that:
+
+| Band | Model probability | Hidden cases | Flowing (95 % interval) |
+|---|---|---|---|
+| likely | 0.956 and above | 1,965 | 97.6 % (96.8 to 98.2) |
+| uncertain | in between | 1,734 | 71.0 % (68.9 to 73.1) |
+| unlikely | 0.288 and below | 132 | 32.6 % (25.2 to 41.0) |
+
+Both targets are met: at least 90 % of the "likely" cases were flowing, at most 50 % of the "unlikely" ones. "Unlikely" is rare, 3 % of the cases: even at the end of summer, most of the streams the observers visit keep some visible flow.
 
 ### 5. The weak link: a fountain is not a stream
 
