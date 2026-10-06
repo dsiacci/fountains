@@ -18,7 +18,7 @@ Python 3.10 or newer. Everything runs on a CPU; no GPU, no account, no API key.
 git clone https://github.com/dsiacci/fountains && cd fountains
 python3 -m venv .venv && . .venv/bin/activate
 pip install torch --index-url https://download.pytorch.org/whl/cpu   # the CPU build, much smaller
-pip install .
+pip install -e .     # editable: the tool reads its data from the data/ folder of this checkout
 ```
 
 The first run downloads the TabPFN v2 classifier weights (29 MB, from Hugging Face, `Prior-Labs/TabPFN-v2-clf`) and the Météo-France daily file of the current year (about 1 MB, refreshed every 6 hours).
