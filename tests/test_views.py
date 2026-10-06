@@ -49,4 +49,4 @@ def test_wms_views_are_centred_on_the_point():
         cx = math.degrees((x0 + x1) / 2 / R)
         cy = math.degrees(2 * math.atan(math.exp((y0 + y1) / 2 / R)) - math.pi / 2)
         assert cx == pytest.approx(lon, abs=1e-6) and cy == pytest.approx(lat, abs=1e-6)
-        assert (x1 - x0) * math.cos(math.radians(lat)) == pytest.approx(width, rel=1e-6)
+        assert (x1 - x0) * math.cos(math.radians(lat)) == pytest.approx(width, rel=1e-3)  # bbox rounded to 0.1 m

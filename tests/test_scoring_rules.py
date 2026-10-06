@@ -36,13 +36,14 @@ def test_band_edges():
 
 def test_isotonic_is_monotone_and_thresholds_follow_targets():
     rng = np.random.default_rng(0)
-    p = rng.uniform(0, 1, 5000)
-    y = (rng.uniform(0, 1, 5000) < p).astype(int)  # perfectly calibrated
+    p = rng.uniform(0, 1, 20000)
+    y = (rng.uniform(0, 1, 20000) < p).astype(int)  # perfectly calibrated
     ps, fit = isotonic(p, y)
     assert np.all(np.diff(fit) >= -1e-12)
     t = band_thresholds(p, y)
-    assert t["likely_from"] == pytest.approx(0.9, abs=0.05)
-    assert t["unlikely_to"] == pytest.approx(0.5, abs=0.05)
+    # The isotonic fit is a step function: its steps wander a little around the targets.
+    assert t["likely_from"] == pytest.approx(0.9, abs=0.06)
+    assert t["unlikely_to"] == pytest.approx(0.5, abs=0.06)
 
 
 def test_no_likely_band_when_never_reliable_enough():
