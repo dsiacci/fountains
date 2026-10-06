@@ -133,10 +133,17 @@ def score_track(
     start: dt.time | None = None,
     flat_kmh: float = 20.0,
     climb_mh: float = 500.0,
-    gap_km: float = 15.0,
+    gap_km: float = 10.0,
     photos: bool = True,
+    points: list[dict] | None = None,
     log=print,
 ) -> tuple[list[ScoredFountain], list[Gap], dict]:
+    """Score the water points along `track` for `day`.
+
+    `points` replaces the map's water points with a list chosen by the rider
+    (for example the ones validated on photos), each a dict with at least
+    ref, source, name, kind, lat and lon.
+    """
     if not all(in_corsica(lat, lon) for lat, lon in track.points[:: max(1, len(track.points) // 50)]):
         raise SystemExit("This model is trained on Corsican streams and rain gauges only; the track leaves Corsica.")
     line = Polyline(track.points)
@@ -149,7 +156,7 @@ def score_track(
 
     # 1. Water points near the track (straight line), then along the network.
     near, excluded_private = [], []
-    for f in water_points(data_dir):
+    for f in points if points is not None else water_points(data_dir):
         d, s = line.nearest(f["lat"], f["lon"], within_m=max_detour_m)
         if math.isinf(d):
             continue

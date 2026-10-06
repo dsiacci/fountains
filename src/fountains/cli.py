@@ -117,7 +117,7 @@ def main(argv: list[str] | None = None) -> None:
     s.add_argument("--start", help="start time, HH:MM: gives passing times and checks opening hours of cafés and shops")
     s.add_argument("--flat-kmh", type=float, default=20.0, help="pace on the flat for passing times (default 20 km/h)")
     s.add_argument("--climb-mh", type=float, default=500.0, help="metres climbed per hour for passing times (default 500)")
-    s.add_argument("--gap-km", type=float, default=15.0, help="list cafés and shops on stretches this long without a likely fountain (default 15 km)")
+    s.add_argument("--gap-km", type=float, default=10.0, help="list cafés and shops on stretches this long without a likely fountain (default 10 km)")
     s.add_argument("--no-photos", action="store_true", help="do not look for street photos on Panoramax")
     s.add_argument("--quiet", action="store_true")
     s.set_defaults(func=cmd_score)

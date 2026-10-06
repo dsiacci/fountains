@@ -32,7 +32,7 @@ fountains score my-ride.gpx --date 2026-10-11 --html
 - `--date`: the day you ride (default: today). Rain measured up to the last Météo-France report is used, then the Météo-France forecast for the days in between. Forecast days that are not available yet count as dry, so a missing forecast never makes a fountain look wetter.
 - `--max-detour 250`: how far off the route you are willing to go, one way, along roads and paths, in metres.
 - `--start 08:30`: when you leave. The tool then gives a passing time for every point and checks the opening hours of cafés and shops at that time. Passing times come from a plain pace model, `--flat-kmh 20` on the flat plus `--climb-mh 500` metres climbed per hour, using the elevation in the GPX file when it has some. Set them to your own pace.
-- `--gap-km 15`: stretches at least this long without a likely fountain get their list of cafés, shops and fuel stations.
+- `--gap-km 10`: stretches at least this long without a likely fountain get their list of cafés, shops and fuel stations.
 - `--out out/`: where the files go.
 
 It prints the table and writes four files:

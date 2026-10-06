@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" width="420" height="420" font-family="sans-serif" font-size="12">
+<style>.t{fill:#1b2320}.g{stroke:#c8d1cd}.a{stroke:#1b2320}.d{fill:#1d6b86}.l{stroke:#1d6b86}@media (prefers-color-scheme: dark){.t{fill:#e4ebe8}.g{stroke:#3a4643}.a{stroke:#e4ebe8}.d{fill:#63b7d4}.l{stroke:#63b7d4}}</style>
+<rect x="0" y="0" width="420" height="420" fill="none"/>
+<line class="g" x1="56" y1="364" x2="56" y2="56" stroke-width="1"/>
+<line class="g" x1="56" y1="364" x2="364" y2="364" stroke-width="1"/>
+<text class="t" x="56" y="382" text-anchor="middle">0</text>
+<text class="t" x="48" y="368" text-anchor="end">0</text>
+<line class="g" x1="133.0" y1="364" x2="133.0" y2="56" stroke-width="1"/>
+<line class="g" x1="56" y1="287.0" x2="364" y2="287.0" stroke-width="1"/>
+<text class="t" x="133.0" y="382" text-anchor="middle">0.25</text>
+<text class="t" x="48" y="291.0" text-anchor="end">0.25</text>
+<line class="g" x1="210.0" y1="364" x2="210.0" y2="56" stroke-width="1"/>
+<line class="g" x1="56" y1="210.0" x2="364" y2="210.0" stroke-width="1"/>
+<text class="t" x="210.0" y="382" text-anchor="middle">0.5</text>
+<text class="t" x="48" y="214.0" text-anchor="end">0.5</text>
+<line class="g" x1="287.0" y1="364" x2="287.0" y2="56" stroke-width="1"/>
+<line class="g" x1="56" y1="133.0" x2="364" y2="133.0" stroke-width="1"/>
+<text class="t" x="287.0" y="382" text-anchor="middle">0.75</text>
+<text class="t" x="48" y="137.0" text-anchor="end">0.75</text>
+<line class="g" x1="364" y1="364" x2="364" y2="56" stroke-width="1"/>
+<line class="g" x1="56" y1="56" x2="364" y2="56" stroke-width="1"/>
+<text class="t" x="364" y="382" text-anchor="middle">1</text>
+<text class="t" x="48" y="60" text-anchor="end">1</text>
+<line class="a" x1="56" y1="364" x2="364" y2="56" stroke-width="1" stroke-dasharray="4 4"/>
+<polyline class="l" points="80.3,316.0 100.4,273.1 132.4,215.9 162.3,207.8 194.9,164.7 226.3,157.9 258.7,170.9 289.2,148.4 319.3,137.9 358.1,75.1" fill="none" stroke-width="2"/>
+<circle class="d" cx="80.3" cy="316.0" r="3.8"><title>32 observations, 16% flowing</title></circle>
+<circle class="d" cx="100.4" cy="273.1" r="4.1"><title>61 observations, 30% flowing</title></circle>
+<circle class="d" cx="132.4" cy="215.9" r="4.0"><title>52 observations, 48% flowing</title></circle>
+<circle class="d" cx="162.3" cy="207.8" r="4.2"><title>71 observations, 51% flowing</title></circle>
+<circle class="d" cx="194.9" cy="164.7" r="4.3"><title>85 observations, 65% flowing</title></circle>
+<circle class="d" cx="226.3" cy="157.9" r="4.6"><title>121 observations, 67% flowing</title></circle>
+<circle class="d" cx="258.7" cy="170.9" r="5.0"><title>193 observations, 63% flowing</title></circle>
+<circle class="d" cx="289.2" cy="148.4" r="5.4"><title>290 observations, 70% flowing</title></circle>
+<circle class="d" cx="319.3" cy="137.9" r="6.1"><title>478 observations, 73% flowing</title></circle>
+<circle class="d" cx="358.1" cy="75.1" r="10.0"><title>2448 observations, 94% flowing</title></circle>
+<text class="t" x="210.0" y="406" text-anchor="middle">predicted probability of visible flow</text>
+<text class="t" transform="translate(16 210.0) rotate(-90)" text-anchor="middle">observed share flowing</text>
+<text class="t" x="56" y="22">Leave-one-station-out, 3831 observations, 33 streams</text>
+</svg>

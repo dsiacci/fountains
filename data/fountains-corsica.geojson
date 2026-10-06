@@ -1,0 +1,10917 @@
+{
+"type": "FeatureCollection",
+"osm_base": "2026-10-06T11:04:36Z",
+"license": "ODbL 1.0, © OpenStreetMap contributors (https://www.openstreetmap.org/copyright)",
+"features": [
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1233903,
+41.7040479
+]
+},
+"properties": {
+"name": "Funtana di Castaldaccia",
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/10031666186",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2026-08-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1255378,
+41.7016136
+]
+},
+"properties": {
+"name": "Funtana di Navaggia",
+"amenity": "drinking_water",
+"osm_id": "node/10031770864",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-09-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1226045,
+41.7014638
+]
+},
+"properties": {
+"name": "Fontaine de Vichy",
+"amenity": "drinking_water",
+"access": "yes",
+"seasonal": "no",
+"osm_id": "node/10031790411",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-08-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1253206,
+41.7052226
+]
+},
+"properties": {
+"name": "Funtana di Paradisedu",
+"amenity": "drinking_water",
+"osm_id": "node/10031861573",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-09-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8383312,
+42.0491629
+]
+},
+"properties": {
+"name": "A Funtanella",
+"natural": "spring",
+"drinking_water": "yes",
+"intermittent": "no",
+"osm_id": "node/10036611493",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2022-09-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8281356,
+42.0595661
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/10059813557",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7881331,
+42.0705119
+]
+},
+"properties": {
+"name": "Fontana Casaglione",
+"amenity": "drinking_water",
+"drinking_water": "yes",
+"access": "yes",
+"check_date": "2023-08-28",
+"osm_id": "node/10062482907",
+"kind": "drinking water",
+"last_confirmed": "2023-08-28",
+"last_edited": "2023-12-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4416193,
+42.6828664
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/10084203775",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-10-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4906442,
+42.314235
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/10120508039",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-10-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4839038,
+42.3154001
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/10120589750",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-10-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4798946,
+42.313511
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/10120633312",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-10-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4762642,
+42.3148071
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/10120649149",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-10-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.246714,
+42.1731724
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/10177767110",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-11-12"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2329166,
+42.1616312
+]
+},
+"properties": {
+"name": "Funtana Piattani",
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/10178017053",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2022-11-12"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9071234,
+42.3809987
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1019410971",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2010-12-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.938038,
+42.2544118
+]
+},
+"properties": {
+"name": "Fontaine du Nino",
+"natural": "spring",
+"drinking_water": "yes",
+"ele": "1777",
+"osm_id": "node/1019419900",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.980103,
+42.2202154
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/1019422106",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2013-06-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.366058,
+42.3578376
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1022863230",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2010-12-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2056401,
+42.1817379
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1035620646",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2010-12-12"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1961758,
+42.0862462
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1035634992",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-02-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2663232,
+42.1029686
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1035646344",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2010-12-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2901995,
+42.0969006
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"drinking_water": "yes",
+"osm_id": "node/1035646348",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-03-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0910393,
+41.7905648
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1052524720",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2010-12-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0886047,
+41.8284336
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1052524878",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-10-01"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1940153,
+42.032356
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1052532228",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2010-12-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1968264,
+42.0397948
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/1052532230",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2022-06-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.05627,
+42.3045
+]
+},
+"properties": {
+"name": "Fontaine de Casa Fronzula",
+"amenity": "drinking_water",
+"osm_id": "node/10583971785",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.13747,
+42.12399
+]
+},
+"properties": {
+"name": "Fontaine d'Alzarella",
+"amenity": "drinking_water",
+"osm_id": "node/10583971791",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.13317,
+42.11901
+]
+},
+"properties": {
+"name": "Fontaine de Fulminato",
+"amenity": "drinking_water",
+"osm_id": "node/10583971793",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.24372,
+42.09901
+]
+},
+"properties": {
+"name": "Fontaine de Pajanellu",
+"amenity": "drinking_water",
+"osm_id": "node/10583971794",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1445,
+42.53919
+]
+},
+"properties": {
+"name": "Fontaine de Navaccia",
+"amenity": "drinking_water",
+"osm_id": "node/10583971797",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.16766,
+42.51802
+]
+},
+"properties": {
+"name": "Fontaine de Volparone",
+"amenity": "drinking_water",
+"osm_id": "node/10583971798",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.07189,
+42.29015
+]
+},
+"properties": {
+"name": "Fontaine de Castagnolu",
+"amenity": "drinking_water",
+"osm_id": "node/10583971799",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.19558,
+42.54097
+]
+},
+"properties": {
+"name": "Funtana di Lumisgiana",
+"amenity": "drinking_water",
+"osm_id": "node/10583971800",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.85535,
+42.5061
+]
+},
+"properties": {
+"name": "Fontaine Sant'Antone",
+"amenity": "drinking_water",
+"osm_id": "node/10583974405",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.07651,
+42.31781
+]
+},
+"properties": {
+"name": "Fontaine de la Colletta di Melo",
+"amenity": "drinking_water",
+"osm_id": "node/10583974406",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.10311,
+42.27341
+]
+},
+"properties": {
+"name": "Fontaine de Tuani",
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/10583974408",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-08-31"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.12286,
+42.12464
+]
+},
+"properties": {
+"name": "Fontaine de l'Aghjola",
+"amenity": "drinking_water",
+"osm_id": "node/10583974411",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.99684,
+42.25081
+]
+},
+"properties": {
+"name": "Fontaine de Fiordimondu",
+"amenity": "drinking_water",
+"osm_id": "node/10583974412",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.11537,
+42.10815
+]
+},
+"properties": {
+"name": "Funtana di Tagliali",
+"amenity": "drinking_water",
+"osm_id": "node/10583974413",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.20128,
+42.02605
+]
+},
+"properties": {
+"name": "Fontaine de Sialella",
+"amenity": "drinking_water",
+"osm_id": "node/10583974414",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.97146,
+42.2847
+]
+},
+"properties": {
+"name": "Fontaine de Chieni",
+"natural": "spring",
+"drinking_water": "yes",
+"intermittent": "no",
+"osm_id": "node/10583974430",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2025-09-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0419467,
+42.3544032
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/10583974440",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1500916,
+42.0772914
+]
+},
+"properties": {
+"name": "Fontaine de Capannelle",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/10583974450",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2026-06-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2203115,
+42.1796474
+]
+},
+"properties": {
+"name": "Funtana di Padula",
+"amenity": "drinking_water",
+"osm_id": "node/1064312949",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-11-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8584678,
+41.7023885
+]
+},
+"properties": {
+"man_made": "water_tap",
+"drinking_water": "yes",
+"access": "customers",
+"osm_id": "node/10698931697",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2023-02-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7619887,
+42.0293843
+]
+},
+"properties": {
+"name": "Fontaine",
+"amenity": "drinking_water",
+"osm_id": "node/10822160172",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-04-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.6437288,
+41.9108776
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/10824442968",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2023-09-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7669991,
+41.8425542
+]
+},
+"properties": {
+"name": "Robinet",
+"amenity": "drinking_water",
+"osm_id": "node/10827436217",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-04-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3537059,
+42.3883955
+]
+},
+"properties": {
+"name": "Eau portable",
+"amenity": "drinking_water",
+"osm_id": "node/10851997885",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-04-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3682383,
+42.3762074
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"check_date": "2026-04-27",
+"osm_id": "node/10852612526",
+"kind": "drinking water",
+"last_confirmed": "2026-04-27",
+"last_edited": "2026-04-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9377675,
+42.6370208
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/10895929620",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2023-07-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4498058,
+42.9253604
+]
+},
+"properties": {
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/10918373632",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2023-05-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4527319,
+42.9260357
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/10918373967",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-05-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4024083,
+41.7151057
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"drinking_water": "yes",
+"osm_id": "node/10961960846",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-05-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3887082,
+43.0067449
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/10988900805",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-06-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7016773,
+42.2942944
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"check_date": "2026-04-25",
+"osm_id": "node/11001764308",
+"kind": "drinking water",
+"last_confirmed": "2026-04-25",
+"last_edited": "2026-04-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7369033,
+41.758011
+]
+},
+"properties": {
+"name": "Eau potable",
+"amenity": "drinking_water",
+"osm_id": "node/11001766640",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-06-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8703142,
+41.7449463
+]
+},
+"properties": {
+"name": "Eau potable",
+"amenity": "drinking_water",
+"osm_id": "node/11001767024",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-06-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9617857,
+41.5298569
+]
+},
+"properties": {
+"name": "Eau",
+"amenity": "drinking_water",
+"osm_id": "node/11003052126",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-06-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0513354,
+41.4925046
+]
+},
+"properties": {
+"name": "Eau",
+"amenity": "drinking_water",
+"osm_id": "node/11005283210",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-06-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9177058,
+41.6726696
+]
+},
+"properties": {
+"name": "Eau",
+"amenity": "drinking_water",
+"osm_id": "node/11005353569",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-06-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8710417,
+41.8421606
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/11023788978",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-07-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1755683,
+42.5799101
+]
+},
+"properties": {
+"name": "Funtana Bona",
+"amenity": "drinking_water",
+"osm_id": "node/11056547063",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-07-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0527971,
+42.0032665
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/11215396350",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2023-09-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0626924,
+41.6967643
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/11229143096",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-04-16"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1494052,
+42.3047235
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/11339321059",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2026-08-07"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3219926,
+42.0115039
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/11514044261",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-01-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3233499,
+42.0095952
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/11514116606",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2024-01-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0555108,
+41.8456528
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/11549258869",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-01-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2559713,
+41.9596323
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "spring_box",
+"drinking_water": "yes",
+"intermittent": "no",
+"osm_id": "node/11560772663",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-09-02"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1371832,
+42.2836555
+]
+},
+"properties": {
+"name": "Ochju di Persichellu",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/11747294717",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2025-11-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0101615,
+41.6376833
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/11809766636",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2024-04-11"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0085762,
+41.6460167
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/11816296976",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2024-04-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0339209,
+41.6481711
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/11816756348",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2024-04-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3590896,
+42.9709369
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/11930736248",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-05-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7904556,
+42.5029761
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/11941548905",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-05-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9848872,
+42.3280672
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/11947642713",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-05-31"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4320336,
+42.712975
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/11955277869",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-06-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3811185,
+42.3557953
+]
+},
+"properties": {
+"name": "Funtanone",
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/11960856399",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2024-06-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3625825,
+42.7319515
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/12018435176",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-06-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.5001624,
+42.3700281
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/12018465659",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-06-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.146841,
+42.3040252
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/12033530112",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-07-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1463234,
+42.3038204
+]
+},
+"properties": {
+"amenity": "water_point",
+"osm_id": "node/12033530117",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2024-07-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0137548,
+42.3360806
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/12049153260",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2024-07-12"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0047971,
+42.3442231
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/12049455230",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2024-07-12"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1500013,
+41.3869098
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"survey:date": "2024-08-06",
+"osm_id": "node/12095406800",
+"kind": "drinking water",
+"last_confirmed": "2024-08-06",
+"last_edited": "2024-08-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.064614,
+42.091086
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/12097576301",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-08-07"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.371003,
+42.6027144
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/12103322801",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-08-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7384789,
+41.918175
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"survey:date": "2024-08-13",
+"osm_id": "node/12107917896",
+"kind": "drinking water",
+"last_confirmed": "2024-08-13",
+"last_edited": "2024-08-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9342681,
+41.881297
+]
+},
+"properties": {
+"name": "Fontaine Saint Georges",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/12118989530",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2024-08-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8545611,
+42.4420731
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/12166514033",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-09-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7651463,
+41.8439321
+]
+},
+"properties": {
+"amenity": "water_point",
+"osm_id": "node/12185837649",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2024-09-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9142065,
+41.7457603
+]
+},
+"properties": {
+"name": "Funtana di Pitraghja",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/12190027492",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2024-09-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9109982,
+41.7469982
+]
+},
+"properties": {
+"amenity": "water_point",
+"osm_id": "node/12190027494",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2024-09-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9119187,
+41.7451179
+]
+},
+"properties": {
+"amenity": "water_point",
+"osm_id": "node/12194826597",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2024-09-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9125955,
+41.744105
+]
+},
+"properties": {
+"name": "A Pisciadera",
+"amenity": "drinking_water",
+"osm_id": "node/12194826598",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-09-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0145893,
+42.4445493
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/12210725915",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2024-09-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3296577,
+42.3713079
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/12248159001",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-10-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7665391,
+42.0151827
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/12286012436",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2024-10-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1731318,
+42.2458019
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/12521558702",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-01-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7944102,
+41.9192516
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/12616291130",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-02-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2465652,
+42.3105728
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/12647498198",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-03-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9815326,
+41.7824918
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/12670800601",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-03-16"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0676071,
+41.6999557
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/12850925001",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2025-05-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9389471,
+42.2015432
+]
+},
+"properties": {
+"name": "Funtana à Arba bella",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/12864098871",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2025-05-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.930441,
+42.1877067
+]
+},
+"properties": {
+"name": "U Funtanellu",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/12864156758",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2025-05-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4145503,
+42.6584553
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/12880994688",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4914291,
+42.3321347
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/12913688244",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-06-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1795363,
+41.9602322
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/12921661301",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-06-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4441471,
+41.9933997
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/13016777481",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2026-09-16"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4132469,
+42.6559538
+]
+},
+"properties": {
+"name": "A Funtana Sant'Antone \"A Funtanuccia\"",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/13018796291",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2025-07-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.184774,
+41.9694898
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13020231587",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-07-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1850361,
+41.9710443
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13022180197",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-07-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1863957,
+41.9800874
+]
+},
+"properties": {
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/13022228055",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2025-07-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1955724,
+42.0256362
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13022235416",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-07-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1476552,
+41.9512722
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13022243207",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-07-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1472435,
+41.9517302
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13022243208",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-07-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8548176,
+42.5082247
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13030979801",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-07-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1457457,
+41.7210121
+]
+},
+"properties": {
+"name": "Fontaine Subbarraccio",
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/13058942967",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-08-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4859668,
+42.470806
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13059112324",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-08-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7973149,
+41.9815096
+]
+},
+"properties": {
+"man_made": "water_tap",
+"drinking_water": "yes",
+"access": "yes",
+"osm_id": "node/13061762701",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2025-08-12"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3362223,
+42.8105788
+]
+},
+"properties": {
+"amenity": "water_point",
+"access": "yes",
+"osm_id": "node/13109000071",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2025-08-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4737103,
+42.8400665
+]
+},
+"properties": {
+"amenity": "water_point",
+"osm_id": "node/13112748047",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2025-09-01"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4732342,
+42.8401472
+]
+},
+"properties": {
+"amenity": "water_point",
+"osm_id": "node/13112748048",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2025-09-01"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3725861,
+41.835497
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/13140618390",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2025-09-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4498762,
+42.6952827
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13286023601",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-11-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.292854,
+42.0965832
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13315942619",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-11-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1560162,
+41.3871142
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13315942626",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-11-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1452401,
+41.6684693
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13315942633",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-11-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1794981,
+41.5480594
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13315942634",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-11-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1505544,
+42.3185828
+]
+},
+"properties": {
+"name": "Minesteghju",
+"natural": "spring",
+"drinking_water": "yes",
+"intermittent": "no",
+"ele": "450 mètres",
+"osm_id": "node/13323794164",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2025-11-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1719976,
+42.2301391
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1337623601",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-05-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4575302,
+42.3336493
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13395808870",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-12-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4766406,
+42.3280572
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13395837702",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-12-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3572767,
+42.6327988
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/13451300358",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2026-01-12"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3568261,
+42.6172147
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"drinking_water": "yes",
+"access": "yes",
+"seasonal": "no",
+"osm_id": "node/13484769264",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-01-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8140754,
+41.6294726
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/13741864581",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2026-07-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4447942,
+42.6427003
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13749145001",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-04-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3663691,
+42.3658246
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13752736201",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-04-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0120622,
+41.8086254
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13754637229",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-04-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1171426,
+42.5857696
+]
+},
+"properties": {
+"name": "Funtana",
+"amenity": "drinking_water",
+"osm_id": "node/13807926501",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-05-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1182585,
+42.5827114
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13807936701",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-05-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3544254,
+42.3727531
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/13904661532",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2026-06-02"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2948572,
+42.3635284
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1390820230",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2011-08-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.294382,
+42.3785457
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1390820361",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2011-08-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0717587,
+41.7070778
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13929039401",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-06-11"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9247335,
+42.1175273
+]
+},
+"properties": {
+"man_made": "water_tap",
+"drinking_water": "yes",
+"access": "yes",
+"check_date": "2026-06-14",
+"osm_id": "node/13943032353",
+"kind": "tap",
+"last_confirmed": "2026-06-14",
+"last_edited": "2026-06-15"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1346666,
+42.3751967
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/13949671201",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-06-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1600855,
+41.3875345
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/13997388901",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2026-07-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3797769,
+42.9752708
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/14031655601",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-07-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9910507,
+42.527815
+]
+},
+"properties": {
+"name": "Fontaine de Canalabé",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/14041214713",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2026-07-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4947569,
+42.3348843
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/14065857601",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-08-01"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1773004,
+41.6476334
+]
+},
+"properties": {
+"name": "Fontaine de Cartalavonu",
+"amenity": "drinking_water",
+"osm_id": "node/14076889802",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-08-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1458879,
+41.8851863
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/14087472202",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-08-11"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7302474,
+42.5586416
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/14120149478",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-08-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.446108,
+42.7042747
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/14127294202",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-08-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1692496,
+41.843343
+]
+},
+"properties": {
+"name": "A Marinasca",
+"natural": "spring",
+"drinking_water": "yes",
+"intermittent": "no",
+"osm_id": "node/14127785229",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2026-08-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0640012,
+42.012627
+]
+},
+"properties": {
+"name": "Fontaine Nivalella Soprano",
+"amenity": "drinking_water",
+"osm_id": "node/14129842805",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-08-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4518381,
+42.6926854
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/14134549320",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-08-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1462596,
+41.7836333
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/14143172147",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2026-09-02"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8021659,
+42.252869
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/14173992744",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2026-09-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2295346,
+42.1903894
+]
+},
+"properties": {
+"name": "Fontaine",
+"amenity": "drinking_water",
+"osm_id": "node/14177732301",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9160584,
+41.750562
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/14183580840",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-15"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.738304,
+41.9257548
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/14189244554",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2026-09-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.442966,
+42.7053165
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/14208951728",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2026-09-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9421649,
+41.8634853
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/14213816699",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.064642,
+41.8914994
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/14213934264",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0958935,
+41.8999682
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/14213969356",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9343487,
+41.9617963
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/14221666589",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9715803,
+41.9746147
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/14221826115",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9056348,
+41.9223657
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/14222080452",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.6797001,
+42.2595943
+]
+},
+"properties": {
+"name": "Funtana d'i castagna",
+"amenity": "drinking_water",
+"check_date": "2026-04-26",
+"osm_id": "node/1426468678",
+"kind": "drinking water",
+"last_confirmed": "2026-04-26",
+"last_edited": "2026-04-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9032936,
+42.2758204
+]
+},
+"properties": {
+"name": "Fontana di Carulina",
+"amenity": "drinking_water",
+"osm_id": "node/1426468679",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2011-09-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9020522,
+42.5303139
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1426498376",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2011-09-07"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.304118,
+41.8359077
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/1431012422",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1812739,
+41.6601826
+]
+},
+"properties": {
+"name": "Cheralba",
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/1432223179",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2011-09-15"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4571056,
+42.7236841
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1436385002",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2011-09-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4545985,
+42.9575274
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1436403528",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-01-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4552613,
+42.9606097
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1436403546",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2011-09-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.5843165,
+42.2116075
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/1436781571",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2023-09-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.008863,
+42.3488481
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"check_date": "2025-09-10",
+"osm_id": "node/1437699310",
+"kind": "tap",
+"last_confirmed": "2025-09-10",
+"last_edited": "2025-09-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3615728,
+41.8547196
+]
+},
+"properties": {
+"name": "Fontaine Tafunata",
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/1438733212",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-05-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1546076,
+42.1143659
+]
+},
+"properties": {
+"name": "Ochju Piattu",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/1449915717",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2130905,
+41.8271471
+]
+},
+"properties": {
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/1450839487",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2014-10-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2287579,
+41.7948009
+]
+},
+"properties": {
+"name": "Fontaine du Cannone",
+"amenity": "fountain",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/1459249315",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3494108,
+42.486517
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1652702113",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-08-01"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.346863,
+42.330341
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1700106063",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-07-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.488242,
+42.3308136
+]
+},
+"properties": {
+"name": "Fontaine de Piuvannaccia",
+"amenity": "drinking_water",
+"osm_id": "node/1700110147",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.39549,
+42.33643
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1700111782",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-05-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4143292,
+42.3325283
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1700111974",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-05-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.325114,
+42.44503
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1700125491",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2012-03-31"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9066491,
+41.827668
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1750856221",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2012-05-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1752671,
+41.9102797
+]
+},
+"properties": {
+"name": "Source de la Bocca di l'Agnone",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/1944183214",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1947985,
+42.0278801
+]
+},
+"properties": {
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/1944206717",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-04-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4862875,
+42.3312925
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1954956340",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-10-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4909343,
+42.3318112
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1954956382",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2012-10-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0572096,
+41.486162
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1962953964",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2012-10-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3725476,
+42.2140496
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1965456454",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2012-10-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.371705,
+42.2178378
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/1965456511",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-12-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3343931,
+41.9457702
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2013515433",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2012-11-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4901244,
+42.3321334
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2022351959",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-08-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8306912,
+41.6341645
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2277900419",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-04-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.650406,
+42.4093498
+]
+},
+"properties": {
+"name": "Fontaine publique de Galeria",
+"amenity": "drinking_water",
+"natural": "spring",
+"ele": "40",
+"osm_id": "node/2298354430",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2026-09-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.6621259,
+42.2479707
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2331244144",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-06-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8923492,
+42.5396867
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2332210565",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-06-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2256265,
+41.7959636
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "customers",
+"osm_id": "node/2339549745",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-07-31"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.495779,
+42.3672458
+]
+},
+"properties": {
+"name": "Funtana di Ghjuvani",
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/2358305219",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2020-11-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4911087,
+42.3309942
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"check_date": "2023-08-03",
+"osm_id": "node/2358305710",
+"kind": "drinking water",
+"last_confirmed": "2023-08-03",
+"last_edited": "2023-08-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4966878,
+42.345545
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"check_date": "2026-09-22",
+"osm_id": "node/2358305992",
+"kind": "tap",
+"last_confirmed": "2026-09-22",
+"last_edited": "2026-09-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4944904,
+42.3478214
+]
+},
+"properties": {
+"name": "Funtana Serpentina",
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/2358306018",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2021-10-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4925225,
+42.3800237
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2358307519",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-06-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4774131,
+42.4073066
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2358308053",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-06-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4676862,
+42.4226591
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2358308490",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-06-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4699083,
+42.434728
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2358308599",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-06-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.734111,
+42.5519688
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/2382595144",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2022-06-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4721706,
+42.2645625
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2399778168",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4742335,
+42.2674336
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2399778169",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-01-11"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1614873,
+41.3883084
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"check_date": "2024-10-03",
+"osm_id": "node/2430052668",
+"kind": "drinking water",
+"last_confirmed": "2024-10-03",
+"last_edited": "2024-10-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1620331,
+41.3881426
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"check_date": "2024-07-29",
+"osm_id": "node/2430052669",
+"kind": "tap",
+"last_confirmed": "2024-07-29",
+"last_edited": "2024-07-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9070055,
+42.4637945
+]
+},
+"properties": {
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/2457152988",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2016-08-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4150898,
+42.9674417
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371187",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-01-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7092139,
+42.261667
+]
+},
+"properties": {
+"name": "Fontaine du Pont de Porto",
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/2483371197",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8406996,
+42.2274496
+]
+},
+"properties": {
+"name": "Funtana à i Preti",
+"amenity": "drinking_water",
+"natural": "spring",
+"ele": "1020",
+"osm_id": "node/2483371198",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8249974,
+42.0619488
+]
+},
+"properties": {
+"name": "Funtanone",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/2483371201",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-09-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.767759,
+42.0285797
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371202",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-09-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1937469,
+41.6506985
+]
+},
+"properties": {
+"name": "Fontaine de Fontanonu",
+"amenity": "drinking_water",
+"osm_id": "node/2483371205",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0800983,
+41.7720348
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371271",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-01-16"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1546583,
+41.9339709
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371292",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-10-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2108703,
+42.1028162
+]
+},
+"properties": {
+"name": "Fontaine de Neptune",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/2483371317",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2021-05-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2797239,
+42.1369234
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371345",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-10-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2690706,
+42.1577489
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371360",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-10-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2448876,
+42.1732286
+]
+},
+"properties": {
+"name": "Fontaine des Trois Grâces",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/2483371377",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2021-11-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2666117,
+42.3151023
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371393",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-10-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3005629,
+42.3209746
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/2483371395",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2959785,
+42.4002947
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371396",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-10-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2824737,
+42.4120143
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371397",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-02-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2961287,
+42.4232189
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371457",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-10-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3078017,
+42.4382331
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371458",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-10-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.367733,
+42.3746278
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371511",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-10-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4047904,
+42.4471006
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371513",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-10-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4091379,
+42.4509362
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371514",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-10-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4527863,
+42.4845819
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2483371518",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-10-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4477809,
+42.486208
+]
+},
+"properties": {
+"name": "Funtana Merzana",
+"amenity": "drinking_water",
+"osm_id": "node/2483371519",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-12-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4386935,
+42.4931753
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"check_date": "2024-07-27",
+"osm_id": "node/2483371520",
+"kind": "drinking water",
+"last_confirmed": "2024-07-27",
+"last_edited": "2024-07-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3468231,
+42.4987657
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2613601388",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-08-01"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.738402,
+41.918159
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2627082145",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-01-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3510393,
+42.9074672
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2628644597",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-01-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7387126,
+41.9191702
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"check_date": "2022-05-24",
+"osm_id": "node/275387673",
+"kind": "tap",
+"last_confirmed": "2022-05-24",
+"last_edited": "2024-08-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7314487,
+41.9165492
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/275387829",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-06-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3265508,
+42.8484244
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2779610785",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-04-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3564684,
+42.49275
+]
+},
+"properties": {
+"name": "Fontaine Saint-Pierre Saint-Paul",
+"amenity": "drinking_water",
+"osm_id": "node/2821298626",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-01-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7286485,
+41.9136761
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"check_date": "2023-09-29",
+"osm_id": "node/2905253073",
+"kind": "drinking water",
+"last_confirmed": "2023-09-29",
+"last_edited": "2023-09-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2304213,
+41.7921926
+]
+},
+"properties": {
+"name": "Fontaine du ravin de Cannone",
+"amenity": "drinking_water",
+"osm_id": "node/2989969580",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.807627,
+42.3626531
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/2990023600",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2017-09-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1030913,
+42.3256594
+]
+},
+"properties": {
+"name": "Source Surgente de Padule",
+"natural": "spring",
+"drinking_water": "yes",
+"ele": "1596",
+"osm_id": "node/2991066275",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8765863,
+42.4999083
+]
+},
+"properties": {
+"name": "Funtana di Partine",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/3083536278",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2014-09-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8007786,
+42.2324213
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/3136945156",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2025-05-15"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0675886,
+41.6997348
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/3256876788",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-05-16"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8012593,
+42.2339408
+]
+},
+"properties": {
+"name": "Fontaine publique de Marignana",
+"amenity": "fountain",
+"drinking_water": "yes",
+"ele": "715",
+"osm_id": "node/3283125530",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4716357,
+42.2909562
+]
+},
+"properties": {
+"amenity": "fountain",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/3404082726",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-03-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4751398,
+42.2913174
+]
+},
+"properties": {
+"amenity": "fountain",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/3404082739",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-03-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4652369,
+42.2915312
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3404082775",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-03-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4770916,
+42.2921294
+]
+},
+"properties": {
+"amenity": "fountain",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/3404082821",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-03-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2995564,
+42.0030251
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3422041061",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-03-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1567005,
+42.1095748
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3581258769",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-06-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1478611,
+41.8783975
+]
+},
+"properties": {
+"name": "Source San Petru",
+"amenity": "drinking_water",
+"osm_id": "node/3592013405",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1522955,
+41.8740689
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3592237397",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-06-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2142669,
+41.8413254
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/3594453068",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-09-01"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8250842,
+42.0245365
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3594805778",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-06-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8259184,
+42.0258584
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3594805780",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-08-31"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8246108,
+42.0276238
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3594805781",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-06-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8254178,
+42.0222749
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3597128563",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-06-15"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2966203,
+41.7737701
+]
+},
+"properties": {
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/3625921800",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2020-02-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0124844,
+42.4441437
+]
+},
+"properties": {
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/3676055832",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2015-08-01"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9939155,
+41.7569521
+]
+},
+"properties": {
+"name": "Funtana di U Salicciu",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/3708952718",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2015-08-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0039105,
+41.7643695
+]
+},
+"properties": {
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/3708953179",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2015-08-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0635521,
+42.0136001
+]
+},
+"properties": {
+"name": "Nivalella Suttana",
+"amenity": "drinking_water",
+"osm_id": "node/3715255708",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-08-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3009842,
+42.0745677
+]
+},
+"properties": {
+"name": "Funtana Nova",
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/3731207694",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-07-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2978202,
+42.0569299
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3731207695",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-01-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2930123,
+42.052666
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3731207696",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-09-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2864461,
+42.0512972
+]
+},
+"properties": {
+"name": "Preti Mortu",
+"amenity": "drinking_water",
+"osm_id": "node/3731207697",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-01-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2792506,
+42.0486134
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3731207698",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-12-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2641249,
+42.0428266
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3731207699",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-09-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3263993,
+41.9967981
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3761425760",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-09-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3738986,
+41.8449295
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/3762871255",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-09-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2211857,
+42.3265929
+]
+},
+"properties": {
+"name": "Funtana di a piazza",
+"amenity": "drinking_water",
+"osm_id": "node/410793691",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-09-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9872067,
+41.6273869
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/4307779018",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-08-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2049063,
+41.9345113
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/4353597138",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2016-08-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.05202,
+42.1980372
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"access": "yes",
+"check_date": "2026-09-11",
+"osm_id": "node/4355343147",
+"kind": "drinking water",
+"last_confirmed": "2026-09-11",
+"last_edited": "2026-09-11"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8683591,
+42.3349632
+]
+},
+"properties": {
+"name": "Fontaine de Ciottulu",
+"amenity": "drinking_water",
+"drinking_water": "yes",
+"ele": "1996",
+"osm_id": "node/4355532254",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-05-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9088004,
+42.3622275
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/4355600233",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4537405,
+42.7037104
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/4398906289",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-06-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4552399,
+42.4760667
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/4499317582",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2016-11-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8651037,
+42.3125102
+]
+},
+"properties": {
+"name": "Source de Guagnarola",
+"natural": "spring",
+"drinking_water": "yes",
+"ele": "1710",
+"osm_id": "node/4579696692",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2185413,
+42.0087102
+]
+},
+"properties": {
+"natural": "spring",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"intermittent": "no",
+"osm_id": "node/4647790170",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2019-08-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3590684,
+41.5892776
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/4851885227",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-11-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3578108,
+41.5889205
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/4851885228",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-04-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3603916,
+41.5887728
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/4851902626",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-11-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3569928,
+41.5902078
+]
+},
+"properties": {
+"name": "Le Phare",
+"amenity": "drinking_water",
+"osm_id": "node/4852972622",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2017-05-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7016877,
+42.2943136
+]
+},
+"properties": {
+"name": "Fontaine du pont de Serriera",
+"amenity": "fountain",
+"drinking_water": "yes",
+"ele": "31",
+"osm_id": "node/486725516",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7983142,
+42.2534202
+]
+},
+"properties": {
+"name": "Fontaine A Impicciata d'Evisa",
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"ele": "829",
+"osm_id": "node/4902460443",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0924092,
+42.2988401
+]
+},
+"properties": {
+"name": "Source de Cucchinu",
+"natural": "spring",
+"drinking_water": "yes",
+"ele": "751",
+"osm_id": "node/4902509491",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9317819,
+42.1875407
+]
+},
+"properties": {
+"name": "Citarrella",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/4927375719",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2025-05-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4507785,
+42.6985028
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/4934314506",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-08-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4511891,
+42.6971439
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/4934314639",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-08-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1290453,
+42.3065055
+]
+},
+"properties": {
+"name": "Source de Ficaghjola",
+"amenity": "drinking_water",
+"natural": "spring",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"access": "yes",
+"osm_id": "node/4954126342",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-08-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1094447,
+41.7516639
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/4958577590",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-12-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0251664,
+42.2052251
+]
+},
+"properties": {
+"name": "Surghjenta di Vesco",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/4972298581",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2025-09-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9807301,
+42.219907
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/4972299338",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2017-07-15"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1477454,
+42.2782273
+]
+},
+"properties": {
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/4988068671",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2017-07-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9700892,
+42.1571762
+]
+},
+"properties": {
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/4988077665",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2017-07-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8437858,
+42.1912308
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/4988095256",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-08-31"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8420947,
+42.1902908
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/4988095257",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2017-07-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0077318,
+42.5194502
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/4991645628",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2017-07-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0171989,
+42.5279924
+]
+},
+"properties": {
+"name": "Fontaine de Lavantaghiu",
+"amenity": "drinking_water",
+"osm_id": "node/4991647722",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-08-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0637815,
+42.2732928
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5006955731",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-01-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.6375563,
+42.1974176
+]
+},
+"properties": {
+"name": "Funtana d'i Salognu",
+"amenity": "drinking_water",
+"check_date": "2026-04-26",
+"osm_id": "node/5011926222",
+"kind": "drinking water",
+"last_confirmed": "2026-04-26",
+"last_edited": "2026-05-07"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7785842,
+42.1590002
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5011926226",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2017-08-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7406731,
+42.0627266
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5037213926",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-09-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.6383557,
+42.198051
+]
+},
+"properties": {
+"amenity": "water_point",
+"osm_id": "node/5076047621",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2021-01-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4572859,
+42.7700534
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5109327781",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2017-09-16"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2675773,
+42.5994329
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5111279542",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2017-09-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0563366,
+42.004026
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/5113168164",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2023-09-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4475867,
+42.6894034
+]
+},
+"properties": {
+"name": "Fontaine de Ficaghjola",
+"amenity": "drinking_water",
+"osm_id": "node/5152430422",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4941401,
+42.3976137
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"drinking_water": "yes",
+"osm_id": "node/5226133721",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-05-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2661347,
+42.1161913
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5351664639",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-01-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4191699,
+42.5447023
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/5385290276",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-09-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0006355,
+42.5733021
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5511540465",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-03-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3368117,
+41.9858205
+]
+},
+"properties": {
+"amenity": "fountain",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/5558951240",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-05-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9795661,
+41.7827213
+]
+},
+"properties": {
+"name": "Eau potable",
+"amenity": "drinking_water",
+"osm_id": "node/5632211149",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-05-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.11778,
+42.5032728
+]
+},
+"properties": {
+"name": "Funtana di Leccie Grosse",
+"amenity": "drinking_water",
+"osm_id": "node/5647906721",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-05-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0646192,
+41.697574
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5661791405",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-09-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0639675,
+41.6976881
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"drinking_water": "yes",
+"osm_id": "node/5661791410",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-09-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9627255,
+41.871155
+]
+},
+"properties": {
+"name": "Piazza à a Funtana",
+"amenity": "drinking_water",
+"osm_id": "node/5669448721",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.149992,
+42.3045971
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5692921641",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-08-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1690752,
+42.1723892
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5700578216",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-06-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8978201,
+41.8132209
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5713407179",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-06-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8619294,
+42.6083069
+]
+},
+"properties": {
+"name": "Fontaine Concerca",
+"amenity": "drinking_water",
+"osm_id": "node/5714177456",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-09-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2059797,
+42.3251866
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/5747087861",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2018-07-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.316172,
+42.3028504
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/5747743126",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2018-07-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3190359,
+42.3037502
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/5747743145",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2018-07-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4531664,
+42.3544145
+]
+},
+"properties": {
+"name": "Fontana di u Messu",
+"amenity": "drinking_water",
+"osm_id": "node/5747747245",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.331546,
+41.9415048
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5760265320",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-07-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0006279,
+42.5750125
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5779383465",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-04-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1393603,
+42.238892
+]
+},
+"properties": {
+"name": "Source di Sant'Eliseu e Santa Sabina",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/5782654744",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2026-09-15"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4512378,
+42.6946857
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/5807470223",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4505561,
+42.694422
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5807470537",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-08-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0945519,
+41.4051292
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5831803485",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-08-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2937049,
+41.837704
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/5840544171",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3594462,
+42.2893423
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5843819285",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-08-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3933618,
+42.3232973
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5843824100",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-08-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2672995,
+42.3147879
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5843937177",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-04-12"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2884312,
+41.9675131
+]
+},
+"properties": {
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/5857083547",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2022-06-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2505204,
+42.3278588
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5866040980",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-05-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7789519,
+42.3793366
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/5866512905",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2018-08-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9149923,
+41.7159522
+]
+},
+"properties": {
+"name": "Funtana di I Canni",
+"amenity": "drinking_water",
+"osm_id": "node/5872974690",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-09-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9767212,
+41.7881912
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5873407587",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-10-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4049624,
+42.0157037
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/5905645563",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2019-01-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1718732,
+41.7406732
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"drinking_water": "yes",
+"osm_id": "node/5942286103",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0675667,
+41.696048
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/5942289950",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-09-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0225359,
+41.8148568
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/5942303636",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-08-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.016436,
+41.7260303
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/5998338231",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2018-10-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4493463,
+42.6972857
+]
+},
+"properties": {
+"name": "Fontaine Neuve de la Conception ou \"du Dauphin\"",
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/6004852734",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-08-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.967982,
+42.2177277
+]
+},
+"properties": {
+"name": "Source du Scassu",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/6023460962",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2025-05-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1520788,
+42.3057335
+]
+},
+"properties": {
+"name": "Fontaine avenue Xavier-Luciani",
+"amenity": "drinking_water",
+"ele": "430",
+"osm_id": "node/6103205286",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3260948,
+42.0107302
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/6188049824",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-08-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3244947,
+42.0109523
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/6188049825",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-05-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3272972,
+42.0101974
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/6188101950",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-05-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1505129,
+42.3038753
+]
+},
+"properties": {
+"name": "Fontaine de la porteuse d'eau",
+"amenity": "fountain",
+"drinking_water": "yes",
+"ele": "422",
+"osm_id": "node/6238448467",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3784644,
+42.0572684
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/6239662906",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2019-01-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3175794,
+41.6800015
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/6242524285",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-01-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.304769,
+42.2941219
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/6266973591",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2019-02-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.362148,
+42.0828457
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/6269880412",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-02-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2907404,
+42.3066215
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/6274682348",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2644829,
+41.9244671
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/6284722103",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-02-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2937437,
+41.887158
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/6358676549",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-03-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3664761,
+42.9445536
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/6433907485",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-04-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7426044,
+42.2754584
+]
+},
+"properties": {
+"name": "Fontaine de Vitrone",
+"natural": "spring",
+"drinking_water": "yes",
+"ele": "935",
+"osm_id": "node/6437080408",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7580702,
+42.5668189
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/6437858485",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2026-08-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7084916,
+42.3013015
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/6438795224",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-10-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9080106,
+41.9872846
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/6468339004",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-09-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9082231,
+41.9884426
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/6468339977",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-09-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9779877,
+42.5619218
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/6517803812",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-06-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9834507,
+42.5677883
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/6518215535",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-06-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.047998,
+42.2430674
+]
+},
+"properties": {
+"name": "Fontaine de la Restonica",
+"amenity": "drinking_water",
+"osm_id": "node/6557780321",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9379433,
+42.6343358
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_well",
+"check_date": "2026-04-24",
+"osm_id": "node/6573982420",
+"kind": "well",
+"last_confirmed": "2026-04-24",
+"last_edited": "2026-04-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4025423,
+42.5041894
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/6579947121",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2021-10-01"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.6442922,
+42.4153828
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"check_date": "2026-04-29",
+"osm_id": "node/6640856685",
+"kind": "drinking water",
+"last_confirmed": "2026-04-29",
+"last_edited": "2026-04-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2288148,
+41.9673834
+]
+},
+"properties": {
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/6660039178",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2019-07-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.920901,
+42.2838719
+]
+},
+"properties": {
+"name": "Fontaine de Popaghja",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/6702584667",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2024-07-12"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8503699,
+42.1718734
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"osm_id": "node/6723059925",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-08-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9080195,
+42.1775282
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"osm_id": "node/6723059927",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-08-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7997333,
+42.1668159
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"osm_id": "node/6723059928",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-08-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8394952,
+42.239082
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"osm_id": "node/6723059929",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-08-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4972326,
+42.3658909
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/6725710421",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-08-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.157082,
+41.3868582
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"osm_id": "node/6751796535",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-08-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1743359,
+42.2374286
+]
+},
+"properties": {
+"name": "Fontaine de Venaco - Campo Vecchio",
+"amenity": "fountain",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"ele": "640",
+"osm_id": "node/6801528390",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7985647,
+41.7285426
+]
+},
+"properties": {
+"name": "Eau potable",
+"amenity": "drinking_water",
+"osm_id": "node/6814385988",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0202598,
+42.5873135
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/6853641402",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-10-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3735678,
+42.9086287
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/6904795914",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-04-19"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4172692,
+42.9571431
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/705572479",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-08-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4762754,
+42.7745171
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/705574555",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2021-09-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3510848,
+42.7903262
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/705575182",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2010-04-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9043219,
+42.614629
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/705577397",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2015-05-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9082675,
+42.6135523
+]
+},
+"properties": {
+"name": "Fontaines de Salicastri",
+"amenity": "drinking_water",
+"drinking_water": "yes",
+"access": "yes",
+"osm_id": "node/705577398",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.6654951,
+42.3487973
+]
+},
+"properties": {
+"name": "Fontaine de Chiaravalle",
+"amenity": "drinking_water",
+"ele": "240",
+"osm_id": "node/705578005",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8022844,
+42.2535605
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/705581460",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-07-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8202359,
+42.2534604
+]
+},
+"properties": {
+"name": "Fontaine d'Alzu Ritondellu",
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"intermittent": "yes",
+"ele": "930",
+"osm_id": "node/705581881",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0802974,
+42.3742634
+]
+},
+"properties": {
+"name": "Funtana Vignente",
+"amenity": "drinking_water",
+"osm_id": "node/705583895",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2019-09-15"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4481384,
+42.7022691
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"ele": "11",
+"osm_id": "node/7137067196",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2026-09-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9811712,
+42.5615663
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/736942248",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-05-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.272198,
+41.9230898
+]
+},
+"properties": {
+"name": "Piscines",
+"amenity": "water_point",
+"osm_id": "node/7602631885",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2020-06-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3366736,
+41.9862673
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/7733686617",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-07-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.763634,
+42.2795942
+]
+},
+"properties": {
+"name": "Source de Corgola",
+"natural": "spring",
+"drinking_water": "yes",
+"intermittent": "no",
+"ele": "977",
+"osm_id": "node/7775881155",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7544291,
+42.2744895
+]
+},
+"properties": {
+"name": "Source de Larata",
+"natural": "spring",
+"drinking_water": "yes",
+"intermittent": "no",
+"ele": "1045",
+"osm_id": "node/7775881157",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9081053,
+42.3530021
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/7780121374",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9848865,
+42.3279078
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/7780441058",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-06-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.980756,
+42.3301558
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/7780446304",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.6323283,
+42.24369
+]
+},
+"properties": {
+"name": "Funtana d'i Saltiglioli",
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"check_date": "2026-04-26",
+"osm_id": "node/7780730040",
+"kind": "drinking water",
+"last_confirmed": "2026-04-26",
+"last_edited": "2026-04-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1277463,
+42.4177031
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/7796334831",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-08"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0688696,
+42.1906882
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"drinking_water": "yes",
+"osm_id": "node/7797198132",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.272367,
+42.2948919
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/7797985927",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3003716,
+42.3198269
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/7797985928",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2959607,
+42.3201937
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/7797985929",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2673483,
+42.3142673
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/7798132282",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2271852,
+42.3258036
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/7798755256",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2087615,
+42.3430483
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/7798832784",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2072696,
+42.3429594
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/7798837085",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0981284,
+42.1715409
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/7813320092",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1729032,
+42.4477506
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"access": "yes",
+"osm_id": "node/7814943356",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2020-08-15"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1736266,
+42.4474671
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"access": "yes",
+"osm_id": "node/7814962487",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2020-08-15"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1739821,
+42.4472152
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"access": "yes",
+"osm_id": "node/7814962488",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2020-08-15"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0527295,
+42.080068
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/7822618871",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2025-05-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4311894,
+42.2509653
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"access": "yes",
+"osm_id": "node/7839667563",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2020-08-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4381379,
+42.2470076
+]
+},
+"properties": {
+"name": "Funtana Marignani",
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"access": "yes",
+"osm_id": "node/7839667577",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-08-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0609245,
+41.6993744
+]
+},
+"properties": {
+"amenity": "water_point",
+"osm_id": "node/7860888662",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2020-08-31"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3916974,
+42.7838203
+]
+},
+"properties": {
+"name": "Source",
+"amenity": "water_point",
+"osm_id": "node/7899367685",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2020-09-12"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1769922,
+42.1029747
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/7912127865",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-09-16"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2100647,
+42.1020416
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"access": "yes",
+"osm_id": "node/7912340516",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2021-06-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0825806,
+41.9131154
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/7929636052",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-09-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2386455,
+41.9591205
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "spring_box",
+"intermittent": "yes",
+"osm_id": "node/7944968795",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-02-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.228539,
+41.9674827
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/7944983056",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-09-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2686593,
+41.9873938
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/8016528451",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-10-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2995838,
+42.0747581
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/8047468085",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-03-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7365002,
+41.9354738
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/8255089437",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2020-12-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3582917,
+42.4927527
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/8306269469",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-01-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2142247,
+41.6478209
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/836786164",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2010-07-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1983247,
+41.6517195
+]
+},
+"properties": {
+"name": "U Mattonu",
+"amenity": "drinking_water",
+"osm_id": "node/836786187",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2013-10-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7428953,
+42.2581782
+]
+},
+"properties": {
+"name": "Fontaine publique d'Ota",
+"amenity": "drinking_water",
+"ele": "339",
+"osm_id": "node/838498964",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4544077,
+42.7211038
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/8389728256",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-02-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.14359,
+41.59426
+]
+},
+"properties": {
+"name": "Source de Bitalza",
+"natural": "spring",
+"drinking_water": "conditional",
+"ele": "1044",
+"osm_id": "node/8422935136",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1997865,
+41.6872487
+]
+},
+"properties": {
+"amenity": "water_point",
+"check_date": "2026-04-29",
+"ele": "924",
+"osm_id": "node/8424743232",
+"kind": "water point",
+"last_confirmed": "2026-04-29",
+"last_edited": "2026-04-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2259924,
+42.1687819
+]
+},
+"properties": {
+"name": "Funtana di Purrone",
+"amenity": "drinking_water",
+"natural": "spring",
+"ele": "1175",
+"osm_id": "node/8429196279",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1735035,
+42.2324358
+]
+},
+"properties": {
+"name": "Fontaine Saint-Michel",
+"amenity": "fountain",
+"drinking_water": "yes",
+"ele": "596",
+"osm_id": "node/8429305942",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2026-09-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.70572,
+42.2728
+]
+},
+"properties": {
+"name": "Résurgence de Milaghioli",
+"natural": "spring",
+"drinking_water": "conditional",
+"ele": "433",
+"osm_id": "node/8448752814",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9840881,
+42.3261348
+]
+},
+"properties": {
+"name": "Fontaine d'Albertacce",
+"amenity": "drinking_water",
+"ele": "860",
+"osm_id": "node/8481525770",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.27121,
+42.0987977
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/8489757423",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2021-03-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2864764,
+42.0883141
+]
+},
+"properties": {
+"natural": "spring",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"intermittent": "no",
+"osm_id": "node/8489883669",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2021-03-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0902256,
+42.5779474
+]
+},
+"properties": {
+"name": "Citerne de Cima d'Aghio",
+"amenity": "water_point",
+"ele": "660",
+"osm_id": "node/8582783974",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4531336,
+42.7034599
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/8663867855",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.210423,
+42.1012159
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"access": "yes",
+"osm_id": "node/8871164213",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2021-06-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2035653,
+42.1091737
+]
+},
+"properties": {
+"name": "Fontaine des Strette",
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"access": "yes",
+"osm_id": "node/8871181311",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-04-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9061022,
+42.6138959
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/8909388085",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2021-07-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9035065,
+42.61455
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/8909420031",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2021-07-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3382029,
+41.7330106
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9048216617",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-08-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7082387,
+42.2615647
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "customers",
+"osm_id": "node/9048603330",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-08-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7089153,
+42.2612348
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "customers",
+"osm_id": "node/9048603345",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-08-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7082424,
+42.2617766
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "customers",
+"osm_id": "node/9052747297",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-09-01"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4124602,
+42.7598326
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9054325473",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-09-01"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1550488,
+41.9349789
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9071192466",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2021-09-07"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1538705,
+41.9358901
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9071192467",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2021-09-07"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9548579,
+42.6172891
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/9071674664",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2025-09-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3238268,
+42.3848463
+]
+},
+"properties": {
+"name": "Favalta",
+"natural": "spring",
+"drinking_water": "yes",
+"intermittent": "no",
+"osm_id": "node/907179414",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2021-07-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1661123,
+41.3858719
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/9073109462",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2025-10-12"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1562444,
+41.3864797
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9081490717",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-08-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4652613,
+42.7574284
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"survey:date": "2021-09-26",
+"osm_id": "node/9124166717",
+"kind": "drinking water",
+"last_confirmed": "2021-09-26",
+"last_edited": "2021-09-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4469375,
+42.6807344
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9130027349",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2024-01-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.44764,
+42.689806
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9130041864",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4507783,
+42.6914973
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9130042201",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3513469,
+42.4863927
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9132530817",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-09-29"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4273265,
+42.845442
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9139802811",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-02"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4217047,
+42.8440226
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9139807917",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-02"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4641252,
+42.9334122
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9140029772",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-02"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4282463,
+42.4765284
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9140311644",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-02"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4485345,
+42.3545986
+]
+},
+"properties": {
+"name": "Fontaine de Tassetu",
+"amenity": "drinking_water",
+"osm_id": "node/9161451560",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.7963699,
+41.7111129
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9162719687",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4897651,
+42.3316288
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9163319642",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4915535,
+42.331406
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9165735974",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-11"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4918753,
+42.3312709
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9165739583",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-11"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.336201,
+41.736129
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9165764721",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-11"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4907936,
+42.3320612
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9166597962",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-12"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.150939,
+42.3051646
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/9166616626",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-01-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4136578,
+42.4085576
+]
+},
+"properties": {
+"name": "Fontaine d'Alzi",
+"amenity": "drinking_water",
+"osm_id": "node/9177349959",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-10-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4054335,
+42.415107
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9177357192",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-04-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2430615,
+42.1003514
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"man_made": "drinking_fountain",
+"osm_id": "node/9178397701",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2021-10-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4130587,
+42.6875336
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9228342917",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2021-11-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3287613,
+41.9020251
+]
+},
+"properties": {
+"name": "U Mascarone",
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/9291103162",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2021-12-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.174647,
+42.2287711
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/938871721",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2011-03-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1820742,
+42.1085547
+]
+},
+"properties": {
+"name": "Fontaine d'Assatojo",
+"natural": "spring",
+"drinking_water": "yes",
+"intermittent": "no",
+"osm_id": "node/9423440943",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2022-01-16"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2270908,
+42.0479687
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"drinking_water": "yes",
+"intermittent": "no",
+"osm_id": "node/9440321315",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2022-10-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0666421,
+41.7007995
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"drinking_water": "yes",
+"osm_id": "node/9461690006",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-01-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9321096,
+42.0633731
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9482773966",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9312344,
+42.0630202
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9482773975",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9282083,
+42.0636136
+]
+},
+"properties": {
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/9482773990",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-02-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9316498,
+42.0641932
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9482774009",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9297948,
+42.0617415
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9482934047",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9135821,
+41.9976314
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9483576596",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9140684,
+41.9996501
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9483736019",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1490327,
+42.3036555
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/9502031679",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-02-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1866549,
+42.2575124
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9502449281",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1865748,
+42.2580213
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/9502449286",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-02-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1871301,
+42.2584601
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/9502449305",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-02-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1868561,
+42.2587752
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/9502449308",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-02-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1869649,
+42.2591171
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/9502449309",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-02-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1863286,
+42.2582456
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/9502449311",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-02-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1769525,
+42.2559234
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9503335037",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1789715,
+42.2505161
+]
+},
+"properties": {
+"name": "Funtana Fresca",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9504210096",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.45942,
+42.4662832
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9512908949",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-17"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3723515,
+41.836596
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/9521896035",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2025-09-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3753586,
+41.8323994
+]
+},
+"properties": {
+"name": "Funtana d'a Casa",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9521908487",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3709479,
+41.8381995
+]
+},
+"properties": {
+"name": "Funtana",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9521908488",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3732414,
+41.8435042
+]
+},
+"properties": {
+"name": "Fontaine de Togna",
+"amenity": "fountain",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/9521919976",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-02-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.363167,
+41.8360044
+]
+},
+"properties": {
+"name": "Fontaine de Vignali",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9521930018",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1512305,
+41.6782059
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9542980971",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1513217,
+41.6782355
+]
+},
+"properties": {
+"name": "Fontaine de la Liccia",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9542986130",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-02-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2823803,
+42.5805946
+]
+},
+"properties": {
+"name": "Source de Vergalella",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9551000297",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-03-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2733267,
+42.5832956
+]
+},
+"properties": {
+"name": "Funtana Suttana",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9551001407",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-03-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2717497,
+42.5832923
+]
+},
+"properties": {
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/9551005508",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-03-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2752939,
+42.5829565
+]
+},
+"properties": {
+"name": "Funtana di Vilaneto",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/9551006834",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-03-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.272118,
+42.5836821
+]
+},
+"properties": {
+"name": "Funtana di Villetu",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/9551008023",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-03-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2874901,
+42.5803905
+]
+},
+"properties": {
+"name": "Acqua di a Scopa",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9551008879",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-03-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4523328,
+42.2993148
+]
+},
+"properties": {
+"amenity": "fountain",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/9566881153",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-03-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3049474,
+42.2885527
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/958008850",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2010-10-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.380848,
+42.2523675
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/958067032",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2010-10-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0005604,
+42.316835
+]
+},
+"properties": {
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/9628645118",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2024-09-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3041453,
+41.9896712
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9631093032",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-04-02"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3855745,
+43.005905
+]
+},
+"properties": {
+"name": "Caravan parking water fountain",
+"amenity": "drinking_water",
+"osm_id": "node/9677401982",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-04-20"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4532101,
+42.7069831
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/9677450197",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2024-09-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4019394,
+42.412435
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9698172423",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-04-27"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4041798,
+42.4133439
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9698266801",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-04-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3347116,
+42.8879046
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"survey:date": "2022-04-28",
+"osm_id": "node/9700761617",
+"kind": "drinking water",
+"last_confirmed": "2022-04-28",
+"last_edited": "2022-04-28"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0096989,
+42.5714388
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"survey:date": "2022-04-30",
+"osm_id": "node/9704733317",
+"kind": "drinking water",
+"last_confirmed": "2022-04-30",
+"last_edited": "2022-04-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.000601,
+42.5732486
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"survey:date": "2022-04-30",
+"osm_id": "node/9704733518",
+"kind": "drinking water",
+"last_confirmed": "2022-04-30",
+"last_edited": "2022-04-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9860706,
+42.5649001
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"survey:date": "2022-04-30",
+"osm_id": "node/9704759317",
+"kind": "drinking water",
+"last_confirmed": "2022-04-30",
+"last_edited": "2022-04-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9432324,
+42.5433665
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"survey:date": "2022-04-30",
+"osm_id": "node/9704789517",
+"kind": "drinking water",
+"last_confirmed": "2022-04-30",
+"last_edited": "2022-04-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9135517,
+42.5453964
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"survey:date": "2022-04-30",
+"osm_id": "node/9704817217",
+"kind": "drinking water",
+"last_confirmed": "2022-04-30",
+"last_edited": "2022-04-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.228889,
+42.1941513
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"survey:date": "2022-05-03",
+"osm_id": "node/9710850117",
+"kind": "drinking water",
+"last_confirmed": "2022-05-03",
+"last_edited": "2022-05-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2454377,
+42.1781036
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"survey:date": "2022-05-03",
+"osm_id": "node/9710971217",
+"kind": "drinking water",
+"last_confirmed": "2022-05-03",
+"last_edited": "2022-05-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2116938,
+42.1033849
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"survey:date": "2022-05-03",
+"osm_id": "node/9711268117",
+"kind": "drinking water",
+"last_confirmed": "2022-05-03",
+"last_edited": "2022-05-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1841091,
+41.9686679
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"survey:date": "2022-05-04",
+"osm_id": "node/9714249317",
+"kind": "drinking water",
+"last_confirmed": "2022-05-04",
+"last_edited": "2022-05-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.305732,
+41.6832964
+]
+},
+"properties": {
+"name": "Fontaine de Capu",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9717332576",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-05-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4730694,
+42.4209048
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9723714665",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-05-07"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0220566,
+41.8959683
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9725633256",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4305008,
+42.717771
+]
+},
+"properties": {
+"name": "Funtana Vechja",
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/9729288629",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2025-07-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.003949,
+41.8908051
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9740373744",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0697677,
+41.7065979
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/9741004393",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-05-15"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9781301,
+41.8765397
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9760027800",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2024-08-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9832142,
+41.8776386
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/9760027801",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9828145,
+41.8786941
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9760027810",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2026-09-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1780478,
+41.7192919
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9760178774",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-05-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1577474,
+41.7093088
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9760356435",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-05-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3394786,
+41.9836582
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/9769032527",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-05-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3358677,
+41.9855381
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "node/9769145084",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-05-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1376041,
+41.7650921
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9791730984",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-06-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1378488,
+41.765195
+]
+},
+"properties": {
+"man_made": "water_tap",
+"drinking_water": "yes",
+"osm_id": "node/9791737631",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2022-06-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.511771,
+42.1044803
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9793868110",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2023-06-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3967814,
+42.3239127
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9798002496",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-06-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4377825,
+42.7364475
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9798094145",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-06-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3563634,
+42.6350523
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9798141869",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-06-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1224765,
+42.5166978
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9798232066",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-06-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9808351,
+41.873111
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9802156772",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-06-07"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.970899,
+41.6187525
+]
+},
+"properties": {
+"name": "Eau non potable",
+"amenity": "drinking_water",
+"osm_id": "node/9804094314",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-09-15"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.371594,
+42.8093599
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9827326017",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-06-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3248348,
+42.212299
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"natural": "spring",
+"osm_id": "node/9848188867",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2024-05-02"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0426848,
+42.3553627
+]
+},
+"properties": {
+"amenity": "water_point",
+"osm_id": "node/9858357101",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2022-06-30"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.915268,
+41.9158974
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9887065021",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-07-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9126057,
+41.9150896
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9887065022",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-07-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9694908,
+41.9248886
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9887065023",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-07-14"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4407121,
+42.8465801
+]
+},
+"properties": {
+"amenity": "water_point",
+"osm_id": "node/9892808231",
+"kind": "water point",
+"last_confirmed": "",
+"last_edited": "2022-07-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1500212,
+42.3056663
+]
+},
+"properties": {
+"name": "Fontaine des 4 canons",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "node/9901703521",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2022-07-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4343582,
+42.4529353
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/9907363409",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-07-24"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9037531,
+42.4556027
+]
+},
+"properties": {
+"name": "Source de la Mandriaccia",
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "node/9928090943",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.4241824,
+42.8133434
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9931901117",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-08-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1488909,
+42.3042475
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9933810361",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-08-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3847084,
+42.8984322
+]
+},
+"properties": {
+"name": "souce eau poable",
+"amenity": "drinking_water",
+"osm_id": "node/9934057217",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-08-05"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.3033587,
+42.4651552
+]
+},
+"properties": {
+"name": "eau potable",
+"amenity": "drinking_water",
+"osm_id": "node/9936593617",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-08-07"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.8167634,
+41.6292997
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9945584700",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-08-10"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9024174,
+42.5990269
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"man_made": "water_tap",
+"osm_id": "node/9951377568",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2024-07-18"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1507761,
+41.3863573
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9954058378",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-09-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.9544921,
+42.1679523
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9976587450",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-08-25"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2910644,
+42.3568229
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"check_date": "2022-10-02",
+"osm_id": "node/997831950",
+"kind": "drinking water",
+"last_confirmed": "2022-10-02",
+"last_edited": "2022-10-03"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.2969526,
+42.3075057
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"access": "yes",
+"osm_id": "node/997832121",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-08-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.151093,
+41.3871076
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9999793377",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-09-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1511668,
+41.3866941
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "node/9999793378",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2022-09-04"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0573428,
+42.080621
+]
+},
+"properties": {
+"name": "Fontaine de la Poste",
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "way/1422181400",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2025-08-13"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.550241,
+42.1087597
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "way/299387326",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-08-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.5501199,
+42.1087205
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "way/299387330",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-08-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.5500348,
+42.1088284
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "way/299387333",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-08-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.5502199,
+42.1087169
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "way/299387353",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-08-21"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.5498627,
+42.1099872
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "way/299448530",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-08-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.5499488,
+42.1099988
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "way/299448537",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-08-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.5499549,
+42.1100467
+]
+},
+"properties": {
+"amenity": "drinking_water",
+"osm_id": "way/299448538",
+"kind": "drinking water",
+"last_confirmed": "",
+"last_edited": "2014-08-22"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1495695,
+42.3066238
+]
+},
+"properties": {
+"name": "Fontaine publique Sainte-Croix",
+"amenity": "fountain",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"ele": "450",
+"osm_id": "way/665966299",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2025-03-09"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.150021,
+42.3056617
+]
+},
+"properties": {
+"name": "Fontaine des quatre canons",
+"amenity": "fountain",
+"man_made": "drinking_fountain",
+"drinking_water": "yes",
+"osm_id": "way/665966301",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2026-09-06"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.1497944,
+42.3110377
+]
+},
+"properties": {
+"name": "Fontaine de Panate",
+"amenity": "fountain",
+"man_made": "water_tap",
+"drinking_water": "yes",
+"ele": "440",
+"osm_id": "way/666347488",
+"kind": "tap",
+"last_confirmed": "",
+"last_edited": "2023-02-23"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+8.63177,
+42.3239307
+]
+},
+"properties": {
+"amenity": "fountain",
+"drinking_water": "yes",
+"osm_id": "way/666374853",
+"kind": "fountain",
+"last_confirmed": "",
+"last_edited": "2019-01-26"
+}
+},
+{
+"type": "Feature",
+"geometry": {
+"type": "Point",
+"coordinates": [
+9.0013612,
+41.6965115
+]
+},
+"properties": {
+"natural": "spring",
+"drinking_water": "yes",
+"osm_id": "way/713717609",
+"kind": "spring",
+"last_confirmed": "",
+"last_edited": "2019-08-14"
+}
+}
+]
+}
