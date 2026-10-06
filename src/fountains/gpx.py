@@ -60,42 +60,52 @@ def trim_track(track: Track, start_m: float, end_m: float) -> Track:
     )
 
 
-def write_track(track: Track, path: str | Path) -> None:
-    """Write a bare track: no time, no author, no device metadata (elevation kept)."""
+def _trk(track: Track) -> str:
     eles = track.ele or [None] * len(track.points)
     pts = "\n".join(
         f'      <trkpt lat="{lat:.6f}" lon="{lon:.6f}">' + (f"<ele>{e:.1f}</ele>" if e is not None else "") + "</trkpt>"
         for (lat, lon), e in zip(track.points, eles)
     )
-    Path(path).write_text(
-        '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<gpx version="1.1" creator="fountains" xmlns="http://www.topografix.com/GPX/1/1">\n'
-        f"  <trk>\n    <name>{escape(track.name)}</name>\n    <trkseg>\n{pts}\n    </trkseg>\n  </trk>\n</gpx>\n",
-        encoding="utf-8",
+    return f"  <trk>\n    <name>{escape(track.name)}</name>\n    <trkseg>\n{pts}\n    </trkseg>\n  </trk>\n"
+
+
+def _wpt(w: dict) -> str:
+    kind = f"    <type>{escape(w['type'])}</type>\n" if w.get("type") else ""
+    return (
+        f'  <wpt lat="{w["lat"]:.6f}" lon="{w["lon"]:.6f}">\n'
+        f"    <name>{escape(w['name'])}</name>\n"
+        f"    <desc>{escape(w.get('desc', ''))}</desc>\n"
+        f"    <sym>{escape(w.get('sym', 'Drinking Water'))}</sym>\n"
+        + kind
+        + "  </wpt>\n"
     )
 
 
+def _gpx(body: str, metadata_desc: str = "") -> str:
+    meta = f"  <metadata><desc>{escape(metadata_desc)}</desc></metadata>\n" if metadata_desc else ""
+    return (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<gpx version="1.1" creator="fountains" xmlns="http://www.topografix.com/GPX/1/1">\n'
+        + meta
+        + body
+        + "</gpx>\n"
+    )
+
+
+def write_track(track: Track, path: str | Path) -> None:
+    """Write a bare track: no time, no author, no device metadata (elevation kept)."""
+    Path(path).write_text(_gpx(_trk(track)), encoding="utf-8")
+
+
 def write_waypoints(waypoints: list[dict], path: str | Path, metadata_desc: str = "") -> None:
-    """Write GPX waypoints (`lat`, `lon`, `name`, `desc`) for a bike computer.
+    """Write GPX waypoints (`lat`, `lon`, `name`, `desc`, optional `sym` and `type`) for a bike computer.
 
     Names stay short because most head units truncate them; the full reason goes
     in `desc`.
     """
-    items = []
-    for w in waypoints:
-        items.append(
-            f'  <wpt lat="{w["lat"]:.6f}" lon="{w["lon"]:.6f}">\n'
-            f"    <name>{escape(w['name'])}</name>\n"
-            f"    <desc>{escape(w.get('desc', ''))}</desc>\n"
-            "    <sym>Drinking Water</sym>\n"
-            "  </wpt>"
-        )
-    meta = f"  <metadata><desc>{escape(metadata_desc)}</desc></metadata>\n" if metadata_desc else ""
-    Path(path).write_text(
-        '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<gpx version="1.1" creator="fountains" xmlns="http://www.topografix.com/GPX/1/1">\n'
-        + meta
-        + "\n".join(items)
-        + "\n</gpx>\n",
-        encoding="utf-8",
-    )
+    Path(path).write_text(_gpx("".join(_wpt(w) for w in waypoints), metadata_desc), encoding="utf-8")
+
+
+def course_gpx(track: Track, waypoints: list[dict], metadata_desc: str = "") -> str:
+    """One file for a bike computer: the waypoints, then the track they belong to."""
+    return _gpx("".join(_wpt(w) for w in waypoints) + _trk(track), metadata_desc)
