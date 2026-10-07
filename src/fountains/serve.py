@@ -29,6 +29,7 @@ import math
 import re
 import shutil
 import threading
+import time
 import traceback
 from dataclasses import asdict
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -108,9 +109,13 @@ class Ride:
         self.folder = folder
         self.lock = threading.RLock()
         self.cancelled = False
+        self.deleted = False
         self.track: Track = read_gpx(folder / "track.gpx")
         self.line = Polyline(self.track.points)
         self.state = json.loads((folder / "state.json").read_text(encoding="utf-8"))
+        for p in self.state["points"]:  # rides made before the wide aerial view existed
+            if "aerial_wide" not in p:
+                p["aerial_wide"] = aerial_url(p["lat"], p["lon"], width_m=150, px=(952, 400))
 
     @property
     def crops(self) -> Path:
@@ -118,6 +123,8 @@ class Ride:
 
     def save(self) -> None:
         with self.lock:
+            if self.deleted:
+                return
             self.state["version"] += 1
             tmp = self.folder / "state.json.tmp"
             tmp.write_text(json.dumps(self.state, ensure_ascii=False), encoding="utf-8")
@@ -128,6 +135,15 @@ class Ride:
         if p is None:
             raise KeyError(pid)
         return p
+
+    def stage(self, job: str, stage: str, done: int | None = None, total: int | None = None) -> None:
+        """Where a job stands, for the waiting screen: the stage, when it began, and how far it is."""
+        with self.lock:
+            j = self.state["jobs"].setdefault(job, {})
+            if j.get("stage") != stage:
+                j["stage"], j["stage_started"] = stage, time.time()
+            j["count"] = [done, total] if total is not None else None
+            self.save()
 
     def log(self, job: str, msg: str) -> None:
         with self.lock:
@@ -205,6 +221,7 @@ def _views(p: dict) -> None:
     p.setdefault("chosen", 0)
     p["plan"] = plan_url(p["lat"], p["lon"], width_m=300, px=(480, 270))
     p["aerial"] = aerial_url(p["lat"], p["lon"], width_m=120, px=(480, 270))
+    p["aerial_wide"] = aerial_url(p["lat"], p["lon"], width_m=150, px=(952, 400))  # the shape of a street view
 
 
 class App:
@@ -248,15 +265,17 @@ class App:
         if self.busy(kind, ride):
             raise RuntimeError(f"already running: {kind}")
         target = {"look": self._look, "score": self._score}[kind]
+        with ride.lock:  # before the answer to the page, so that it shows the waiting screen at once
+            ride.state["jobs"][kind] = {"running": True, "started": dt.datetime.now().isoformat(timespec="seconds"), "log": [],
+                                        "stage": "start", "stage_started": time.time(), "count": None}
+            ride.save()
 
         def run():
-            with ride.lock:
-                ride.state["jobs"][kind] = {"running": True, "started": dt.datetime.now().isoformat(timespec="seconds"), "log": []}
-                ride.save()
             try:
                 target(ride, **kw)
                 with ride.lock:
-                    ride.state["jobs"][kind].update(running=False, finished=dt.datetime.now().isoformat(timespec="seconds"), error="")
+                    ride.state["jobs"][kind].update(running=False, finished=dt.datetime.now().isoformat(timespec="seconds"), error="",
+                                                    stage="done", count=None)
             except BaseException as e:  # noqa: BLE001 - shown on the page, the server keeps running
                 traceback.print_exc()
                 with ride.lock:
@@ -273,12 +292,14 @@ class App:
 
         log = lambda m: ride.log("look", m)  # noqa: E731
         corridor = None
+        ride.stage("look", "roads")
         log("Fetching the paved roads and streams around the ride from OpenStreetMap (only its bounding box is sent)...")
         try:
             corridor = d.Corridor(ride.line, pad_m=max(400.0, self.max_detour_m + 150))
         except Exception as e:  # noqa: BLE001
             log(f"OpenStreetMap roads unavailable ({e}): no clues this time; photos are still searched.")
         if corridor is not None and not ride.state.get("clues_done"):
+            ride.stage("look", "clues")
             log("Looking for clues of unmapped fountains: IGN springs, wash houses and water points, stream crossings...")
             with ride.lock:
                 known = [p for p in ride.state["points"] if p["origin"] == "map"]
@@ -319,6 +340,7 @@ class App:
         for n, p in enumerate(todo, 1):
             if ride.cancelled:
                 return
+            ride.stage("look", "photos", n - 1, len(todo))
             log(f"Street photos {n}/{len(todo)}: km {p['km']:.1f} {point_label(p)}")
             with ride.lock:
                 p["photo_state"] = "looking"
@@ -337,9 +359,16 @@ class App:
             with ride.lock:
                 todo = sorted((p for p in ride.state["points"] if p.get("photos") and not p.get("ranked")),
                               key=lambda p: (p["origin"] != "map", "stream crossing" in p["kind"], p["km"]))
+            if todo:
+                ride.stage("look", "model")
+                log("Loading the vision model (OWLv2; the first time, it downloads 0.6 GB)...")
+                from . import discover as d2
+
+                d2.owl_models()
             for n, p in enumerate(todo, 1):
                 if ride.cancelled:
                     return
+                ride.stage("look", "vision", n - 1, len(todo))
                 log(f"Vision model (OWLv2) {n}/{len(todo)}: km {p['km']:.1f} {point_label(p)}, {len(p['photos'])} views")
                 self._rank(ride, p)
                 ride.save()
@@ -360,7 +389,12 @@ class App:
 
         center = (p["road_lat"], p["road_lon"]) if p.get("road_lat") is not None else (p["lat"], p["lon"])
         target = (p["lat"], p["lon"]) if p["origin"] == "map" or (p.get("road_m") or 0) > 15 else None
-        crops = d.look_around(p["id"], *center, corridor, ride.crops, target=target, max_pictures=self.max_pictures)
+        # OpenStreetMap positions are good: the closest pictures do. IGN points can be 50 to 70 m off and a clue
+        # only says roughly where, so the pictures are spread along the road (Funtana di Leccia: the picture 7 m
+        # from the fountain was the fifth closest to IGN's point).
+        accurate = p["origin"] == "map" and p["source"] != "IGN"
+        pics, spacing = (self.max_pictures, 15.0) if accurate else (max(self.max_pictures, 6), 20.0)
+        crops = d.look_around(p["id"], *center, corridor, ride.crops, target=target, max_pictures=pics, spacing_m=spacing)
         crops.sort(key=lambda c: c.aim != "toward the point")  # stable: pictures stay closest first
         out = []
         for c in crops:
@@ -403,9 +437,17 @@ class App:
                 pts.append(dict(p.get("tags", {}), ref=p["id"], source=src, name=p.get("name", ""), lat=lat, lon=lon,
                                 kind="fountain" if p["origin"] != "map" else p["kind"]))
         ride.log("score", f"Scoring {len(pts)} fountains for {day:%d/%m/%Y} (rain gauges, forecast, then TabPFN)...")
+
+        def log(m: str) -> None:
+            for key, stage in (("Fetching the roads", "roads"), ("Reading the rain", "rain"), ("with TabPFN", "model")):
+                if key in m:
+                    ride.stage("score", stage)
+            ride.log("score", m)
+
+        ride.stage("score", "roads")
         scored, gaps, meta = score_track(ride.track, day, max_detour_m=self.max_detour_m, start=start, flat_kmh=flat_kmh,
                                          climb_mh=climb_mh, gap_km=gap_km, photos=False, points=pts,
-                                         data_dir=self.data_dir, log=lambda m: ride.log("score", m))
+                                         data_dir=self.data_dir, log=log)
         by_id = {p["id"]: p for p in chosen}
         fountains = []
         for f in scored:
@@ -496,6 +538,25 @@ class App:
                         "updated": dt.datetime.fromtimestamp(f.stat().st_mtime).isoformat(timespec="minutes"),
                         "current": self.ride is not None and self.ride.state["id"] == st["id"]})
         return sorted(out, key=lambda r: r["updated"], reverse=True)
+
+    def delete_ride(self, rid: str) -> None:
+        """Delete a ride with its photos and decisions, to start again from scratch."""
+        if not RIDE_ID.match(rid or "") or not (self.rides_dir / rid).is_dir():
+            raise ValueError("no such ride")
+        threads = [t for (r, _), t in self.threads.items() if r == rid and t.is_alive()]
+        if self.ride is not None and self.ride.state["id"] == rid:
+            self.ride.cancelled = self.ride.deleted = True
+            self.ride = None
+            (self.work_dir / "current").unlink(missing_ok=True)
+        shutil.rmtree(self.rides_dir / rid, ignore_errors=True)
+
+        def sweep():  # a photo being cut when the ride was deleted may land after the first sweep
+            for t in threads:
+                t.join(timeout=600)
+            shutil.rmtree(self.rides_dir / rid, ignore_errors=True)
+
+        if threads:
+            threading.Thread(target=sweep, daemon=True).start()
 
     def open_ride(self, rid: str) -> None:
         if not RIDE_ID.match(rid or "") or not (self.rides_dir / rid / "state.json").exists():
@@ -715,6 +776,8 @@ class Handler(BaseHTTPRequestHandler):
                 self.app.remove(body["id"])
             elif path == "/api/open":
                 self.app.open_ride(body["id"])
+            elif path == "/api/delete":
+                self.app.delete_ride(body["id"])
             elif path == "/api/add":
                 self.app.add(float(body["lat"]), float(body["lon"]), body.get("name") or "")
             elif path == "/api/score":

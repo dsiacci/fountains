@@ -266,3 +266,17 @@ def test_the_360_picture_is_looked_up_once_by_its_id(app, monkeypatch):
     assert app.pano(pic) == got and len(calls) == 1
     with pytest.raises(ValueError):
         app.pano("../../secret")
+
+
+def test_a_ride_can_be_deleted_with_everything_it_holds(app, tmp_path):
+    app.upload(track_bytes(tmp_path), "ride.gpx")
+    rid = app.ride.state["id"]
+    (app.ride.crops).mkdir(parents=True, exist_ok=True)
+    (app.ride.crops / "M01_x_045.jpg").write_bytes(b"jpeg")
+    app.delete_ride(rid)
+    assert app.ride is None and not (app.rides_dir / rid).exists()
+    assert app.rides() == [] and app.public_state()["ride"] is None
+    app.upload(track_bytes(tmp_path), "ride.gpx")  # the same file starts again from scratch
+    assert app.ride.state["id"] == rid and all(p["prefilled"] for p in app.ride.state["points"])
+    with pytest.raises(ValueError):
+        app.delete_ride("../work")

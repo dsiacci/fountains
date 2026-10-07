@@ -229,6 +229,7 @@ def score_track(
             detours[f["ref"] if "ref" in f else f["osm_id"]] = detour_m(g, dist, f["lat"], f["lon"])
 
     # 2. Rain: Météo-France gauges up to the last report, then the forecast.
+    log("Reading the rain: Météo-France gauges, then the forecast at each point...")
     which = ("latest",) if day - dt.timedelta(days=200) >= dt.date(2025, 1, 1) else ("previous", "latest")
     gauges = meteo.read_gauges(meteo.download_gauge_files(which), start=day - dt.timedelta(days=400))
     ctx = RainContext.load(gauges, data_dir / "gauge-normals-1991-2020.json")

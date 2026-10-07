@@ -31,6 +31,7 @@ button, input { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 [hidden] { display: none !important; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .app { height: 100vh; height: 100dvh; display: grid; grid-template-rows: 60px minmax(0, 1fr) auto; grid-template-columns: minmax(0, 1fr); }
 
 /* header and steps */
@@ -83,6 +84,9 @@ footer.warn { display: flex; align-items: center; justify-content: center; gap: 
 .recent button { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); text-align: left; }
 .recent button[aria-current="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
 .recent .t { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.recent .item { display: flex; gap: 8px; align-items: stretch; }
+.recent .item > button:first-child { flex: 1; }
+.recent .del { flex: 0 0 auto; padding: 0 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); color: var(--unlikely); font-size: 13px; font-weight: 700; }
 
 /* 2. check */
 #screen-check { min-height: 0; }
@@ -127,6 +131,11 @@ footer.warn { display: flex; align-items: center; justify-content: center; gap: 
 .vbtn.look { right: 10px; top: 10px; min-height: 32px; padding: 0 11px; border-radius: 999px; }
 .vbtn.prev, .vbtn.next { top: 50%; width: 36px; height: 36px; margin-top: -18px; border-radius: 50%; }
 .vbtn.prev { left: 8px; } .vbtn.next { right: 8px; }
+.modes { position: absolute; left: 10px; top: 10px; display: flex; gap: 2px; padding: 3px; border-radius: 999px; background: rgba(21, 32, 27, .78); z-index: 2; }
+.modes button { min-height: 26px; padding: 0 10px; border: 0; border-radius: 999px; background: transparent; color: #fff; font-size: 12px; font-weight: 700; }
+.modes button[aria-pressed="true"] { background: #fff; color: #15201B; }
+.viewer img.aerial { display: block; width: 100%; height: 100%; object-fit: cover; }
+.viewer .ring { position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px; border: 3px solid var(--box); border-radius: 50%; box-shadow: 0 0 0 1px rgba(0, 0, 0, .5); pointer-events: none; }
 .vcount { position: absolute; left: 10px; bottom: 10px; padding: 3px 8px; border-radius: 999px; background: rgba(21, 32, 27, .78); color: #fff; font-size: 12px; font-weight: 600; pointer-events: none; }
 .pano { position: absolute; inset: 0; background-color: #1B1F1D; background-repeat: repeat-x; cursor: grab; touch-action: none; overflow: hidden; }
 .pano.drag { cursor: grabbing; }
@@ -157,6 +166,27 @@ footer.warn { display: flex; align-items: center; justify-content: center; gap: 
 .nextlink { font-size: 13px; font-weight: 750; text-decoration: none; background: none; border: 0; color: var(--accent); padding: 4px 0; }
 .keys { font-size: 12px; color: var(--muted); }
 .keys kbd { font: inherit; font-size: 11px; font-weight: 700; padding: 0 5px; border: 1px solid var(--chip); border-radius: 4px; }
+
+/* waiting */
+.wait { position: absolute; inset: 0; z-index: 800; background: var(--bg); display: flex; align-items: center; justify-content: center; padding: 24px; overflow: auto; }
+.waitcard { width: 100%; max-width: 580px; display: flex; flex-direction: column; gap: 18px; }
+.waitcard h1 { margin: 0; font-size: 28px; letter-spacing: -.02em; }
+.stages { list-style: none; margin: 0; display: flex; flex-direction: column; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 8px; }
+.stages li { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; column-gap: 12px; row-gap: 8px; padding: 12px; border-radius: 10px; }
+.stages li.run { background: var(--accent-soft); }
+.stages .ic { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-sizing: border-box; }
+.stages li.done .ic { background: var(--accent); color: var(--accent-ink); }
+.stages li.run .ic { border: 2.5px solid var(--accent); border-top-color: transparent; animation: spin 1s linear infinite; }
+.stages li.todo .ic { border: 2px solid var(--chip); }
+.stages li.todo .what { color: var(--muted); }
+.stages .what { font-weight: 750; }
+.stages .what small { display: block; font-weight: 500; color: var(--muted); font-size: 13px; }
+.stages .n { font-size: 13px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.stages .bar { grid-column: 2 / 4; height: 6px; border-radius: 3px; background: var(--chip); overflow: hidden; }
+.stages .bar span { display: block; height: 100%; background: var(--accent); transition: width .6s; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .stages li.run .ic { animation: none; border-top-color: var(--accent); } }
+.jobchip button { margin-left: 8px; border: 0; background: none; color: var(--accent); font-weight: 750; padding: 0; }
 
 /* 3. score */
 #screen-score { overflow: auto; flex-direction: column; gap: 16px; padding: 18px 24px; }
@@ -292,6 +322,7 @@ details.more summary { cursor: pointer; font-size: 13px; font-weight: 650; color
         </div>
       </div>
       <aside class="panel" id="panel"></aside>
+      <div class="wait" id="wait" hidden></div>
     </section>
 
     <section class="screen" id="screen-score" aria-label="Score the fountains you kept"></section>
@@ -312,7 +343,8 @@ const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v
 const STEPS = [["ride", "Ride"], ["check", "Check"], ["score", "Score"], ["gpx", "GPX"]];
 
 let S = null, version = null, timer = null;
-const ui = { screen: "ride", sel: null, view: {}, look: false, drawer: false, filter: "all", expanded: null, openOnly: false, layer: "plan", lastCentered: null };
+const FAINT = 0.2;  // a place found from clues whose best view stays below this is left out of the check
+const ui = { screen: "ride", sel: null, view: {}, mode: {}, look: false, showFaint: false, drawer: false, filter: "all", expanded: null, openOnly: false, layer: "plan", lastCentered: null, skipWait: {} };
 try { ui.openOnly = localStorage.getItem("fountains.openOnly") === "1"; } catch (e) { /* private window */ }
 
 // ---- tiny DOM helpers: every child list is flattened and empty values dropped ----
@@ -409,7 +441,13 @@ function route() {
 window.addEventListener("hashchange", route);
 
 // ---- points ---------------------------------------------------------------------
-const points = () => (S && S.ride ? [...S.ride.points].sort((a, b) => a.km - b.km) : []);
+const allPoints = () => (S && S.ride ? [...S.ride.points].sort((a, b) => a.km - b.km) : []);
+function faint(p) {
+  if (p.origin !== "clue" || p.verdict) return false;  // the maps' points, and anything decided, always show
+  const ph = p.photos || [];
+  return p.photo_state === "none" || (p.ranked && ph.length > 0 && Math.max(...ph.map((x) => x.owl)) < FAINT);
+}
+const points = () => allPoints().filter((p) => ui.showFaint || !faint(p) || p.id === ui.sel);
 const checked = (p) => !!p.verdict && !p.prefilled;
 const status = (p) => (p.verdict === "fountain" ? "fountain" : p.verdict === "not" ? "not" : p.verdict === "unsure" ? "unsure" : "todo");
 function title(p) { return p.name || (p.origin === "clue" ? "Maybe a fountain" : cap(p.kind)); }
@@ -485,10 +523,16 @@ async function renderRide() {
   let rides = [];
   try { rides = (await api("/api/rides")).rides; } catch (e) { /* none */ }
   $("#recentbox").hidden = !rides.length;
-  put($("#recent"), rides.map((r) => h("button", { type: "button", "aria-current": r.current ? "true" : null,
-    onclick: async () => { if (await act("/api/open", { id: r.id })) go("check"); } },
-    h("span", { class: "t" }, h("strong", {}, r.name), h("span", { class: "small muted" }, r.length_km + " km" + (r.climb_m ? " · " + r.climb_m + " m up" : "") + " · " + r.decided + " of " + r.points + " points checked")),
-    svg(ICON.right, 18))));
+  put($("#recent"), rides.map((r) => h("div", { class: "item" },
+    h("button", { type: "button", "aria-current": r.current ? "true" : null,
+      onclick: async () => { if (await act("/api/open", { id: r.id })) go("check"); } },
+      h("span", { class: "t" }, h("strong", {}, r.name), h("span", { class: "small muted" }, r.length_km + " km" + (r.climb_m ? " · " + r.climb_m + " m up" : "") + " · " + r.decided + " of " + r.points + " points checked")),
+      svg(ICON.right, 18)),
+    h("button", { type: "button", class: "del", "aria-label": "Delete " + r.name,
+      onclick: async () => {
+        if (!confirm("Delete “" + r.name + "”, its photos and your decisions? Drop the GPX again to start from scratch.")) return;
+        if (await act("/api/delete", { id: r.id })) renderRide();
+      } }, "Delete"))));
 }
 
 // ---- 2. check: the map -------------------------------------------------------------------
@@ -531,6 +575,7 @@ function renderMap(p) {
   }
   const ids = new Set();
   for (const q of r.points) {
+    if (faint(q) && !ui.showFaint && !(p && q.id === p.id)) continue;
     ids.add(q.id);
     const style = markerStyle(q, p && q.id === p.id);
     if (!markers[q.id]) {
@@ -578,13 +623,17 @@ const FILTERS = [["all", "All"], ["todo", "To check"], ["fountain", "Fountains"]
 $("#listbtn").addEventListener("click", () => { ui.drawer = !ui.drawer; renderDrawer(current()); });
 function renderDrawer(p) {
   const list = points();
-  $("#listlabel").textContent = "All " + list.length + " points";
+  $("#listlabel").textContent = list.length + " points" + (allPoints().length > list.length ? " (" + (allPoints().length - list.length) + " faint hidden)" : "");
   $("#listbtn").setAttribute("aria-expanded", String(ui.drawer));
   $("#drawer").hidden = !ui.drawer;
   if (!ui.drawer) return;
   const keep = (q, k) => k === "all" || (k === "todo" ? !checked(q) : status(q) === k);
   put($("#filters"), FILTERS.map(([k, label]) => h("button", { type: "button", "aria-pressed": String(ui.filter === k),
     onclick: () => { ui.filter = k; renderDrawer(p); } }, label + " " + list.filter((q) => keep(q, k)).length)));
+  const hidden = allPoints().filter(faint).length;
+  $("#filters").append(h("button", { type: "button", class: "sw", role: "switch", "aria-checked": String(ui.showFaint), style: "flex-basis:100%;justify-content:flex-start",
+    onclick: () => { ui.showFaint = !ui.showFaint; render(); } }, h("span", { class: "track" }),
+    "Show the " + hidden + " places from clues where the model saw nothing above " + FAINT));
   put($("#plist"), list.filter((q) => keep(q, ui.filter)).map((q) => h("li", {}, h("button", { type: "button", "aria-current": p && q.id === p.id ? "true" : null,
     onclick: () => { ui.drawer = false; go("check", q.id); } },
     h("span", { class: "km" }, q.km.toFixed(1)), h("span", { class: "nm" }, title(q)),
@@ -599,6 +648,13 @@ function viewIndex(p) {
   const i = ui.view[p.id] ?? p.chosen ?? 0;
   return Math.min(Math.max(0, i), n - 1);
 }
+function viewMode(p) {
+  if (ui.mode[p.id]) return ui.mode[p.id];
+  if (!(p.photos || []).length) return "aerial";
+  // OpenStreetMap places a point where it is: away from the road, a photo taken from the road rarely shows it.
+  // IGN points can be tens of metres off, so their street views are kept first.
+  return p.origin === "map" && p.source !== "IGN" && (p.road_m || 0) > 25 ? "aerial" : "photos";
+}
 function shownPhoto(p) { const ph = p.photos || []; return ph.length ? ph[viewIndex(p)] : null; }
 function setView(p, i) {
   const n = (p.photos || []).length;
@@ -606,7 +662,57 @@ function setView(p, i) {
   ui.view[p.id] = (i + n) % n;
   renderCheck(true);
 }
+function waiting() {
+  const j = S.ride && S.ride.jobs.look;
+  return !!(j && j.running && !ui.skipWait[S.ride.id]);
+}
+function minutesLeft(j) {
+  if (!j.count || !j.count[1] || !j.count[0] || !j.stage_started) return "";
+  const [d, t] = j.count, spent = Date.now() / 1000 - j.stage_started, left = spent / d * (t - d);
+  return left < 60 ? "less than a minute left" : "about " + Math.ceil(left / 60) + " min left";
+}
+function stageRows(stages) {
+  return stages.map((st) => {
+    const c = st.count, pct = c && c[1] ? Math.round(100 * c[0] / c[1]) : null;
+    return h("li", { class: st.state },
+      h("span", { class: "ic", "aria-hidden": "true" }, st.state === "done" ? svg(ICON.check, 14) : null),
+      h("span", { class: "what" }, st.title, h("small", {}, st.note)),
+      h("span", { class: "n" }, st.state === "run" && c ? c[0] + " / " + c[1] + (st.eta ? " · " + st.eta : "") : st.n || (st.state === "done" ? "done" : "")),
+      st.state === "run" && pct !== null ? h("span", { class: "bar", role: "progressbar", "aria-valuenow": String(pct), "aria-valuemin": "0", "aria-valuemax": "100" },
+        h("span", { style: "width:" + pct + "%" })) : null,
+      h("span", { class: "visually-hidden" }, st.state === "done" ? " (done)" : st.state === "run" ? " (in progress)" : " (to come)"));
+  });
+}
+function lookStages(r) {
+  const j = r.jobs.look || {}, order = ["start", "roads", "clues", "photos", "model", "vision", "done"];
+  const at = order.indexOf(j.stage || "start");
+  const state = (k) => (j.stage === "done" || at > order.indexOf(k) ? "done" : at === order.indexOf(k) ? "run" : "todo");
+  const n = (o) => r.points.filter((p) => p.origin === o).length;
+  return [
+    { title: "Water points on the maps", note: "OpenStreetMap and IGN, within 250 m of your track", state: "done", n: n("map") + " found" },
+    { title: "Roads and streams around the ride", note: "from OpenStreetMap; only the box around the ride is sent", state: at <= 1 ? "run" : "done" },
+    { title: "Clues of fountains no map has", note: "IGN springs and wash houses, streams under the road", state: state("clues"), n: r.clues_done ? n("clue") + " places" : "" },
+    { title: "Street photos around each point", note: "Panoramax 360° pictures, cut into views", state: state("photos"),
+      count: j.stage === "photos" ? j.count : null, eta: j.stage === "photos" ? minutesLeft(j) : "" },
+    { title: "The vision model ranks the views", note: j.stage === "model" ? "loading the model; the first time, it downloads 0.6 GB" : "OWLv2, on this computer",
+      state: j.stage === "model" ? "run" : state("vision"), count: j.stage === "vision" ? j.count : null, eta: j.stage === "vision" ? minutesLeft(j) : "" },
+  ];
+}
+function renderWait() {
+  const r = S.ride, ready = r.points.filter((p) => !faint(p) && (p.ranked || p.photo_state === "none")).length;
+  put($("#wait"), h("div", { class: "waitcard", role: "status", "aria-live": "polite" },
+    h("h1", {}, "Preparing your ride"),
+    h("p", { class: "muted", style: "margin:-8px 0 0" }, r.name + " · " + r.length_km + " km" + (r.climb_m ? " · " + r.climb_m + " m up" : "")),
+    h("ol", { class: "stages" }, stageRows(lookStages(r))),
+    h("div", { class: "row" },
+      h("button", { type: "button", class: "btn primary", onclick: () => { ui.skipWait[r.id] = true; renderCheck(true); } },
+        ready ? "Start checking: " + ready + " point" + (ready === 1 ? " is" : "s are") + " ready" : "Start checking now"),
+      h("span", { class: "small muted", style: "flex:1;min-width:220px" }, "Everything runs on this computer. You can check the points while the rest is prepared."))));
+}
 function renderCheck(rebuild) {
+  const wait = $("#wait");
+  if (waiting()) { wait.hidden = false; renderWait(); return; }
+  wait.hidden = true;
   const p = current();
   if (p && ui.sel !== p.id) ui.sel = p.id;
   renderMap(p);
@@ -614,7 +720,7 @@ function renderCheck(rebuild) {
   renderJob();
   const panel = $("#panel");
   if (!p) { put(panel, h("p", { class: "muted" }, "No water point near this ride yet. Click the map to add a fountain you know.")); return; }
-  const sig = JSON.stringify([p.id, p.verdict, p.prefilled, p.sure, p.chosen, p.photo_state, (p.photos || []).length, p.ranked, viewIndex(p), ui.look]);
+  const sig = JSON.stringify([p.id, p.verdict, p.prefilled, p.sure, p.chosen, p.photo_state, (p.photos || []).length, p.ranked, viewIndex(p), ui.look, viewMode(p)]);
   if (!rebuild && panel.dataset.sig === sig) return;  // nothing visible changed: keep the panorama and the scroll position
   panel.dataset.sig = sig;
   const list = points(), idx = list.indexOf(p), next = nextToCheck(p);
@@ -631,15 +737,29 @@ function renderCheck(rebuild) {
     p.origin === "you" ? h("button", { type: "button", class: "btn", style: "align-self:flex-start", onclick: () => act("/api/remove", { id: p.id }) }, "Remove this fountain") : null,
     verdictBlock(p),
     h("div", { class: "row", style: "justify-content:space-between" },
-      h("span", { class: "keys" }, h("kbd", {}, "F"), " ", h("kbd", {}, "N"), " ", h("kbd", {}, "U"), " decide · ", h("kbd", {}, "←"), " ", h("kbd", {}, "→"), " views · ", h("kbd", {}, "L"), " 360° · ", h("kbd", {}, "J"), " next"),
+      h("span", { class: "keys" }, h("kbd", {}, "F"), " ", h("kbd", {}, "N"), " ", h("kbd", {}, "U"), " decide · ", h("kbd", {}, "←"), " ", h("kbd", {}, "→"), " views · ", h("kbd", {}, "A"), " aerial · ", h("kbd", {}, "L"), " 360° · ", h("kbd", {}, "J"), " next"),
       next ? h("button", { type: "button", class: "nextlink", onclick: () => go("check", next.id) }, "Next to check: km " + next.km.toFixed(1) + " →")
         : h("a", { class: "nextlink", href: "#score" }, "Everything checked: score →")),
   ]);
   if (ui.look && shownPhoto(p)) openPano(p);
 }
+function modeTabs(p) {
+  const ph = p.photos || [], mode = viewMode(p);
+  if (!ph.length) return null;
+  const tab = (m, label) => h("button", { type: "button", "aria-pressed": String(mode === m), onclick: () => { ui.mode[p.id] = m; ui.look = false; renderCheck(true); } }, label);
+  return h("div", { class: "modes", role: "group", "aria-label": "What to show" }, tab("photos", "Street"), tab("aerial", "Aerial"));
+}
 function viewerBlock(p) {
   const ph = p.photos || [], c = shownPhoto(p);
   const box = h("div", { class: "viewer" });
+  if (viewMode(p) === "aerial" && !ui.look) {
+    const img = h("img", { class: "aerial", src: p.aerial_wide || p.aerial, alt: "Aerial view around the point (IGN)" });
+    img.addEventListener("error", () => { img.replaceWith(h("div", { class: "empty" }, "The aerial view did not load. Try the map: Aerial.")); });
+    box.append(img, h("span", { class: "ring", "aria-hidden": "true" }), modeTabs(p),
+      h("span", { class: "vcount" }, "Aerial (IGN) · 150 m across" + (ph.length ? "" : p.photo_state === "none" ? " · no street photo within 100 m" : "")));
+    if (!ph.length && ["waiting", "looking"].includes(p.photo_state)) box.append(h("span", { class: "vbtn look", style: "pointer-events:none" }, "photos on their way"));
+    return box;
+  }
   if (ui.look && c) { box.append(h("div", { class: "pano", id: "pano" }, h("div", { class: "msg" }, "Loading the 360° photo…"))); return box; }
   if (!c) {
     const msg = { waiting: "Street photos: waiting for their turn.", looking: "Looking for street photos around this point…",
@@ -662,10 +782,11 @@ function viewerBlock(p) {
         (strong ? (c.label || "fountain") + "? " : "weak · ") + c.owl.toFixed(2)));
   }
   box.append(
+    modeTabs(p),
     h("button", { type: "button", class: "vbtn look", onclick: () => { ui.look = true; renderCheck(true); } }, svg(ICON.eye, 14), "360°"),
     ph.length > 1 ? h("button", { type: "button", class: "vbtn prev", "aria-label": "Previous view (←)", onclick: () => setView(p, i - 1) }, svg(ICON.left)) : null,
     ph.length > 1 ? h("button", { type: "button", class: "vbtn next", "aria-label": "Next view (→)", onclick: () => setView(p, i + 1) }, svg(ICON.right)) : null,
-    h("span", { class: "vcount" }, "View " + (i + 1) + " of " + ph.length + (c.date ? " · " + fmtDate(c.date) : "")));
+    h("span", { class: "vcount" }, "View " + (i + 1) + " of " + ph.length + (c.date ? " · " + fmtDate(c.date) : "") + (p.ranked ? "" : " · not ranked yet")));
   return box;
 }
 function photoTools(p) {
@@ -674,13 +795,13 @@ function photoTools(p) {
   const i = viewIndex(p), c = ph[i], isMine = (k) => (p.chosen ?? 0) === k && p.verdict === "fountain" && !p.prefilled;
   return h("div", { style: "display:flex;flex-direction:column;gap:12px;min-width:0" },
     h("div", { class: "strip", role: "group", "aria-label": "Views of this place, best first" },
-      ph.map((t, k) => h("button", { type: "button", "aria-pressed": String(k === i), "aria-label": "View " + (k + 1) + ", score " + t.owl.toFixed(2),
+      ph.map((t, k) => h("button", { type: "button", "aria-pressed": String(k === i), "aria-label": "View " + (k + 1) + (p.ranked ? ", score " + t.owl.toFixed(2) : ""),
         onclick: () => setView(p, k) },
         h("img", { src: "/crops/" + t.file, alt: "", loading: "lazy" }),
         isMine(k) ? h("span", { class: "star" }, svg(ICON.star, 10)) : null,
-        h("span", { class: "sc" + (t.owl >= S.seen ? " hi" : "") }, t.owl.toFixed(2))))),
+        p.ranked ? h("span", { class: "sc" + (t.owl >= S.seen ? " hi" : "") }, t.owl.toFixed(2)) : null))),
     h("p", { class: "hint" }, p.ranked ? "Each view has its own score: how sure the model is about the object in its box. It ranks the views of this place, nothing else."
-      : "These views are not ranked by the vision model yet."),
+      : "Not ranked yet: the vision model ranks the views once every point has its photos (see the progress at the top of the map)."),
     h("div", { class: "row" },
       h("button", { type: "button", class: "btn choose", "aria-pressed": String(isMine(i)), onclick: () => act("/api/decide", { id: p.id, photo: i, verdict: "fountain" }) },
         svg(ICON.star, 15), isMine(i) ? "Your photo of this fountain" : "This photo shows it"),
@@ -696,12 +817,24 @@ function verdictBlock(p) {
     p.prefilled ? h("p", { class: "hint", style: "margin:-6px 0 0" }, "From the map: counted as a fountain until you say otherwise.") : null,
   ];
 }
-function decide(p, v) { return act("/api/decide", { id: p.id, verdict: v }); }
+async function decide(p, v) {
+  const ok = await act("/api/decide", { id: p.id, verdict: v });
+  if (!ok || ui.screen !== "check") return;
+  const fresh = points().find((q) => q.id === p.id) || p, next = nextToCheck(fresh);
+  if (next) setTimeout(() => { if (ui.sel === p.id) go("check", next.id); }, 220);  // a glance at the choice, then the next point
+}
 function renderJob() {
   const el = $("#jobchip"), j = (S.ride && S.ride.jobs.look) || {};
-  if (j.running) { el.hidden = false; el.textContent = j.message || "Looking for photos…"; }
-  else if (j.error) { el.hidden = false; el.textContent = "Photos stopped: " + j.error; }
-  else el.hidden = true;
+  if (j.running) {
+    const what = { photos: "Street photos", model: "Loading the vision model", vision: "Ranking the views" }[j.stage] || "Preparing";
+    const left = minutesLeft(j);
+    put(el, [what + (j.count ? " " + j.count[0] + " / " + j.count[1] : "") + (left ? " · " + left : ""),
+      h("button", { type: "button", onclick: () => { ui.skipWait[S.ride.id] = false; renderCheck(true); } }, "Progress")]);
+    el.hidden = false;
+  } else if (j.error) {
+    put(el, ["Photos stopped: " + j.error, h("button", { type: "button", onclick: () => act("/api/look", {}) }, "Look again")]);
+    el.hidden = false;
+  } else el.hidden = true;
 }
 
 // ---- 2. check: the 360° panorama ------------------------------------------------------------------
@@ -803,7 +936,8 @@ document.addEventListener("keydown", (e) => {
   else if (k === "u" || k === "?") decide(p, "unsure");
   else if (k === "j" || k === "enter") { const n = nextToCheck(p) || list[(i + 1) % list.length]; go("check", n.id); }
   else if (k === "k") go("check", list[(i - 1 + list.length) % list.length].id);
-  else if (k === "l") { ui.look = !ui.look; renderCheck(true); }
+  else if (k === "l") { ui.mode[p.id] = "photos"; ui.look = !ui.look; renderCheck(true); }
+  else if (k === "a") { ui.mode[p.id] = viewMode(p) === "aerial" ? "photos" : "aerial"; ui.look = false; renderCheck(true); }
   else if (k === "arrowleft") { if (ui.look) turn(-15); else setView(p, viewIndex(p) - 1); }
   else if (k === "arrowright") { if (ui.look) turn(15); else setView(p, viewIndex(p) + 1); }
   else return;
@@ -827,6 +961,18 @@ function renderScore() {
     h("button", { type: "submit", class: "btn primary", disabled: !!j.running || !kept }, j.running ? "Scoring…" : (sc ? "Score again" : "Score " + kept + " fountain" + (kept === 1 ? "" : "s"))),
     h("span", { class: "small muted", style: "flex:1;min-width:220px" }, j.running ? (j.message || "") : j.error ? "Stopped: " + j.error
       : sc ? "Rain: Météo-France gauges to " + fmtDate(sc.meta.gauges_last_day) + (sc.meta.forecast_used ? ", then the forecast." : ".") : "The start time and pace give the time you pass each place."));
+  if (j.running) {
+    const order = ["start", "roads", "rain", "model", "done"], at = Math.max(1, order.indexOf(j.stage || "start"));
+    const st = (k) => (at > order.indexOf(k) ? "done" : at === order.indexOf(k) ? "run" : "todo");
+    put(scr, [form, h("div", { class: "waitcard", style: "align-self:center;margin-top:12px", role: "status", "aria-live": "polite" },
+      h("h1", { style: "font-size:24px" }, "Scoring " + kept + " fountain" + (kept === 1 ? "" : "s") + " for " + fmtDate(val("date", today))),
+      h("ol", { class: "stages" }, stageRows([
+        { title: "Paths to each fountain", note: "OpenStreetMap, around the fountains only", state: st("roads") },
+        { title: "Rain at each fountain", note: "Météo-France gauges, then the forecast", state: st("rain") },
+        { title: "TabPFN gives each fountain its band", note: "a minute or two on a laptop", state: st("model") },
+      ])))]);
+    return;
+  }
   if (!sc) { put(scr, [form, h("div", { class: "card", style: "padding:28px;text-align:center" }, h("p", { style: "margin:0" }, "Score the fountains you kept for the day of your ride."))]); return; }
   const m = sc.meta, L = m.length_km || 1, pc = (km) => Math.max(0, Math.min(100, 100 * km / L));
   const sure = new Set(r.points.filter((p) => p.sure && p.verdict === "fountain").map((p) => p.id));
