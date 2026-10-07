@@ -126,3 +126,16 @@ def test_only_suggested_stops_go_in_the_gpx(tmp_path):
     gpx = next(p for p in paths if p.suffix == ".gpx").read_text()
     assert "bar - open" in gpx and "bakery" not in gpx
     assert "-> km  12.0  bar" in next(p for p in paths if p.suffix == ".txt").read_text()
+
+
+def test_stretches_are_cut_at_known_water_and_suggestions_made_again():
+    from fountains.score import split_gaps
+
+    stops = [stop(4.0, "bar", True), stop(16.0, "bakery", True), stop(25.0, "café", None), stop(40.0, "fuel station", True)]
+    stops[0].suggested = True
+    pieces = split_gaps([Gap(0.0, 44.8, stops)], [20.0, 70.0], 10.0)
+    assert [(g.from_km, g.to_km) for g in pieces] == [(0.0, 20.0), (20.0, 44.8)]
+    assert [s.km for s in pieces[0].stops] == [4.0, 16.0] and [s.km for s in pieces[1].stops] == [25.0, 40.0]
+    assert [s.km for s in pieces[1].stops if s.suggested] == [25.0, 40.0]
+    assert split_gaps([Gap(0.0, 12.0, stops[:1])], [5.0], 10.0) == []  # both pieces shorter than 10 km
+    assert stops[0].suggested  # the model's stretches are left untouched

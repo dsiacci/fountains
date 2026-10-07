@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import bisect
+import dataclasses
 import datetime as dt
 import json
 import math
@@ -138,6 +139,25 @@ def suggest_stops(stops: list[Stop], from_km: float, to_km: float, every_km: flo
         if cand:
             out.append(min(cand, key=lambda s: (s.open_then is not True, s.kind == "restaurant",
                                                 s.detour_m if s.detour_m is not None else math.inf, s.km)))
+    return out
+
+
+def split_gaps(gaps: list[Gap], water_km: list[float], gap_km: float) -> list[Gap]:
+    """The stretches left when more places count as water (fountains the rider knows run).
+
+    Adding water only cuts stretches, so the stops of the model's stretches
+    are all that is needed; the suggestions are made again on each piece.
+    """
+    out = []
+    for g in gaps:
+        marks = [g.from_km] + sorted(k for k in water_km if g.from_km < k < g.to_km) + [g.to_km]
+        for a, b in zip(marks, marks[1:]):
+            if b - a < gap_km:
+                continue
+            stops = [dataclasses.replace(st, suggested=False) for st in g.stops if a <= st.km <= b]
+            for st in suggest_stops(stops, a, b, gap_km):
+                st.suggested = True
+            out.append(Gap(from_km=a, to_km=b, stops=stops))
     return out
 
 

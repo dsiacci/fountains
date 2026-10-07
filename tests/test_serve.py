@@ -183,3 +183,86 @@ def test_upload_decide_and_download_over_http(server, tmp_path):
     assert status == 200 and ctype == "application/gpx+xml" and b"<trk>" in body
     for bad in ("/crops/../state.json", "/crops/..%2Fstate.json", "/crops/x.jpg"):
         assert call(server, "GET", bad)[0] == 404
+
+
+def scored_state(app, sure_km=14.0):
+    """A score as _score leaves it: a 30 km stretch without water, with a bakery (hours unknown) and a bar (open)."""
+    from dataclasses import asdict
+
+    from fountains.score import Gap, Stop
+
+    stops = [Stop("node/7", "Boulangerie", "bakery", 41.9, 8.81, 5.0, 30, "", "09:03", None),
+             Stop("node/8", "Bar U Fornu", "bar", 41.9, 8.81, 15.0, 40, "", "09:40", True)]
+    kms = {"M01": 0.4, "M02": sure_km}
+    fountains = [{"ref": p["id"], "km": kms.get(p["id"], p["km"]), "band": "uncertain", "reachable": True, "reason": "rain",
+                  "notes": [], "waypoint": f"uncertain: {p['id']}"} for p in app.ride.state["points"]]
+    app.ride.state["score"] = {"meta": {"day": "2026-10-10", "gap_km": 10.0}, "fountains": fountains,
+                               "gaps_model": [asdict(Gap(0.0, 30.0, stops))], "gaps": []}
+    app._regap(app.ride)
+
+
+def test_a_fountain_the_rider_knows_cuts_the_dry_stretch_without_a_new_score(app, tmp_path):
+    app.upload(track_bytes(tmp_path), "ride.gpx")
+    scored_state(app)
+    assert [(g["from_km"], g["to_km"]) for g in app.ride.state["score"]["gaps"]] == [(0.0, 30.0)]
+    app.decide("M02", sure=True)
+    p = app.ride.point("M02")
+    assert p["sure"] and p["verdict"] == "fountain"
+    gaps = app.ride.state["score"]["gaps"]
+    assert [(g["from_km"], g["to_km"]) for g in gaps] == [(0.0, 14.0), (14.0, 30.0)]
+    assert [s["name"] for s in gaps[1]["stops"]] == ["Bar U Fornu"]
+    app.decide("M02", sure=False)
+    assert [(g["from_km"], g["to_km"]) for g in app.ride.state["score"]["gaps"]] == [(0.0, 30.0)]
+
+
+def test_gpx_names_sure_fountains_and_can_keep_only_open_places(app, tmp_path):
+    app.upload(track_bytes(tmp_path), "ride.gpx")
+    scored_state(app)
+    app.decide("M01", sure=True)
+
+    def names(body):
+        return [w.find(GPX_NS + "name").text for w in ET.fromstring(body).iter(GPX_NS + "wpt")]
+
+    everything = names(app.gpx()[1])
+    assert everything[0] == "sure: Funtana"
+    assert "bakery hours?: Boulangerie" in everything and "bar open: Bar U Fornu" in everything
+    only_open = names(app.gpx(open_only=True)[1])
+    assert "bar open: Bar U Fornu" in only_open and not any("Boulangerie" in n for n in only_open)
+
+
+def test_rides_are_listed_and_reopened(app, tmp_path):
+    app.upload(track_bytes(tmp_path), "ride.gpx")
+    first = app.ride.state["id"]
+    app.upload(track_bytes(tmp_path, [(41.95, 8.85 + i * 0.0005) for i in range(30)]), "other.gpx")
+    rides = app.rides()
+    assert {r["id"] for r in rides} == {first, app.ride.state["id"]}
+    assert sum(r["current"] for r in rides) == 1
+    app.open_ride(first)
+    assert app.ride.state["id"] == first
+    with pytest.raises(ValueError):
+        app.open_ride("../../etc")
+
+
+def test_only_points_the_rider_added_can_be_removed(app, tmp_path):
+    app.upload(track_bytes(tmp_path), "ride.gpx")
+    pid = app.add(41.9002, 8.815, "Pastore")
+    app.remove(pid)
+    with pytest.raises(KeyError):
+        app.ride.point(pid)
+    with pytest.raises(ValueError, match="added"):
+        app.remove("M01")
+
+
+def test_the_360_picture_is_looked_up_once_by_its_id(app, monkeypatch):
+    from fountains import discover
+
+    calls = []
+    feature = {"features": [{"properties": {"view:azimuth": 83, "datetime": "2025-04-01T13:29:40+00:00", "license": "etalab-2.0"},
+                             "assets": {"hd": {"href": "https://example.org/hd.jpg"}, "sd": {"href": "https://example.org/sd.jpg"}}}]}
+    monkeypatch.setattr(discover, "_get_json", lambda url, **kw: calls.append(url) or feature)
+    pic = "aa9dedf2-5ff3-4945-bf46-16216bbe6166"
+    got = app.pano(pic)
+    assert got["azimuth"] == 83 and got["hd"].endswith("hd.jpg") and got["date"] == "2025-04-01"
+    assert app.pano(pic) == got and len(calls) == 1
+    with pytest.raises(ValueError):
+        app.pano("../../secret")

@@ -92,6 +92,7 @@ class Crop:
     siglip: float = 0.0
     owl: float = 0.0
     box: list[float] = field(default_factory=list)
+    label: str = ""  # which of DETECT the box matched best
 
 
 def _get_json(url: str, data: bytes | None = None, timeout: int = 120) -> dict:
@@ -508,12 +509,14 @@ def owl_score(crops: list[Crop], oproc=None, omodel=None) -> None:
             out = omodel(**oproc(text=[DETECT], images=img, return_tensors="pt"))
             size = max(img.size)
             res = post(out, threshold=0.0, target_sizes=torch.tensor([[size, size]]))[0]
-            c.owl, c.box = 0.0, []
+            c.owl, c.box, c.label = 0.0, [], ""
             for k in res["scores"].argsort(descending=True).tolist():
                 box = [float(v) for v in res["boxes"][k]]
                 if box[3] < BOTTOM_BAND * img.height:
                     c.owl = round(float(res["scores"][k]), 3)
                     c.box = [round(v) for v in box]
+                    label = int(res["labels"][k]) if "labels" in res else -1
+                    c.label = DETECT[label].removeprefix("a ") if 0 <= label < len(DETECT) else ""
                     break
 
 

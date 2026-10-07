@@ -44,7 +44,9 @@ STATIC = Path(__file__).with_name("static")
 MAX_BODY = 25 << 20
 VERDICTS = ("fountain", "not", "unsure")
 CROP_NAME = re.compile(r"^[A-Za-z0-9_-]+\.jpg$")
-SEEN = 0.15  # an OWLv2 box this sure is worth a look (the Marato fountain scored 0.20, empty roadsides under 0.10)
+RIDE_ID = re.compile(r"^[0-9a-f]{12}$")
+PICTURE_ID = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+SEEN = 0.15  # boxes from this score are drawn solid, weaker ones dashed: a hint, never a decision
 STOP_SYMBOL = {"fuel station": "Gas Station", "supermarket": "Shopping Center", "small shop": "Convenience Store", "bakery": "Restaurant"}
 
 
@@ -374,7 +376,7 @@ class App:
                         aim=x["aim"], path=str(ride.crops / x["file"]), viewer=x["viewer"], license=x["license"]) for x in p["photos"]]
         d.owl_score(crops)
         for x, c in zip(p["photos"], crops):
-            x["owl"], x["box"] = c.owl, c.box
+            x["owl"], x["box"], x["label"] = c.owl, c.box, c.label
         ranked = sorted(p["photos"], key=lambda x: (x["owl"], x["aim"] == "toward the point"), reverse=True)
         first, seen = [], set()
         for x in ranked:
@@ -415,8 +417,24 @@ class App:
             row.update(reason=reason(f), waypoint=waypoint_name(f))
             fountains.append(row)
         with ride.lock:
-            ride.state["score"] = {"meta": meta, "fountains": fountains, "gaps": [dict(asdict(g), length_km=g.length_km) for g in gaps]}
+            ride.state["score"] = {"meta": meta, "fountains": fountains, "gaps_model": [asdict(g) for g in gaps], "gaps": []}
+            self._regap(ride)
         ride.log("score", f"Scored {len(fountains)} fountains; {len(gaps)} stretch(es) of {gap_km:.0f} km or more without a likely one.")
+
+    def _regap(self, ride: Ride) -> None:
+        """The stretches without water, counting the fountains the rider knows run (no new TabPFN run)."""
+        from .score import Gap, Stop, split_gaps
+
+        sc = ride.state.get("score")
+        if not sc:
+            return
+        sure = {p["id"] for p in ride.state["points"] if p.get("sure") and p["verdict"] == "fountain"}
+        water = [f["km"] for f in sc["fountains"] if f["ref"] in sure and f["reachable"]]
+        if "gaps_model" not in sc:  # a score made before the rider could mark fountains as sure
+            sc["gaps_model"] = [{k: v for k, v in g.items() if k != "length_km"} for g in sc.get("gaps", [])]
+        model = [Gap(g["from_km"], g["to_km"], [Stop(**st) for st in g["stops"]]) for g in sc["gaps_model"]]
+        gaps = split_gaps(model, water, float(sc["meta"].get("gap_km", 10.0)))
+        sc["gaps"] = [dict(asdict(g), length_km=g.length_km) for g in gaps]
 
     # --- what the page asks for -------------------------------------------------
 
@@ -431,10 +449,14 @@ class App:
         if not self.busy("look") and self._unfinished(self.ride):
             self.start("look")
 
-    def decide(self, pid: str, verdict: str | None = None, photo: int | None = None) -> None:
+    def decide(self, pid: str, verdict: str | None = None, photo: int | None = None, sure: bool | None = None) -> None:
         ride = self._need_ride()
         with ride.lock:
             p = ride.point(pid)
+            if sure is not None:
+                p["sure"] = bool(sure)
+                if sure:
+                    verdict = verdict or "fountain"
             if verdict is not None:
                 if verdict not in VERDICTS:
                     raise ValueError(f"verdict must be one of {', '.join(VERDICTS)}")
@@ -444,7 +466,70 @@ class App:
                 if not 0 <= photo < max(1, len(p.get("photos", []))):
                     raise ValueError("no such photo")
                 p["chosen"] = photo
+            self._regap(ride)
             ride.save()
+
+    def remove(self, pid: str) -> None:
+        """Remove a fountain the rider added (the others are only ever decided, never removed)."""
+        ride = self._need_ride()
+        with ride.lock:
+            p = ride.point(pid)
+            if p["origin"] != "you":
+                raise ValueError("only the fountains you added can be removed")
+            ride.state["points"].remove(p)
+            self._regap(ride)
+            ride.save()
+
+    def rides(self) -> list[dict]:
+        """The rides on this computer, the latest first."""
+        out = []
+        for f in self.rides_dir.glob("*/state.json"):
+            try:
+                st = json.loads(f.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                continue
+            pts = st.get("points", [])
+            out.append({"id": st["id"], "name": st["name"], "length_km": st["length_km"], "climb_m": st.get("climb_m"),
+                        "points": len(pts), "decided": sum(1 for p in pts if p.get("verdict") and not p.get("prefilled")),
+                        "updated": dt.datetime.fromtimestamp(f.stat().st_mtime).isoformat(timespec="minutes"),
+                        "current": self.ride is not None and self.ride.state["id"] == st["id"]})
+        return sorted(out, key=lambda r: r["updated"], reverse=True)
+
+    def open_ride(self, rid: str) -> None:
+        if not RIDE_ID.match(rid or "") or not (self.rides_dir / rid / "state.json").exists():
+            raise ValueError("no such ride")
+        if self.ride is not None and self.ride.state["id"] == rid:
+            return
+        if self.ride is not None:
+            self.ride.cancelled = True
+        self.ride = Ride(self.rides_dir / rid)
+        (self.work_dir / "current").write_text(rid)
+        if not self.busy("look") and self._unfinished(self.ride):
+            self.start("look")
+
+    def pano(self, pic: str) -> dict:
+        """The 360° picture behind a view: its image addresses and the direction its centre faces."""
+        from . import cache_dir
+        from .discover import PANORAMAX_SEARCH, _get_json
+
+        if not PICTURE_ID.match(pic or ""):
+            raise ValueError("not a Panoramax picture id")
+        path = cache_dir("panoramax-pictures") / f"{pic}.json"
+        if path.exists():
+            return json.loads(path.read_text())
+        try:
+            feats = _get_json(f"{PANORAMAX_SEARCH}?ids={pic}", timeout=30).get("features", [])
+        except Exception as e:  # noqa: BLE001 - shown on the page
+            raise RuntimeError(f"Panoramax did not answer ({e})") from e
+        if not feats:
+            raise ValueError("Panoramax does not know this picture any more")
+        f = feats[0]
+        assets = f.get("assets", {})
+        out = {"id": pic, "azimuth": f["properties"].get("view:azimuth"), "date": (f["properties"].get("datetime") or "")[:10],
+               "hd": assets.get("hd", {}).get("href", ""), "sd": assets.get("sd", {}).get("href", ""),
+               "license": f["properties"].get("license") or ""}
+        path.write_text(json.dumps(out))
+        return out
 
     def add(self, lat: float, lon: float, name: str) -> str:
         ride = self._need_ride()
@@ -479,8 +564,11 @@ class App:
             raise ValueError("upload a GPX first")
         return self.ride
 
-    def gpx(self) -> tuple[str, str]:
-        """The track with a waypoint for every fountain kept, every point to check, and the shops on long stretches."""
+    def waypoints(self, open_only: bool = False) -> list[dict]:
+        """The waypoints of the GPX: every fountain kept, every point to check, the places suggested on long stretches.
+
+        With `open_only`, only the suggested places whose hours say they are open when the rider passes.
+        """
         ride = self._need_ride()
         with ride.lock:
             st = ride.state
@@ -489,25 +577,37 @@ class App:
             for p in sorted(st["points"], key=lambda p: p["km"]):
                 lat, lon = where(p)
                 label = point_label(p)
+                km = p["km"]
                 if p["verdict"] == "fountain":
                     f = scored.get(p["id"])
-                    if f:
+                    if f and p.get("sure"):
+                        desc = f"You know it runs (the model said {f['band']}). " + f["reason"]
+                        wpts.append({"lat": lat, "lon": lon, "km": km, "name": f"sure: {label}"[:30], "desc": desc, "type": "Water", "band": "sure"})
+                    elif f:
                         desc = f["reason"] + "".join(f". Note: {n}" for n in f["notes"])
-                        wpts.append({"lat": lat, "lon": lon, "name": f"{f['band']}: {label}"[:30] if f.get("reachable", True) else f["waypoint"],
-                                     "desc": desc, "type": "Water"})
+                        wpts.append({"lat": lat, "lon": lon, "km": km, "band": f["band"], "desc": desc, "type": "Water",
+                                     "name": f"{f['band']}: {label}"[:30] if f.get("reachable", True) else f["waypoint"]})
                     else:
-                        wpts.append({"lat": lat, "lon": lon, "name": f"fountain: {label}"[:30], "desc": "not scored for a day yet", "type": "Water"})
+                        wpts.append({"lat": lat, "lon": lon, "km": km, "name": f"fountain: {label}"[:30], "desc": "not scored for a day yet",
+                                     "type": "Water", "band": ""})
                 elif p["verdict"] == "unsure":
-                    wpts.append({"lat": lat, "lon": lon, "name": f"check: {label}"[:30], "type": "Water",
+                    wpts.append({"lat": lat, "lon": lon, "km": km, "name": f"check: {label}"[:30], "type": "Water", "band": "check",
                                  "desc": "not confirmed: look on the spot, and do not count on it"})
             for g in (st.get("score") or {}).get("gaps", []):
-                for s in (s for s in g["stops"] if s.get("suggested")):
+                for s in (s for s in g["stops"] if s.get("suggested") and (s["open_then"] is True or not open_only)):
                     state = {True: "open", False: "closed", None: "hours?"}[s["open_then"]] if s["eta"] else "hours?"
-                    wpts.append({"lat": s["lat"], "lon": s["lon"], "name": f"{s['kind']} {state}: {s['name']}"[:30],
+                    wpts.append({"lat": s["lat"], "lon": s["lon"], "km": s["km"], "name": f"{s['kind']} {state}: {s['name']}"[:30],
                                  "desc": " ".join(x for x in (s["name"], s["opening_hours"], f"around {s['eta']}" if s["eta"] else "") if x),
-                                 "sym": STOP_SYMBOL.get(s["kind"], "Restaurant"), "type": "Food"})
-            day = (st.get("score") or {}).get("meta", {}).get("day", "")
-            name = re.sub(r"[^A-Za-z0-9_-]+", "-", st["name"]).strip("-")[:60] or "ride"
+                                 "sym": STOP_SYMBOL.get(s["kind"], "Restaurant"), "type": "Food", "band": "stop"})
+        return sorted(wpts, key=lambda w: w["km"])
+
+    def gpx(self, open_only: bool = False) -> tuple[str, str]:
+        """The track and its waypoints in one file, for a bike computer."""
+        ride = self._need_ride()
+        wpts = [{k: v for k, v in w.items() if k not in ("km", "band")} for w in self.waypoints(open_only)]
+        with ride.lock:
+            day = (ride.state.get("score") or {}).get("meta", {}).get("day", "")
+            name = re.sub(r"[^A-Za-z0-9_-]+", "-", ride.state["name"]).strip("-")[:60] or "ride"
         fname = f"{name}-fountains{'-' + day if day else ''}.gpx"
         return fname, course_gpx(ride.track, wpts, metadata_desc=DISCLAIMER)
 
@@ -573,9 +673,21 @@ class Handler(BaseHTTPRequestHandler):
             if ride is None or not CROP_NAME.match(name) or not (ride.crops / name).is_file():
                 return self._send(404, b"not found", "text/plain")
             return self._send(200, (ride.crops / name).read_bytes(), "image/jpeg", {"Cache-Control": "private, max-age=86400, immutable"})
+        if url.path == "/api/rides":
+            return self._json({"rides": self.app.rides()})
+        if url.path == "/api/pano":
+            try:
+                return self._json(self.app.pano(parse_qs(url.query).get("pic", [""])[0]))
+            except (ValueError, RuntimeError) as e:
+                return self._json({"error": str(e)}, 400)
+        if url.path == "/api/waypoints":
+            try:
+                return self._json({"waypoints": self.app.waypoints(open_only=parse_qs(url.query).get("open_only", ["0"])[0] == "1")})
+            except ValueError as e:
+                return self._json({"error": str(e)}, 400)
         if url.path == "/api/gpx":
             try:
-                fname, body = self.app.gpx()
+                fname, body = self.app.gpx(open_only=parse_qs(url.query).get("open_only", ["0"])[0] == "1")
             except ValueError as e:
                 return self._json({"error": str(e)}, 400)
             return self._send(200, body.encode(), "application/gpx+xml", {"Content-Disposition": f'attachment; filename="{fname}"'})
@@ -596,7 +708,11 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/api/ride":
                 self.app.upload(body["gpx"].encode("utf-8"), body.get("filename") or "ride.gpx")
             elif path == "/api/decide":
-                self.app.decide(body["id"], body.get("verdict"), body.get("photo"))
+                self.app.decide(body["id"], body.get("verdict"), body.get("photo"), body.get("sure"))
+            elif path == "/api/remove":
+                self.app.remove(body["id"])
+            elif path == "/api/open":
+                self.app.open_ride(body["id"])
             elif path == "/api/add":
                 self.app.add(float(body["lat"]), float(body["lon"]), body.get("name") or "")
             elif path == "/api/score":
