@@ -40,15 +40,14 @@ The `fountains-cache` volume keeps the models, the data, your rides and your dec
 fountains serve
 ```
 
-Open http://localhost:8765 (with Docker, it is already running) and drop a GPX file on it.
+Open http://localhost:8765 (with Docker, it is already running). Four screens, one after the other:
 
-1. **The water points the maps know** within 250 m of the track appear at once, in riding order, counted as fountains until you say otherwise. A minute later come the **places found from clues** (see *Fountains no map has*); they stay out of your GPX unless you mark them.
-2. **Every point gets the street photos around it**: the Panoramax 360° pictures within 100 m, cropped toward both roadsides and toward the mapped position. An open vision model (OWLv2) puts first the views where it sees something like a fountain, and draws a box on it. Next to them, Plan IGN and the aerial view of the spot.
-3. **You decide**, point by point: *Fountain*, *Not a fountain* or *Not sure*. A point with no photo can be decided too, from the plan, the aerial view or what you know, and a fountain you know can be added by clicking the map.
-4. **Score**: the day, your start time and pace. Each fountain you kept gets its band, and on long stretches without a likely fountain a few cafés, shops or fuel stations are suggested (the same rules as the command line below).
-5. **Download the GPX**: your track with a waypoint for each fountain kept (`likely: Funtana di Leccia`), each point you were not sure about (`check: ...`), and each café or shop suggested on the long stretches. Names start with the band, so a bike computer that shortens names still shows it.
+1. **Ride**: drop a GPX file, or reopen a ride you checked before (your decisions are kept).
+2. **Check**: the map of the ride, and one point at a time beside it. The water points the maps know within 250 m of the track come first, counted as fountains until you say otherwise; the **places found from clues** (see *Fountains no map has*) follow, and stay out of your GPX unless you mark them. For each point, every street view around it: the Panoramax 360° pictures within 100 m, cut into views of both roadsides and toward the mapped position, the ones where an open vision model (OWLv2) is surest first. Each view has its own score and a box on what the model took for a fountain, a spout, a trough or a tap: the score ranks the views of one place, nothing else. Turn to **360°** to look around the picture itself, pick **the photo that shows it**, and decide: *Fountain*, *Not one* or *Not sure* (keys F, N, U; arrows for the views, L for 360°, J for the next point). A point with no photo can be decided too, from the aerial view or what you know, and a fountain you know can be added by clicking the map.
+3. **Score**: the day, your start time and pace. Each fountain you kept gets its band, along a strip of the whole ride that shows the stretches without a likely fountain. **I know it runs** marks a fountain you are sure of: it counts as water at once, and the dry stretches are cut around it. On those stretches, cafés, shops and fuel stations, with **Open when I pass** to see only the ones whose hours say so.
+4. **GPX**: the waypoint names exactly as your bike computer will show them (`likely: Funtana di Leccia`, `sure: ...`, `check: ...`, `fuel open: ...`), and the file to download: your track and its waypoints in one GPX. Names start with the band, so a head unit that shortens names still shows it.
 
-Your decisions are saved: drop the same file again and they are still there. The page listens on this computer only (`127.0.0.1`).
+The page listens on this computer only (`127.0.0.1`).
 
 ### The command line
 

@@ -4,195 +4,303 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>fountains</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 14 18%22%3E%3Cpath d=%22M7 1C7 1 1.5 7.6 1.5 11.3a5.5 5.5 0 0 0 11 0C12.5 7.6 7 1 7 1Z%22 fill=%22%231F6FA8%22/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
 <style>
 :root {
-  --bg: #f4f3ee; --surface: #ffffff; --ink: #1c2420; --muted: #5b6863; --line: #d9ddd5; --soft: #eceee8;
-  --water: #1d6a98; --water-soft: #e3eff6; --likely: #2a7a57; --uncertain: #9a6a12; --unlikely: #a24c2a; --not: #7d8581;
-  --unsure: #b07a12; --unsure-soft: #f7eedb; --warn-bg: #fff6e0; --warn-line: #e6c779; --box: #ff5a1f; --focus: #1d6a98;
+  --bg: #F5F6F3; --surface: #FFFFFF; --ink: #15201B; --muted: #5C6964; --line: #E1E5DF; --soft: #EEF1EC; --chip: #D5DBD3;
+  --accent: #1F6FA8; --accent-ink: #FFFFFF; --accent-soft: #E5F0F8; --likely: #22744C; --uncertain: #8F5E07; --unlikely: #A3441C;
+  --not: #6F7873; --unsure: #9A6406; --box: #FF5A1F; --warn-bg: #FFF6E0; --warn-line: #EBD8A6; --warn-ink: #4A3B12;
+  --dry-a: #F4DFB8; --dry-b: #FBEFD8; --dry-line: #E2C27F; --dry-ink: #6B4A07; --shadow: 0 2px 10px rgba(21, 32, 27, .14);
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #111513; --surface: #1a201d; --ink: #e6ebe8; --muted: #9ba8a2; --line: #2d3531; --soft: #222925;
-    --water: #63b2e0; --water-soft: #16303f; --likely: #5cbc8e; --uncertain: #dfb35b; --unlikely: #e58c66; --not: #8d9591;
-    --unsure: #e0b25a; --unsure-soft: #3a3020; --warn-bg: #2b2414; --warn-line: #6d5a2a; --box: #ff7a45; --focus: #63b2e0;
+    --bg: #101412; --surface: #181D1B; --ink: #E6EBE8; --muted: #9BA8A2; --line: #2B3330; --soft: #222926; --chip: #39433F;
+    --accent: #5FB0DE; --accent-ink: #0B1A24; --accent-soft: #17303F; --likely: #5CBC8E; --uncertain: #DFB35B; --unlikely: #E58C66;
+    --not: #8D9591; --unsure: #E0B25A; --box: #FF7A45; --warn-bg: #2B2414; --warn-line: #6D5A2A; --warn-ink: #F2D98F;
+    --dry-a: #4A3A17; --dry-b: #3A2E14; --dry-line: #7A6229; --dry-ink: #F2D98F; --shadow: 0 2px 10px rgba(0, 0, 0, .5);
     color-scheme: dark;
   }
 }
-:root[data-theme="dark"] {
-  --bg: #111513; --surface: #1a201d; --ink: #e6ebe8; --muted: #9ba8a2; --line: #2d3531; --soft: #222925;
-  --water: #63b2e0; --water-soft: #16303f; --likely: #5cbc8e; --uncertain: #dfb35b; --unlikely: #e58c66; --not: #8d9591;
-  --unsure: #e0b25a; --unsure-soft: #3a3020; --warn-bg: #2b2414; --warn-line: #6d5a2a; --box: #ff7a45; --focus: #63b2e0;
-  color-scheme: dark;
-}
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
-a { color: var(--water); }
+html, body { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; overflow: hidden; }
+a { color: var(--accent); }
 button, input { font: inherit; color: inherit; }
-:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-.wrap { max-width: 1320px; margin: 0 auto; padding: 0 16px; }
-header.top { padding: 18px 0 8px; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
-.brand { font-weight: 750; font-size: 22px; letter-spacing: -0.01em; }
-.brand::before { content: ""; display: inline-block; width: 11px; height: 15px; margin-right: 7px; background: var(--water); border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%; transform: translateY(1px); }
-.tag { color: var(--muted); margin: 0; }
-.warn { background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 8px; padding: 10px 14px; margin: 6px 0 18px; font-weight: 600; }
-h2 { font-size: 17px; margin: 0 0 10px; display: flex; align-items: center; gap: 10px; }
-h2 .n { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--bg); font-size: 13px; }
-section.step { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+[hidden] { display: none !important; }
+.app { height: 100vh; height: 100dvh; display: grid; grid-template-rows: 60px minmax(0, 1fr) auto; grid-template-columns: minmax(0, 1fr); }
+
+/* header and steps */
+.top { display: flex; align-items: center; gap: 20px; padding: 0 20px; background: var(--surface); border-bottom: 1px solid var(--line); min-width: 0; }
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 18px; letter-spacing: -.01em; color: var(--ink); text-decoration: none; width: 190px; flex: 0 0 auto; }
+.steps { flex: 1; display: flex; justify-content: center; min-width: 0; }
+.steps ol { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 650; }
+.steps .sep { width: 26px; height: 1px; background: var(--chip); }
+.steps a { display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border-radius: 999px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+.steps a .n { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--chip); font-size: 12px; font-weight: 800; }
+.steps a.done .n { border: 0; background: var(--accent-soft); color: var(--accent); }
+.steps a[aria-current="step"] { background: var(--ink); color: var(--bg); }
+.steps a[aria-current="step"] .n { border: 0; background: var(--bg); color: var(--ink); }
+.steps a[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+.steps .count { font-weight: 500; opacity: .75; font-variant-numeric: tabular-nums; }
+.ridechip { width: 190px; flex: 0 0 auto; display: flex; justify-content: flex-end; }
+.ridechip span { font-size: 13px; font-weight: 600; color: var(--muted); padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+main { position: relative; min-height: 0; }
+.screen { position: absolute; inset: 0; display: none; }
+.screen.on { display: flex; }
+footer.warn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 7px 16px; background: var(--warn-bg); border-top: 1px solid var(--warn-line); color: var(--warn-ink); font-size: 13px; font-weight: 600; text-align: center; }
+
+/* shared bits */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--chip); background: var(--surface); font-size: 14px; font-weight: 700; text-decoration: none; color: var(--ink); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn[disabled] { opacity: .5; cursor: default; }
+.sw { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 2px; border: 0; background: transparent; font-size: 13px; font-weight: 650; color: var(--muted); white-space: nowrap; }
+.sw .track { width: 34px; height: 20px; border-radius: 999px; background: var(--chip); position: relative; flex: 0 0 auto; transition: background .15s; }
+.sw .track::after { content: ""; position: absolute; left: 3px; top: 3px; width: 14px; height: 14px; border-radius: 50%; background: #fff; transition: left .15s; }
+.sw[aria-checked="true"] { color: var(--ink); }
+.sw[aria-checked="true"] .track { background: var(--accent); }
+.sw[aria-checked="true"] .track::after { left: 17px; }
+.sw[disabled] { opacity: .5; cursor: default; }
+.band { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; color: #fff; font-size: 12px; font-weight: 800; white-space: nowrap; }
+.band.likely { background: var(--likely); } .band.uncertain { background: var(--uncertain); } .band.unlikely { background: var(--unlikely); } .band.sure { background: var(--accent); color: var(--accent-ink); }
 .muted { color: var(--muted); }
 .small { font-size: 13px; }
-.drop { border: 2px dashed var(--line); border-radius: 10px; padding: 26px 16px; text-align: center; cursor: pointer; }
-.drop.over { border-color: var(--water); background: var(--water-soft); }
-.drop input { display: none; }
-.ridebar { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: baseline; }
-.ridebar strong { font-size: 16px; }
-.err { color: var(--unlikely); font-weight: 600; }
-.work { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
-@media (min-width: 1000px) {
-  .work { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: start; }
-  .mapcol { position: sticky; top: 12px; }
-}
-#map { height: 46vh; min-height: 280px; border-radius: 10px; border: 1px solid var(--line); }
-@media (min-width: 1000px) { #map { height: calc(100vh - 80px); } }
-.status { display: grid; gap: 6px; margin-bottom: 10px; }
-.bar { height: 6px; background: var(--soft); border-radius: 4px; overflow: hidden; }
-.bar span { display: block; height: 100%; width: 0; background: var(--water); transition: width .4s; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 12px; }
-.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 3px 11px; cursor: pointer; font-size: 13px; }
-.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.cards { display: grid; gap: 12px; }
-.card { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--surface); display: grid; gap: 8px; scroll-margin-top: 12px; }
-.card.flash { box-shadow: 0 0 0 3px var(--water); }
-.card[data-verdict="not"] { opacity: .72; }
-.card .head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.card h3 { margin: 0; font-size: 16px; }
-.km { border: 0; background: var(--soft); border-radius: 6px; padding: 1px 7px; font-variant-numeric: tabular-nums; cursor: pointer; font-size: 13px; }
-.src { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 8px; }
-.src.clue { color: var(--unsure); border-color: var(--unsure); }
-.card p { margin: 0; }
-.photo { position: relative; border-radius: 8px; overflow: hidden; background: var(--soft); }
-.photo img { display: block; width: 100%; height: auto; }
-.photo .box { position: absolute; border: 2px solid var(--box); border-radius: 4px; box-shadow: 0 0 0 1px rgba(0,0,0,.35); pointer-events: none; }
-.photo .empty { padding: 18px 12px; color: var(--muted); font-size: 14px; }
-.thumbs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
-.thumbs button { padding: 0; border: 2px solid transparent; border-radius: 6px; background: none; cursor: pointer; flex: 0 0 auto; }
-.thumbs button[aria-pressed="true"] { border-color: var(--water); }
-.thumbs img { display: block; width: 92px; height: 39px; object-fit: cover; border-radius: 4px; }
-.maps { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.maps figure { margin: 0; position: relative; }
-.maps img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 6px; background: var(--soft); }
-.maps .ring { position: absolute; left: 50%; top: 50%; width: 18px; height: 18px; margin: -9px 0 0 -9px; border: 3px solid var(--box); border-radius: 50%; }
-.maps figcaption { font-size: 12px; color: var(--muted); }
-.verdict { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-.verdict button { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 7px 4px; cursor: pointer; font-weight: 600; }
-.verdict button[aria-pressed="true"][data-v="fountain"] { background: var(--water); border-color: var(--water); color: #fff; }
+.err { color: var(--unlikely); font-weight: 650; }
+
+/* 1. ride */
+#screen-ride { overflow: auto; justify-content: center; }
+.ridebox { width: 100%; max-width: 640px; padding: 48px 20px; display: flex; flex-direction: column; gap: 18px; }
+.ridebox h1 { margin: 0; font-size: 30px; letter-spacing: -.02em; }
+.drop { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: 220px; border-radius: 18px; border: 2px dashed var(--chip); background: var(--surface); cursor: pointer; text-align: center; padding: 20px; }
+.drop.over { border-color: var(--accent); background: var(--accent-soft); }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.drop .icon { width: 56px; height: 56px; border-radius: 16px; background: var(--accent); display: flex; align-items: center; justify-content: center; }
+.drop strong { font-size: 20px; }
+.recent { display: flex; flex-direction: column; gap: 8px; }
+.recent button { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); text-align: left; }
+.recent button[aria-current="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.recent .t { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+
+/* 2. check */
+#screen-check { min-height: 0; }
+.mapwrap { flex: 1 1 auto; position: relative; min-width: 0; }
+#map { position: absolute; inset: 0; background: var(--soft); }
+.floating { position: absolute; z-index: 500; background: var(--surface); border-radius: 10px; box-shadow: var(--shadow); }
+.layers { left: 14px; top: 14px; display: flex; gap: 2px; padding: 3px; }
+.layers button { min-height: 32px; padding: 0 12px; border: 0; border-radius: 8px; background: transparent; font-size: 13px; font-weight: 650; }
+.layers button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.listbtn { right: 14px; top: 14px; display: flex; align-items: center; gap: 8px; min-height: 38px; padding: 0 14px; border: 0; font-size: 13px; font-weight: 700; }
+.legend { left: 14px; bottom: 22px; display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 8px 12px; font-size: 12px; font-weight: 650; color: var(--muted); max-width: calc(100% - 90px); }
+.legend span { display: flex; align-items: center; gap: 6px; }
+.legend i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.jobchip { left: 14px; top: 62px; padding: 8px 12px; font-size: 12px; font-weight: 650; max-width: 360px; }
+.drawer { position: absolute; z-index: 600; top: 62px; right: 14px; bottom: 14px; width: 330px; display: flex; flex-direction: column; background: var(--surface); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
+.drawer .filters { display: flex; flex-wrap: wrap; gap: 4px; padding: 10px; border-bottom: 1px solid var(--line); }
+.drawer .filters button { min-height: 30px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: 12px; font-weight: 650; }
+.drawer .filters button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.drawer ol { list-style: none; margin: 0; padding: 6px; overflow: auto; }
+.drawer li button { width: 100%; display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 0; border-radius: 8px; background: transparent; text-align: left; }
+.drawer li button:hover { background: var(--soft); }
+.drawer li button[aria-current="true"] { background: var(--accent-soft); }
+.drawer .km { width: 42px; font-size: 12px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+.drawer .nm { flex: 1; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dot { width: 12px; height: 12px; border-radius: 50%; flex: 0 0 auto; }
+.dot.todo { background: var(--surface); box-shadow: inset 0 0 0 2px var(--ink); } .dot.fountain { background: var(--accent); } .dot.not { background: var(--not); opacity: .7; } .dot.unsure { background: var(--unsure); }
+.panel { flex: 0 0 520px; width: 520px; min-width: 0; display: flex; flex-direction: column; gap: 14px; padding: 18px 24px; background: var(--surface); border-left: 1px solid var(--line); overflow-y: auto; }
+.phead { display: flex; align-items: center; gap: 10px; }
+.kmpill { padding: 4px 9px; border-radius: 8px; background: var(--soft); font-size: 13px; font-weight: 750; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.phead h1 { margin: 0; flex: 1; font-size: 21px; letter-spacing: -.015em; line-height: 1.2; min-width: 0; overflow-wrap: anywhere; }
+.iconbtn { width: 36px; height: 36px; flex: 0 0 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid var(--chip); background: var(--surface); padding: 0; }
+.sub { margin: -8px 0 0; font-size: 13px; color: var(--muted); }
+.viewer { position: relative; width: 100%; aspect-ratio: 1600 / 672; border-radius: 12px; overflow: hidden; background: var(--soft); flex: 0 0 auto; }
+.viewer img.crop { display: block; width: 100%; height: 100%; object-fit: cover; }
+.viewer .empty { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 16px; text-align: center; color: var(--muted); font-size: 14px; }
+.box { position: absolute; border: 2px solid var(--box); border-radius: 4px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .45); pointer-events: none; }
+.box.weak { border-style: dashed; box-shadow: none; }
+.boxlabel { position: absolute; transform: translateY(-100%); margin-top: -3px; padding: 1px 6px; border-radius: 6px; background: var(--box); color: #15201B; font-size: 11px; font-weight: 800; white-space: nowrap; pointer-events: none; }
+.boxlabel.weak { background: rgba(255, 255, 255, .92); }
+.boxlabel.end { transform: translate(-100%, -100%); }
+.vbtn { position: absolute; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 0; color: #fff; background: rgba(21, 32, 27, .78); font-size: 12px; font-weight: 700; }
+.vbtn.look { right: 10px; top: 10px; min-height: 32px; padding: 0 11px; border-radius: 999px; }
+.vbtn.prev, .vbtn.next { top: 50%; width: 36px; height: 36px; margin-top: -18px; border-radius: 50%; }
+.vbtn.prev { left: 8px; } .vbtn.next { right: 8px; }
+.vcount { position: absolute; left: 10px; bottom: 10px; padding: 3px 8px; border-radius: 999px; background: rgba(21, 32, 27, .78); color: #fff; font-size: 12px; font-weight: 600; pointer-events: none; }
+.pano { position: absolute; inset: 0; background-color: #1B1F1D; background-repeat: repeat-x; cursor: grab; touch-action: none; overflow: hidden; }
+.pano.drag { cursor: grabbing; }
+.pano .tag { position: absolute; top: 8px; transform: translateX(-50%); padding: 2px 7px; border-radius: 6px; background: #fff; color: #15201B; font-size: 11px; font-weight: 800; white-space: nowrap; pointer-events: none; }
+.pano .tagline { position: absolute; top: 0; bottom: 0; width: 0; border-left: 2px dashed rgba(255, 255, 255, .85); pointer-events: none; }
+.pano .compass { position: absolute; bottom: 6px; transform: translateX(-50%); color: #fff; font-size: 11px; font-weight: 800; text-shadow: 0 1px 2px #000; pointer-events: none; }
+.pano .zoom { position: absolute; right: 10px; bottom: 10px; display: flex; gap: 6px; }
+.pano .zoom button { width: 32px; height: 32px; border-radius: 8px; border: 0; background: rgba(255, 255, 255, .92); color: #15201B; font-size: 17px; font-weight: 800; }
+.pano .msg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; padding: 16px; text-align: center; }
+.strip { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; flex: 0 0 auto; scrollbar-width: thin; }
+.strip button { position: relative; flex: 0 0 72px; width: 72px; height: 44px; padding: 0; border-radius: 9px; overflow: hidden; border: 2.5px solid transparent; background: var(--soft); }
+.strip button[aria-pressed="true"] { border-color: var(--accent); }
+.strip img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.strip .sc { position: absolute; right: 3px; bottom: 3px; padding: 0 4px; border-radius: 5px; background: rgba(255, 255, 255, .92); color: #15201B; font-size: 10px; font-weight: 800; }
+.strip .sc.hi { background: var(--box); }
+.strip .star { position: absolute; left: 3px; top: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: flex; align-items: center; justify-content: center; }
+.hint { margin: -6px 0 0; font-size: 12px; color: var(--muted); }
+.row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.choose { border: 1.5px solid var(--accent); color: var(--accent); }
+.choose[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.verdict { display: flex; gap: 10px; margin-top: auto; padding-top: 4px; }
+.verdict button { flex: 1; min-height: 52px; border-radius: 12px; border: 1.5px solid var(--chip); background: var(--surface); font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.verdict kbd { font: inherit; font-size: 11px; opacity: .65; }
+.verdict button[aria-pressed="true"][data-v="fountain"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .verdict button[aria-pressed="true"][data-v="not"] { background: var(--not); border-color: var(--not); color: #fff; }
 .verdict button[aria-pressed="true"][data-v="unsure"] { background: var(--unsure); border-color: var(--unsure); color: #fff; }
-.pre { font-size: 12px; color: var(--muted); }
-.cards.only-todo .card:not([data-verdict="none"]) { display: none; }
-.cards.only-fountain .card:not([data-verdict="fountain"]) { display: none; }
-.cards.only-unsure .card:not([data-verdict="unsure"]) { display: none; }
-.cards.only-not .card:not([data-verdict="not"]) { display: none; }
-.cards.only-seen .card:not([data-seen="1"]) { display: none; }
-.seen { font-size: 13px; font-weight: 600; color: var(--box); }
-.unseen { font-size: 13px; color: var(--muted); }
-form.score { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: end; }
-form.score label { display: grid; gap: 3px; font-size: 13px; color: var(--muted); }
-form.score input { border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; background: var(--surface); min-width: 0; }
-form.score input[type="number"] { width: 92px; }
-.primary { border: 0; background: var(--water); color: #fff; border-radius: 8px; padding: 8px 16px; font-weight: 650; cursor: pointer; }
-.primary[disabled] { opacity: .5; cursor: default; }
-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
-th, td { text-align: left; padding: 7px 8px; border-top: 1px solid var(--line); vertical-align: top; }
-th { font-size: 12px; color: var(--muted); font-weight: 600; }
-td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
-.band { display: inline-block; border-radius: 999px; padding: 1px 9px; color: #fff; font-weight: 650; font-size: 13px; white-space: nowrap; }
-.band.likely { background: var(--likely); } .band.uncertain { background: var(--uncertain); } .band.unlikely { background: var(--unlikely); }
-.gap { border-top: 1px solid var(--line); padding-top: 10px; margin-top: 10px; }
-.gap ul { margin: 6px 0 0; padding-left: 18px; }
-.open { color: var(--likely); font-weight: 600; } .closed { color: var(--unlikely); font-weight: 600; }
-.tablewrap { overflow-x: auto; }
-footer { color: var(--muted); font-size: 13px; padding: 4px 0 30px; }
-footer p { margin: 0 0 8px; }
+.verdict.pre button[aria-pressed="true"] { opacity: .78; }
+.nextlink { font-size: 13px; font-weight: 750; text-decoration: none; background: none; border: 0; color: var(--accent); padding: 4px 0; }
+.keys { font-size: 12px; color: var(--muted); }
+.keys kbd { font: inherit; font-size: 11px; font-weight: 700; padding: 0 5px; border: 1px solid var(--chip); border-radius: 4px; }
+
+/* 3. score */
+#screen-score { overflow: auto; flex-direction: column; gap: 16px; padding: 18px 24px; }
+.settings { display: flex; flex-wrap: wrap; align-items: end; gap: 10px 14px; }
+.settings label { display: grid; gap: 3px; font-size: 12px; font-weight: 650; color: var(--muted); }
+.settings input { min-height: 40px; border: 1px solid var(--chip); border-radius: 10px; padding: 0 10px; background: var(--surface); font-weight: 650; }
+.settings input[type="number"] { width: 84px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.ribbon { padding: 16px 20px 10px; }
+.ribbon .bar { position: relative; height: 84px; }
+.ribbon .water { position: absolute; left: 0; right: 0; top: 40px; height: 8px; border-radius: 4px; background: var(--accent-soft); }
+.ribbon .dry { position: absolute; top: 36px; height: 16px; border-radius: 5px; background: repeating-linear-gradient(135deg, var(--dry-a) 0 6px, var(--dry-b) 6px 12px); border: 1px solid var(--dry-line); }
+.ribbon .drylab { position: absolute; top: 6px; font-size: 12px; font-weight: 750; color: var(--dry-ink); white-space: nowrap; transform: translateX(-50%); }
+.ribbon .f { position: absolute; top: 34px; width: 20px; height: 20px; margin-left: -10px; border-radius: 50%; border: 3px solid var(--surface); box-shadow: 0 1px 3px rgba(0, 0, 0, .3); padding: 0; }
+.ribbon .s { position: absolute; top: 62px; width: 20px; height: 20px; margin-left: -10px; border-radius: 6px; background: var(--ink); color: var(--bg); display: flex; align-items: center; justify-content: center; }
+.ribbon .ticks { position: relative; height: 18px; font-size: 11px; font-weight: 650; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ribbon .ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.cols { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+.flist { flex: 999 1 540px; min-width: 0; padding: 6px 0 12px; }
+.flist h2, .stretches h2 { margin: 10px 20px 6px; font-size: 15px; }
+.frow { border-top: 1px solid var(--soft); }
+.frow .line { display: flex; align-items: center; gap: 12px; padding: 9px 20px; }
+.frow .when { width: 124px; flex: 0 0 auto; font-size: 13px; font-weight: 750; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.frow .what { flex: 1; min-width: 0; text-align: left; border: 0; background: transparent; padding: 4px 0; font-size: 14px; font-weight: 700; }
+.frow .what span { font-weight: 500; color: var(--muted); }
+.frow.open { background: var(--accent-soft); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 20px 12px 156px; }
+.chips span { padding: 4px 9px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line); font-size: 12px; font-weight: 600; }
+.stretches { flex: 1 1 360px; min-width: 0; padding: 6px 0 14px; }
+.stretches .head { display: flex; align-items: center; gap: 10px; padding-right: 16px; }
+.stretches .head h2 { flex: 1; }
+.gap { padding: 6px 20px 8px; }
+.gap h3 { margin: 6px 0 8px; font-size: 13px; color: var(--dry-ink); }
+.stop { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 10px; background: var(--bg); margin-bottom: 6px; font-size: 14px; }
+.stop .k { width: 56px; flex: 0 0 auto; font-size: 13px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.stop .n { flex: 1; min-width: 0; font-weight: 700; display: flex; flex-direction: column; }
+.stop .n small { font-size: 12px; font-weight: 500; color: var(--muted); }
+.stop .st { font-size: 13px; font-weight: 750; white-space: nowrap; }
+.st.open { color: var(--likely); } .st.closed { color: var(--unlikely); } .st.unknown { color: var(--muted); }
+.stop .sug { color: var(--accent); }
+details.more summary { cursor: pointer; font-size: 13px; font-weight: 650; color: var(--muted); padding: 4px 0 8px; }
+.note { margin: 0 20px; font-size: 12px; color: var(--muted); }
+
+/* 4. gpx */
+#screen-gpx { overflow: auto; justify-content: center; }
+.gpxbox { width: 100%; max-width: 720px; padding: 40px 20px; display: flex; flex-direction: column; gap: 18px; }
+.gpxbox h1 { margin: 0; font-size: 28px; letter-spacing: -.02em; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.tile { padding: 14px; border-radius: 14px; background: var(--surface); border: 1px solid var(--line); }
+.tile b { display: block; font-size: 26px; letter-spacing: -.02em; }
+.wpts { list-style: none; margin: 0; padding: 6px 0; }
+.wpts li { display: flex; gap: 12px; align-items: center; padding: 7px 16px; border-top: 1px solid var(--soft); font-size: 14px; }
+.wpts li:first-child { border-top: 0; }
+.wpts .k { width: 56px; font-size: 12px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+.wpts code { font: 600 13px ui-monospace, SFMono-Regular, Menlo, monospace; }
+
 .leaflet-popup-content { margin: 10px 12px; }
 .addform { display: grid; gap: 6px; min-width: 200px; }
-.addform input { border: 1px solid #c9cec7; border-radius: 6px; padding: 5px 7px; color: #1c2420; background: #fff; }
-.addform button { border: 0; background: #1d6a98; color: #fff; border-radius: 6px; padding: 6px; font-weight: 650; cursor: pointer; }
-.hide { display: none !important; }
+.addform input { border: 1px solid #c9cec7; border-radius: 6px; padding: 6px 8px; color: #15201B; background: #fff; }
+.addform button { border: 0; background: #1F6FA8; color: #fff; border-radius: 8px; padding: 8px; font-weight: 700; }
+
+@media (max-width: 960px) {
+  body { overflow: auto; }
+  .app { height: auto; min-height: 100vh; grid-template-rows: auto 1fr auto; }
+  .top { flex-wrap: wrap; gap: 8px; padding: 10px 14px; }
+  .brand { width: auto; }
+  .ridechip { width: auto; flex: 1 1 0; min-width: 0; }
+  .steps { order: 3; flex-basis: 100%; overflow-x: auto; justify-content: flex-start; }
+  .steps .sep { width: 12px; }
+  main { min-height: 70vh; }
+  .screen { position: static; }
+  #screen-check { flex-direction: column; }
+  .mapwrap { flex: 0 0 auto; height: 44vh; }
+  .panel { flex: 1 1 auto; width: auto; border-left: 0; border-top: 1px solid var(--line); padding: 16px; }
+  .drawer { top: 56px; width: auto; left: 14px; }
+  .chips { padding-left: 20px; }
+  .frow .when { width: 96px; }
+  .frow .line { flex-wrap: wrap; }
+}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="app">
   <header class="top">
-    <div class="brand">fountains</div>
-    <p class="tag">Will the fountains on my ride be running?</p>
+    <a class="brand" href="#ride">
+      <svg width="14" height="18" viewBox="0 0 14 18" aria-hidden="true"><path d="M7 1C7 1 1.5 7.6 1.5 11.3a5.5 5.5 0 0 0 11 0C12.5 7.6 7 1 7 1Z" fill="var(--accent)"/></svg>
+      <span>fountains</span>
+    </a>
+    <nav class="steps" aria-label="Steps"><ol id="steps"></ol></nav>
+    <div class="ridechip" id="ridechip"></div>
   </header>
-  <p class="warn" id="disclaimer" role="note"></p>
 
-  <section class="step" id="s1">
-    <h2><span class="n">1</span>Your ride</h2>
-    <label class="drop" id="drop">
-      <input type="file" id="file" accept=".gpx,application/gpx+xml">
-      <strong>Choose a GPX file</strong> or drop it here.<br>
-      <span class="muted small">Export it from your app or bike computer. It stays on this computer: only the positions of water points, and the box around the ride, are sent to the open-data services.</span>
-    </label>
-    <div class="ridebar hide" id="ridebar"></div>
-    <p class="err hide" id="uperr" role="alert"></p>
-  </section>
-
-  <div class="work hide" id="work">
-    <div class="mapcol">
-      <div id="map" role="region" aria-label="Map of the ride and its water points"></div>
-      <p class="muted small">Click the map to add a fountain you know that no map has.</p>
-    </div>
-    <div class="listcol">
-      <section class="step" id="s2">
-        <h2><span class="n">2</span>Check the water points</h2>
-        <div class="status">
-          <p class="small" id="lookmsg" aria-live="polite"></p>
-          <div class="bar" id="lookbar"><span></span></div>
-          <p class="hide" id="retry"><button class="chip" type="button" id="retrybtn">Look again for the missing photos</button></p>
+  <main>
+    <section class="screen" id="screen-ride" aria-label="Your ride">
+      <div class="ridebox">
+        <h1>Your ride</h1>
+        <label class="drop" id="drop">
+          <input type="file" id="file" accept=".gpx,application/gpx+xml">
+          <span class="icon"><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0-5 5m5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <strong id="droptitle">Choose a GPX</strong>
+          <span class="muted">or drop it here. It stays on this computer.</span>
+        </label>
+        <p class="err" id="uperr" role="alert" hidden></p>
+        <div id="recentbox" hidden>
+          <h2 class="small muted" style="margin:6px 0 8px">On this computer</h2>
+          <div class="recent" id="recent"></div>
         </div>
-        <p class="small muted" id="counts"></p>
-        <div class="chips" role="group" aria-label="Show">
-          <button class="chip" data-f="all" aria-pressed="true">All</button>
-          <button class="chip" data-f="seen">Something on the photos</button>
-          <button class="chip" data-f="todo">To decide</button>
-          <button class="chip" data-f="fountain">Fountains</button>
-          <button class="chip" data-f="unsure">Not sure</button>
-          <button class="chip" data-f="not">Not fountains</button>
+      </div>
+    </section>
+
+    <section class="screen" id="screen-check" aria-label="Check the water points">
+      <div class="mapwrap">
+        <div id="map" role="region" aria-label="Map of the ride and its water points"></div>
+        <div class="floating layers" role="group" aria-label="Map background" id="layers">
+          <button type="button" data-layer="plan" aria-pressed="true">Plan</button>
+          <button type="button" data-layer="aerial" aria-pressed="false">Aerial</button>
+          <button type="button" data-layer="osm" aria-pressed="false">OSM</button>
         </div>
-        <div class="cards" id="cards"></div>
-      </section>
-    </div>
-  </div>
+        <button type="button" class="floating listbtn" id="listbtn" aria-expanded="false" aria-controls="drawer">
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 4h10M3 8h10M3 12h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span id="listlabel">All points</span>
+        </button>
+        <div class="floating legend" aria-hidden="true">
+          <span><i style="box-shadow:inset 0 0 0 2px var(--ink);background:var(--surface)"></i>To check</span>
+          <span><i style="background:var(--accent)"></i>Fountain</span>
+          <span><i style="background:var(--unsure)"></i>Not sure</span>
+          <span><i style="background:var(--not)"></i>Not a fountain</span>
+        </div>
+        <div class="floating jobchip" id="jobchip" role="status" hidden></div>
+        <div class="drawer" id="drawer" hidden>
+          <div class="filters" role="group" aria-label="Show" id="filters"></div>
+          <ol id="plist"></ol>
+        </div>
+      </div>
+      <aside class="panel" id="panel"></aside>
+    </section>
 
-  <section class="step hide" id="s3">
-    <h2><span class="n">3</span>Score the fountains you kept</h2>
-    <form class="score" id="scoreform">
-      <label>Day of the ride<input type="date" name="date" required></label>
-      <label>Start time<input type="time" name="start" placeholder="08:30"></label>
-      <label>Pace on the flat, km/h<input type="number" name="flat_kmh" min="5" max="45" step="1" value="20"></label>
-      <label>Climbing, m per hour<input type="number" name="climb_mh" min="100" max="1600" step="50" value="500"></label>
-      <label>Look for shops after, km<input type="number" name="gap_km" min="3" max="60" step="1" value="10"></label>
-      <button class="primary" id="scorebtn" type="submit">Score</button>
-    </form>
-    <p class="small muted">The start time and pace give the time you pass each point, so cafés and shops can be checked against their opening hours.</p>
-    <p class="small" id="scoremsg" aria-live="polite"></p>
-    <div id="results"></div>
-  </section>
+    <section class="screen" id="screen-score" aria-label="Score the fountains you kept"></section>
+    <section class="screen" id="screen-gpx" aria-label="Take it on the ride"></section>
+  </main>
 
-  <section class="step hide" id="s4">
-    <h2><span class="n">4</span>Take it on the ride</h2>
-    <p><a class="primary" id="gpxbtn" href="/api/gpx" download>Download the GPX</a></p>
-    <p class="small muted" id="gpxnote"></p>
-  </section>
-
-  <footer>
-    <p id="note"></p>
-    <p id="attribution"></p>
-    <p id="disclaimer2"></p>
+  <footer class="warn">
+    <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.5 13 12.5H1L7 1.5Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M7 5.5v3.2M7 10.4v.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    <span id="disclaimer">A score is never a reason to carry less water. Nothing here says the water is safe to drink.</span>
   </footer>
 </div>
 
@@ -201,22 +309,59 @@ footer p { margin: 0 0 8px; }
 "use strict";
 const $ = (s, el = document) => el.querySelector(s);
 const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-let S = null, version = null, timer = null, map = null, trackLayer = null, stopsLayer = null, markers = {}, filter = "all", fitted = null;
+const STEPS = [["ride", "Ride"], ["check", "Check"], ["score", "Score"], ["gpx", "GPX"]];
 
+let S = null, version = null, timer = null;
+const ui = { screen: "ride", sel: null, view: {}, look: false, drawer: false, filter: "all", expanded: null, openOnly: false, layer: "plan", lastCentered: null };
+try { ui.openOnly = localStorage.getItem("fountains.openOnly") === "1"; } catch (e) { /* private window */ }
+
+// ---- tiny DOM helpers: every child list is flattened and empty values dropped ----
 function h(tag, attrs, ...kids) {
   const e = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs || {})) {
     if (v === null || v === undefined || v === false) continue;
     if (k === "class") e.className = v;
+    else if (k === "style") e.style.cssText = v;
     else if (k.startsWith("on")) e.addEventListener(k.slice(2), v);
     else e.setAttribute(k, v === true ? "" : v);
   }
-  for (const k of kids.flat()) if (k !== null && k !== undefined && k !== false) e.append(k instanceof Node ? k : String(k));
+  put(e, kids, true);
   return e;
 }
-const fmtDate = (iso) => iso ? iso.slice(8, 10) + "/" + iso.slice(5, 7) + "/" + iso.slice(0, 4) : "";
-const verdictOf = (p) => p.verdict || "none";
+function put(el, kids, append) {
+  const list = [kids].flat(Infinity).filter((k) => k !== null && k !== undefined && k !== false && k !== "");
+  const nodes = list.map((k) => (k instanceof Node ? k : document.createTextNode(String(k))));
+  if (append) el.append(...nodes); else el.replaceChildren(...nodes);
+}
+function svg(markup, size = 16) {
+  const t = document.createElement("template");
+  t.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 16 16" aria-hidden="true">${markup}</svg>`;
+  return t.content.firstChild;
+}
+const ICON = {
+  left: '<path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>',
+  right: '<path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>',
+  check: '<path d="M3.5 8.3 6.6 11 12.5 4.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+  star: '<path d="m8 1.8 1.9 4 4.3.5-3.2 2.9.9 4.3L8 11.4l-3.9 2.1.9-4.3L1.8 6.3l4.3-.5L8 1.8Z" fill="currentColor"/>',
+  eye: '<ellipse cx="8" cy="8" rx="6.5" ry="3.3" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="8" r="1.5" fill="currentColor"/>',
+  fuel: '<path d="M3 4h6v9H3zM9 7h1.8v3.5a1.2 1.2 0 0 0 2.4 0V5.5L12 4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>',
+  shop: '<path d="M2 3h2l1.5 6.5h6l1.5-5H4.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><circle cx="6.2" cy="12.5" r="1" fill="currentColor"/><circle cx="10.6" cy="12.5" r="1" fill="currentColor"/>',
+  cup: '<path d="M3 5h8v4a4 4 0 0 1-8 0V5Zm8 1h1.5a1.8 1.8 0 0 1 0 3.6H11" fill="none" stroke="currentColor" stroke-width="1.3"/>',
+};
+const fmtDate = (iso) => (iso ? iso.slice(8, 10) + "/" + iso.slice(5, 7) + "/" + iso.slice(0, 4) : "");
+const wrap180 = (a) => ((a % 360) + 540) % 360 - 180;
+const cap = (t) => t.replace(/^./, (c) => c.toUpperCase());
+function distM(a, b, c, d) {
+  const r = Math.PI / 180, x = (d - b) * r * Math.cos((a + c) / 2 * r), y = (c - a) * r;
+  return Math.round(Math.hypot(x, y) * 6371008.8);
+}
+function bearing(a, b, c, d) {
+  const r = Math.PI / 180, y = Math.sin((d - b) * r) * Math.cos(c * r);
+  const x = Math.cos(a * r) * Math.sin(c * r) - Math.sin(a * r) * Math.cos(c * r) * Math.cos((d - b) * r);
+  return (Math.atan2(y, x) / r + 360) % 360;
+}
 
+// ---- server -------------------------------------------------------------------
 async function api(path, body) {
   const opt = body === undefined ? {} : { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) };
   const r = await fetch(path, opt);
@@ -224,12 +369,11 @@ async function api(path, body) {
   if (!r.ok) throw new Error(j.error || r.statusText);
   return j;
 }
-
 async function refresh(force) {
   try {
     const j = await api("/api/state" + (version !== null && !force ? "?v=" + version : ""));
     if (!j.same) apply(j);
-  } catch (e) { /* the server may be restarting: try again later */ }
+  } catch (e) { /* the server may be restarting */ }
   schedule();
 }
 function schedule() {
@@ -238,307 +382,555 @@ function schedule() {
   timer = setTimeout(refresh, running ? 2000 : 20000);
 }
 function apply(j) {
+  const before = S && S.ride ? S.ride.id : null, after = j.ride ? j.ride.id : null;
   S = j;
   version = j.ride ? j.ride.version : null;
+  if (before !== after) { ui.sel = null; ui.view = {}; ui.look = false; ui.expanded = null; ui.lastCentered = null; }
   render();
 }
+async function act(path, body) {
+  try { apply(await api(path, body)); schedule(); return true; } catch (e) { toast(e.message); return false; }
+}
+function toast(msg) {
+  const el = $("#jobchip");
+  el.hidden = false; el.textContent = msg;
+  clearTimeout(toast.t); toast.t = setTimeout(() => renderJob(), 5000);
+}
 
-// ---- 1. upload -------------------------------------------------------------
+// ---- routing --------------------------------------------------------------------
+function go(screen, arg) { location.hash = "#" + screen + (arg ? "/" + arg : ""); }
+function route() {
+  const [scr, arg] = location.hash.slice(1).split("/");
+  const has = S && S.ride;
+  ui.screen = has && STEPS.some(([k]) => k === scr) ? scr : (has && !scr ? "check" : "ride");
+  if (ui.screen === "check" && arg && arg !== ui.sel) { ui.sel = arg; ui.look = false; }
+  render();
+}
+window.addEventListener("hashchange", route);
+
+// ---- points ---------------------------------------------------------------------
+const points = () => (S && S.ride ? [...S.ride.points].sort((a, b) => a.km - b.km) : []);
+const checked = (p) => !!p.verdict && !p.prefilled;
+const status = (p) => (p.verdict === "fountain" ? "fountain" : p.verdict === "not" ? "not" : p.verdict === "unsure" ? "unsure" : "todo");
+function title(p) { return p.name || (p.origin === "clue" ? "Maybe a fountain" : cap(p.kind)); }
+function current() {
+  const list = points();
+  return list.find((p) => p.id === ui.sel) || list.find((p) => !checked(p)) || list[0] || null;
+}
+function nextToCheck(p) {
+  const list = points(), i = list.indexOf(p);
+  return list.slice(i + 1).find((q) => !checked(q)) || list.slice(0, i).find((q) => !checked(q)) || null;
+}
+function sourceLine(p) {
+  const bits = [];
+  if (p.origin === "clue") bits.push("Clue: " + p.kind + (p.road ? " · " + p.road : ""));
+  else if (p.origin === "you") bits.push("Added by you");
+  else bits.push({ OSM: "OpenStreetMap", IGN: "IGN map point", "OSM + IGN": "OpenStreetMap and IGN" }[p.source] || p.source);
+  bits.push(p.off_track_m + " m from your track");
+  if (p.origin === "map" && p.road_m > 15) bits.push("mapped " + p.road_m + " m off the road");
+  if (p.tags && p.tags.last_confirmed) bits.push("last checked " + fmtDate(p.tags.last_confirmed));
+  if (p.tags && p.tags.seasonal) bits.push("seasonal: " + p.tags.seasonal);
+  return bits.join(" · ");
+}
+
+// ---- render -----------------------------------------------------------------------
+function render() {
+  if (!S) return;
+  $("#disclaimer").textContent = S.disclaimer;
+  renderSteps();
+  for (const [k] of STEPS) $("#screen-" + k).classList.toggle("on", ui.screen === k);
+  if (ui.screen === "ride") renderRide();
+  if (ui.screen === "check") renderCheck();
+  if (ui.screen === "score") renderScore();
+  if (ui.screen === "gpx") renderGpx();
+}
+function renderSteps() {
+  const has = S.ride, list = points();
+  const done = { ride: !!has, check: !!has && list.length > 0 && list.every(checked), score: !!has && !!has.score, gpx: false };
+  const count = { check: has ? list.filter(checked).length + " / " + list.length : "" };
+  const items = [];
+  STEPS.forEach(([k, label], i) => {
+    if (i) items.push(h("li", { class: "sep", "aria-hidden": "true" }));
+    const cur = ui.screen === k;
+    items.push(h("li", {}, h("a", { href: "#" + k, class: done[k] && !cur ? "done" : null, "aria-current": cur ? "step" : null,
+      "aria-disabled": !has && k !== "ride" ? "true" : null },
+      h("span", { class: "n" }, done[k] && !cur ? svg(ICON.check, 12) : String(i + 1)), label,
+      count[k] ? h("span", { class: "count" }, count[k]) : null)));
+  });
+  put($("#steps"), items);
+  put($("#ridechip"), has ? h("span", { title: has.name }, has.name + " · " + has.length_km + " km") : null);
+}
+
+// ---- 1. ride --------------------------------------------------------------------------
 const drop = $("#drop");
 async function upload(file) {
-  $("#uperr").classList.add("hide");
-  drop.querySelector("strong").textContent = "Reading " + file.name + "...";
+  $("#uperr").hidden = true;
+  $("#droptitle").textContent = "Reading " + file.name + "…";
   try {
     const text = await file.text();
     apply(await api("/api/ride", { gpx: text, filename: file.name }));
-    fitted = null;
     schedule();
+    go("check");
   } catch (e) {
     $("#uperr").textContent = "This file could not be used: " + e.message;
-    $("#uperr").classList.remove("hide");
+    $("#uperr").hidden = false;
   }
-  drop.querySelector("strong").textContent = "Choose a GPX file";
+  $("#droptitle").textContent = "Choose a GPX";
 }
 $("#file").addEventListener("change", (e) => e.target.files[0] && upload(e.target.files[0]));
 drop.addEventListener("dragover", (e) => { e.preventDefault(); drop.classList.add("over"); });
 drop.addEventListener("dragleave", () => drop.classList.remove("over"));
 drop.addEventListener("drop", (e) => { e.preventDefault(); drop.classList.remove("over"); if (e.dataTransfer.files[0]) upload(e.dataTransfer.files[0]); });
+async function renderRide() {
+  let rides = [];
+  try { rides = (await api("/api/rides")).rides; } catch (e) { /* none */ }
+  $("#recentbox").hidden = !rides.length;
+  put($("#recent"), rides.map((r) => h("button", { type: "button", "aria-current": r.current ? "true" : null,
+    onclick: async () => { if (await act("/api/open", { id: r.id })) go("check"); } },
+    h("span", { class: "t" }, h("strong", {}, r.name), h("span", { class: "small muted" }, r.length_km + " km" + (r.climb_m ? " · " + r.climb_m + " m up" : "") + " · " + r.decided + " of " + r.points + " points checked")),
+    svg(ICON.right, 18))));
+}
 
-// ---- rendering ---------------------------------------------------------------
-function render() {
-  $("#disclaimer").textContent = S.disclaimer;
-  $("#disclaimer2").textContent = S.disclaimer;
+// ---- 2. check: the map -------------------------------------------------------------------
+let map = null, layers = {}, trackLayer = null, markers = {}, halo = null, camera = null, fittedRide = null;
+function initMap() {
+  if (map) return;
+  const wmts = (layer, fmt) => "https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=" + layer + "&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=" + fmt;
+  layers = {
+    plan: L.tileLayer(wmts("GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2", "image/png"), { maxZoom: 19, attribution: "Plan IGN" }),
+    aerial: L.tileLayer(wmts("ORTHOIMAGERY.ORTHOPHOTOS", "image/jpeg"), { maxZoom: 19, attribution: "IGN BD ORTHO" }),
+    osm: L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap contributors" }),
+  };
+  map = L.map("map", { layers: [layers.plan], zoomControl: false });
+  L.control.zoom({ position: "bottomright" }).addTo(map);
+  map.on("click", (e) => addPopup(e.latlng));
+  document.querySelectorAll("#layers button").forEach((b) => b.addEventListener("click", () => setLayer(b.dataset.layer)));
+}
+function setLayer(name) {
+  ui.layer = name;
+  for (const [k, l] of Object.entries(layers)) { if (k === name) l.addTo(map); else l.remove(); }
+  document.querySelectorAll("#layers button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.layer === name)));
+}
+function markerStyle(p, selected) {
+  const s = status(p);
+  const fill = { fountain: css("--accent"), not: css("--not"), unsure: css("--unsure"), todo: css("--surface") }[s];
+  return { radius: selected ? 10 : p.origin === "clue" ? 6 : 7, color: s === "todo" ? css("--ink") : "#fff", weight: 2.5,
+    fillColor: fill, fillOpacity: s === "not" ? 0.55 : 1 };
+}
+function renderMap(p) {
+  initMap();
+  map.invalidateSize();
   const r = S.ride;
-  for (const id of ["work", "s3", "s4"]) $("#" + id).classList.toggle("hide", !r);
-  if (!r) return;
-  $("#note").textContent = S.note || "";
-  $("#attribution").textContent = S.attribution || "";
-  const rb = $("#ridebar");
-  rb.replaceChildren(
-    h("strong", {}, r.name),
-    h("span", {}, r.length_km + " km" + (r.climb_m ? ", " + r.climb_m.toLocaleString("en") + " m climbing" : "")),
-    h("span", { class: "muted small" }, "from " + r.file),
-    h("button", { class: "chip", type: "button", onclick: () => $("#file").click() }, "Use another GPX"),
-  );
-  rb.classList.remove("hide");
-  drop.classList.add("hide");
-  renderMap(r);
-  renderLook(r);
-  renderCards(r);
-  renderScore(r);
-  renderGpx(r);
-}
-
-function renderLook(r) {
-  const j = r.jobs.look || {};
-  const pts = r.points;
-  const done = pts.filter((p) => ["done", "none", "error"].includes(p.photo_state)).length;
-  let msg = j.message || "";
-  if (j.error) msg = "Stopped: " + j.error + ". The points below can still be decided.";
-  $("#lookmsg").textContent = msg;
-  $("#lookbar").classList.toggle("hide", !j.running);
-  $("#retry").classList.toggle("hide", !!j.running || !(pts.some((p) => p.photo_state === "error") || j.error));
-  $("#lookbar span").style.width = (pts.length ? Math.round(100 * done / pts.length) : 0) + "%";
-  const n = (o) => pts.filter((p) => p.origin === o).length;
-  const seen = pts.filter((p) => p.origin === "clue" && p.ranked && p.photos.length && p.photos[0].owl >= S.seen).length;
-  const ranked = pts.some((p) => p.ranked);
-  $("#counts").textContent = n("map") + " from the maps, counted as fountains until you say otherwise. " + n("clue") + " places found from clues" +
-    (ranked ? ", " + seen + " with something like a fountain on the photos" : "") + ": they stay out of your GPX unless you mark them." +
-    (n("you") ? " " + n("you") + " added by you." : "");
-}
-
-function photoBlock(p) {
-  const ph = p.photos || [];
-  if (!ph.length) {
-    const why = { waiting: "Street photos: waiting for their turn.", looking: "Looking for street photos around this point...",
-      error: "Street photos unavailable (" + (p.photo_error || "error") + ").", none: p.origin === "you" ? "Added by you." :
-      "No 360° street photo within 100 m. Decide from the plan, the aerial view or what you know; “Not sure” puts it in your GPX as a point to check on the spot." }[p.photo_state] || "";
-    return [h("div", { class: "photo" }, h("p", { class: "empty" }, why))];
-  }
-  const i = Math.min(p.chosen || 0, ph.length - 1), c = ph[i];
-  const wrap = h("div", { class: "photo" }, h("img", { src: "/crops/" + c.file, alt: "Street photo near this point, " + c.aim, width: c.w, height: c.h, loading: "lazy" }));
-  if (c.box && c.box.length === 4 && c.owl >= 0.1) {
-    const [x0, y0, x1, y1] = c.box;
-    wrap.append(h("span", { class: "box", style: `left:${100 * x0 / c.w}%;top:${100 * y0 / c.h}%;width:${100 * (x1 - x0) / c.w}%;height:${100 * (y1 - y0) / c.h}%` }));
-  }
-  const cap = h("p", { class: "small muted" }, "Photo " + fmtDate(c.date) + (c.license ? ", " + c.license : "") + (c.owl > 0 ? ". Box: what the vision model takes for a fountain (score " + c.owl.toFixed(2) + "). " : ". "),
-    h("a", { href: c.viewer, target: "_blank", rel: "noopener" }, "Look around in Panoramax"));
-  const shown = ph.map((t, k) => [t, k]).filter(([, k]) => k < 6 || k === i);
-  const thumbs = ph.length > 1 ? h("div", { class: "thumbs", role: "group", "aria-label": "Other photos" },
-    shown.map(([t, k]) => h("button", { type: "button", "aria-pressed": String(k === i), title: "Photo " + (k + 1) + (t.owl > 0 ? ", score " + t.owl.toFixed(2) : ""),
-      onclick: () => decide(p.id, { photo: k }) }, h("img", { src: "/crops/" + t.file, alt: "Photo " + (k + 1), loading: "lazy" })))) : null;
-  const best = ph[0].owl || 0;
-  const verdict = !p.ranked ? h("p", { class: "unseen" }, ph.length + " views, not ranked by the vision model yet.")
-    : best >= S.seen ? h("p", { class: "seen" }, "The vision model sees something like a fountain (score " + best.toFixed(2) + ").")
-    : h("p", { class: "unseen" }, "Nothing that looks like a fountain on these " + ph.length + " views (best score " + best.toFixed(2) + ").");
-  return [verdict, wrap, cap, thumbs, ph.length > shown.length ? h("p", { class: "small muted" }, (ph.length - shown.length) + " more views of the same place, less likely to show a fountain.") : null];
-}
-
-function sourceLabel(p) {
-  if (p.origin === "clue") return "clue: " + p.kind;
-  if (p.origin === "you") return "added by you";
-  return { "OSM": "OpenStreetMap", "IGN": "IGN BD TOPO", "OSM + IGN": "OpenStreetMap + IGN" }[p.source] || p.source;
-}
-function detail(p) {
-  const bits = [];
-  if (p.origin === "clue") bits.push((p.road ? p.road + ", " : "") + (p.road_m ? p.road_m + " m from the clue to the road" : "on the road"));
-  if (p.origin === "map") {
-    bits.push(p.off_track_m + " m from the track");
-    if (p.road_m > 15) bits.push("mapped " + p.road_m + " m from the nearest road");
-    const t = p.tags || {};
-    if (t.last_confirmed) bits.push("last checked " + fmtDate(t.last_confirmed));
-    if (t.seasonal) bits.push("seasonal=" + t.seasonal);
-    if (t.drinking_water === "conditional") bits.push("drinking water: conditional");
-    if (t.access === "customers") bits.push("customers only");
-  }
-  if (p.origin === "you") bits.push(p.off_track_m + " m from the track");
-  return bits.join(" · ");
-}
-
-function card(p) {
-  const v = verdictOf(p);
-  const btn = (val, label) => h("button", { type: "button", "data-v": val, "aria-pressed": String(p.verdict === val), onclick: () => decide(p.id, { verdict: val }) }, label);
-  const seen = p.ranked && p.photos && p.photos.length && p.photos[0].owl >= S.seen;
-  return h("article", { class: "card", id: "card-" + p.id, "data-verdict": v, "data-id": p.id, "data-seen": seen ? "1" : "0" },
-    h("div", { class: "head" },
-      h("button", { class: "km", type: "button", title: "Show on the map", onclick: () => focusPoint(p.id) }, "km " + p.km.toFixed(1)),
-      h("h3", {}, p.name || (p.origin === "clue" ? "Maybe a fountain" : p.kind)),
-      h("span", { class: "src" + (p.origin === "clue" ? " clue" : "") }, sourceLabel(p))),
-    h("p", { class: "small muted" }, detail(p)),
-    ...photoBlock(p),
-    h("div", { class: "maps" },
-      h("figure", {}, h("img", { src: p.plan, alt: "Plan IGN around the point", loading: "lazy" }), h("span", { class: "ring" }), h("figcaption", {}, "Plan IGN")),
-      h("figure", {}, h("img", { src: p.aerial, alt: "Aerial view of the point", loading: "lazy" }), h("span", { class: "ring" }), h("figcaption", {}, "Aerial (IGN)"))),
-    h("div", { class: "verdict", role: "group", "aria-label": "Is there a fountain here?" }, btn("fountain", "Fountain"), btn("not", "Not a fountain"), btn("unsure", "Not sure")),
-    p.prefilled ? h("p", { class: "pre" }, "From the map: counted as a fountain until you say otherwise.") : null);
-}
-
-function renderCards(r) {
-  const box = $("#cards");
-  const pts = [...r.points].sort((a, b) => a.km - b.km);
-  const seen = new Set();
-  let prev = null;
-  for (const p of pts) {
-    seen.add(p.id);
-    const sig = JSON.stringify([p.verdict, p.prefilled, p.photo_state, p.ranked, (p.photos || []).map((x) => x.file), p.chosen, p.name, p.road_m]);
-    let el = document.getElementById("card-" + p.id);
-    if (!el || el.dataset.sig !== sig) {
-      const fresh = card(p);
-      fresh.dataset.sig = sig;
-      if (el) el.replaceWith(fresh); else box.append(fresh);
-      el = fresh;
-    }
-    if (prev ? prev.nextElementSibling !== el : box.firstElementChild !== el) (prev ? prev.after(el) : box.prepend(el));
-    prev = el;
-  }
-  for (const el of [...box.children]) if (!seen.has(el.dataset.id)) el.remove();
-  box.className = "cards" + (filter === "all" ? "" : " only-" + filter);
-}
-
-document.querySelectorAll(".chip[data-f]").forEach((b) => b.addEventListener("click", () => {
-  filter = b.dataset.f;
-  document.querySelectorAll(".chip[data-f]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-  $("#cards").className = "cards" + (filter === "all" ? "" : " only-" + filter);
-}));
-
-async function decide(id, body) {
-  try { apply(await api("/api/decide", { id, ...body })); } catch (e) { alert(e.message); }
-}
-
-$("#retrybtn").addEventListener("click", async () => {
-  try { apply(await api("/api/look", {})); schedule(); } catch (e) { $("#lookmsg").textContent = e.message; }
-});
-
-// ---- map -----------------------------------------------------------------------
-function colour(p) {
-  const sc = S.ride.score && S.ride.score.fountains.find((f) => f.ref === p.id);
-  if (p.verdict === "fountain" && sc) return css("--" + sc.band);
-  return { fountain: css("--water"), unsure: css("--unsure"), not: css("--not") }[p.verdict] || css("--muted");
-}
-function renderMap(r) {
-  if (!map) {
-    const wmts = (layer, fmt) => "https://data.geopf.fr/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=" + layer + "&STYLE=normal&TILEMATRIXSET=PM&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&FORMAT=" + fmt;
-    const plan = L.tileLayer(wmts("GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2", "image/png"), { maxZoom: 19, attribution: "Plan IGN" });
-    const osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap contributors" });
-    const ortho = L.tileLayer(wmts("ORTHOIMAGERY.ORTHOPHOTOS", "image/jpeg"), { maxZoom: 19, attribution: "IGN BD ORTHO" });
-    map = L.map("map", { layers: [plan] });
-    L.control.layers({ "Plan IGN": plan, "OpenStreetMap": osm, "Aerial (IGN)": ortho }).addTo(map);
-    map.on("click", (e) => addPopup(e.latlng));
-  }
-  if (fitted !== r.id) {
+  if (fittedRide !== r.id) {
     if (trackLayer) trackLayer.remove();
-    trackLayer = L.polyline(r.line, { color: css("--ink"), weight: 3, opacity: .75 }).addTo(map);
-    map.fitBounds(trackLayer.getBounds().pad(0.05));
+    trackLayer = L.polyline(r.line, { color: css("--ink"), weight: 3.5, opacity: 0.8 }).addTo(map);
     for (const m of Object.values(markers)) m.remove();
     markers = {};
-    fitted = r.id;
+    map.fitBounds(trackLayer.getBounds().pad(0.04));
+    fittedRide = r.id;
   }
   const ids = new Set();
-  for (const p of r.points) {
-    ids.add(p.id);
-    const opts = { radius: p.origin === "clue" ? 6 : 8, color: "#fff", weight: 2, fillColor: colour(p), fillOpacity: p.verdict === "not" ? .35 : .95 };
-    if (!markers[p.id]) {
-      markers[p.id] = L.circleMarker([p.lat, p.lon], opts).addTo(map).on("click", (e) => { L.DomEvent.stopPropagation(e); showCard(p.id); });
-      markers[p.id].bindTooltip(() => "km " + p.km.toFixed(1) + " · " + (p.name || p.kind));
-    } else markers[p.id].setStyle(opts);
+  for (const q of r.points) {
+    ids.add(q.id);
+    const style = markerStyle(q, p && q.id === p.id);
+    if (!markers[q.id]) {
+      markers[q.id] = L.circleMarker([q.lat, q.lon], style).addTo(map)
+        .on("click", (e) => { L.DomEvent.stopPropagation(e); go("check", q.id); })
+        .bindTooltip(() => "km " + q.km.toFixed(1) + " · " + title(q), { direction: "top", offset: [0, -6] });
+    } else markers[q.id].setStyle(style);
   }
   for (const [id, m] of Object.entries(markers)) if (!ids.has(id)) { m.remove(); delete markers[id]; }
-  const sc = r.score;
-  if (stopsLayer) stopsLayer.remove();
-  stopsLayer = L.layerGroup((sc ? sc.gaps.flatMap((g) => g.stops.filter((s) => s.suggested)) : []).map((s) =>
-    L.circleMarker([s.lat, s.lon], { radius: 5, color: "#fff", weight: 1.5, fillColor: css("--muted"), fillOpacity: .9 })
-      .bindTooltip(s.kind + (s.name ? ": " + s.name : "") + (s.eta ? ", around " + s.eta : "")))).addTo(map);
+  if (halo) { halo.remove(); halo = null; }
+  if (p) {
+    halo = L.circleMarker([p.lat, p.lon], { radius: 19, color: css("--accent"), weight: 3, fillColor: css("--accent"), fillOpacity: 0.15, interactive: false }).addTo(map);
+    if (markers[p.id]) markers[p.id].bringToFront();
+    if (ui.lastCentered !== p.id) {
+      ui.lastCentered = p.id;
+      if (!map.getBounds().pad(-0.15).contains([p.lat, p.lon]) || map.getZoom() < 15) map.flyTo([p.lat, p.lon], Math.max(map.getZoom(), 16), { duration: 0.6 });
+    }
+  }
+  renderCamera(p);
 }
-function focusPoint(id) {
-  const p = S.ride.points.find((x) => x.id === id);
-  if (p && map) { map.setView([p.lat, p.lon], Math.max(map.getZoom(), 15)); markers[id] && markers[id].openTooltip(); }
-}
-function showCard(id) {
-  const el = document.getElementById("card-" + id);
-  if (!el) return;
-  if (getComputedStyle(el).display === "none") $(".chip[data-f='all']").click();
-  el.scrollIntoView({ behavior: "smooth", block: "start" });
-  el.classList.add("flash");
-  setTimeout(() => el.classList.remove("flash"), 1600);
+function renderCamera(p) {
+  if (camera) { camera.remove(); camera = null; }
+  const c = p && shownPhoto(p);
+  if (!c) return;
+  const r = Math.PI / 180, len = 30 / 111195, heading = ui.look ? pano.yaw : c.heading;
+  const tip = [c.lat + len * Math.cos(heading * r), c.lon + len * Math.sin(heading * r) / Math.cos(c.lat * r)];
+  camera = L.layerGroup([
+    L.polyline([[c.lat, c.lon], tip], { color: css("--box"), weight: 3, interactive: false }),
+    L.circleMarker([c.lat, c.lon], { radius: 5, color: "#fff", weight: 2, fillColor: css("--box"), fillOpacity: 1, interactive: false }),
+  ]).addTo(map);
 }
 function addPopup(latlng) {
   const name = h("input", { type: "text", placeholder: "Name (optional)", "aria-label": "Name of the fountain" });
-  const err = h("p", { class: "small", style: "color:#a24c2a;margin:0" });
+  const err = h("p", { class: "small", style: "color:#A3441C;margin:0" });
   const form = h("form", { class: "addform", onsubmit: async (e) => {
     e.preventDefault();
     try { apply(await api("/api/add", { lat: latlng.lat, lon: latlng.lng, name: name.value })); map.closePopup(); }
     catch (x) { err.textContent = x.message; }
-  } }, h("strong", {}, "A fountain you know here?"), name, h("button", { type: "submit" }, "Add it as a fountain"), err);
+  } }, h("strong", {}, "A fountain you know here?"), name, h("button", { type: "submit" }, "Add it"), err);
   L.popup().setLatLng(latlng).setContent(form).openOn(map);
 }
 
-// ---- 3. score ------------------------------------------------------------------
-const form = $("#scoreform");
-form.addEventListener("submit", async (e) => {
+// ---- 2. check: the list drawer ----------------------------------------------------------------
+const FILTERS = [["all", "All"], ["todo", "To check"], ["fountain", "Fountains"], ["unsure", "Not sure"], ["not", "Not fountains"]];
+$("#listbtn").addEventListener("click", () => { ui.drawer = !ui.drawer; renderDrawer(current()); });
+function renderDrawer(p) {
+  const list = points();
+  $("#listlabel").textContent = "All " + list.length + " points";
+  $("#listbtn").setAttribute("aria-expanded", String(ui.drawer));
+  $("#drawer").hidden = !ui.drawer;
+  if (!ui.drawer) return;
+  const keep = (q, k) => k === "all" || (k === "todo" ? !checked(q) : status(q) === k);
+  put($("#filters"), FILTERS.map(([k, label]) => h("button", { type: "button", "aria-pressed": String(ui.filter === k),
+    onclick: () => { ui.filter = k; renderDrawer(p); } }, label + " " + list.filter((q) => keep(q, k)).length)));
+  put($("#plist"), list.filter((q) => keep(q, ui.filter)).map((q) => h("li", {}, h("button", { type: "button", "aria-current": p && q.id === p.id ? "true" : null,
+    onclick: () => { ui.drawer = false; go("check", q.id); } },
+    h("span", { class: "km" }, q.km.toFixed(1)), h("span", { class: "nm" }, title(q)),
+    h("span", { class: "small muted" }, q.origin === "clue" ? "clue" : q.origin === "you" ? "you" : q.source),
+    h("span", { class: "dot " + status(q), "aria-label": status(q) })))));
+}
+
+// ---- 2. check: the panel ------------------------------------------------------------------------
+function viewIndex(p) {
+  const n = (p.photos || []).length;
+  if (!n) return 0;
+  const i = ui.view[p.id] ?? p.chosen ?? 0;
+  return Math.min(Math.max(0, i), n - 1);
+}
+function shownPhoto(p) { const ph = p.photos || []; return ph.length ? ph[viewIndex(p)] : null; }
+function setView(p, i) {
+  const n = (p.photos || []).length;
+  if (!n) return;
+  ui.view[p.id] = (i + n) % n;
+  renderCheck(true);
+}
+function renderCheck(rebuild) {
+  const p = current();
+  if (p && ui.sel !== p.id) ui.sel = p.id;
+  renderMap(p);
+  renderDrawer(p);
+  renderJob();
+  const panel = $("#panel");
+  if (!p) { put(panel, h("p", { class: "muted" }, "No water point near this ride yet. Click the map to add a fountain you know.")); return; }
+  const sig = JSON.stringify([p.id, p.verdict, p.prefilled, p.sure, p.chosen, p.photo_state, (p.photos || []).length, p.ranked, viewIndex(p), ui.look]);
+  if (!rebuild && panel.dataset.sig === sig) return;  // nothing visible changed: keep the panorama and the scroll position
+  panel.dataset.sig = sig;
+  const list = points(), idx = list.indexOf(p), next = nextToCheck(p);
+  put(panel, [
+    h("div", { class: "phead" },
+      h("span", { class: "kmpill" }, "km " + p.km.toFixed(1)),
+      h("h1", {}, title(p)),
+      h("span", { class: "small muted", style: "font-variant-numeric:tabular-nums" }, (idx + 1) + " / " + list.length),
+      h("button", { type: "button", class: "iconbtn", "aria-label": "Previous point (K)", onclick: () => go("check", list[(idx - 1 + list.length) % list.length].id) }, svg(ICON.left)),
+      h("button", { type: "button", class: "iconbtn", "aria-label": "Next point (J)", onclick: () => go("check", list[(idx + 1) % list.length].id) }, svg(ICON.right))),
+    h("p", { class: "sub" }, sourceLine(p)),
+    viewerBlock(p),
+    photoTools(p),
+    p.origin === "you" ? h("button", { type: "button", class: "btn", style: "align-self:flex-start", onclick: () => act("/api/remove", { id: p.id }) }, "Remove this fountain") : null,
+    verdictBlock(p),
+    h("div", { class: "row", style: "justify-content:space-between" },
+      h("span", { class: "keys" }, h("kbd", {}, "F"), " ", h("kbd", {}, "N"), " ", h("kbd", {}, "U"), " decide · ", h("kbd", {}, "←"), " ", h("kbd", {}, "→"), " views · ", h("kbd", {}, "L"), " 360° · ", h("kbd", {}, "J"), " next"),
+      next ? h("button", { type: "button", class: "nextlink", onclick: () => go("check", next.id) }, "Next to check: km " + next.km.toFixed(1) + " →")
+        : h("a", { class: "nextlink", href: "#score" }, "Everything checked: score →")),
+  ]);
+  if (ui.look && shownPhoto(p)) openPano(p);
+}
+function viewerBlock(p) {
+  const ph = p.photos || [], c = shownPhoto(p);
+  const box = h("div", { class: "viewer" });
+  if (ui.look && c) { box.append(h("div", { class: "pano", id: "pano" }, h("div", { class: "msg" }, "Loading the 360° photo…"))); return box; }
+  if (!c) {
+    const msg = { waiting: "Street photos: waiting for their turn.", looking: "Looking for street photos around this point…",
+      error: "Street photos unavailable: " + (p.photo_error || "error") + "." }[p.photo_state]
+      || (p.origin === "you" ? "Added by you." : "No 360° street photo within 100 m. Decide from the map (try Aerial), or from what you know.");
+    box.append(h("div", { class: "empty" }, msg,
+      p.photo_state === "none" || p.photo_state === "error" ? h("button", { type: "button", class: "btn", onclick: () => { setLayer("aerial"); map.flyTo([p.lat, p.lon], 18); } }, "Aerial view on the map") : null,
+      p.photo_state === "error" ? h("button", { type: "button", class: "btn", onclick: () => act("/api/look", {}) }, "Look again") : null));
+    return box;
+  }
+  const i = viewIndex(p);
+  const img = h("img", { class: "crop", src: "/crops/" + c.file, alt: "Street photo near this point, view " + (i + 1) });
+  img.addEventListener("error", () => { img.replaceWith(h("div", { class: "empty" }, "This view could not be loaded.")); });
+  box.append(img);
+  if (c.box && c.box.length === 4 && c.owl > 0) {
+    const [x0, y0, x1, y1] = c.box, strong = c.owl >= S.seen;
+    const pos = `left:${100 * x0 / c.w}%;top:${100 * y0 / c.h}%;width:${100 * (x1 - x0) / c.w}%;height:${100 * (y1 - y0) / c.h}%`;
+    box.append(h("span", { class: "box" + (strong ? "" : " weak"), style: pos }),
+      h("span", { class: "boxlabel" + (strong ? "" : " weak") + (x0 / c.w > 0.7 ? " end" : ""), style: `left:${100 * (x0 / c.w > 0.7 ? x1 : x0) / c.w}%;top:${100 * y0 / c.h}%` },
+        (strong ? (c.label || "fountain") + "? " : "weak · ") + c.owl.toFixed(2)));
+  }
+  box.append(
+    h("button", { type: "button", class: "vbtn look", onclick: () => { ui.look = true; renderCheck(true); } }, svg(ICON.eye, 14), "360°"),
+    ph.length > 1 ? h("button", { type: "button", class: "vbtn prev", "aria-label": "Previous view (←)", onclick: () => setView(p, i - 1) }, svg(ICON.left)) : null,
+    ph.length > 1 ? h("button", { type: "button", class: "vbtn next", "aria-label": "Next view (→)", onclick: () => setView(p, i + 1) }, svg(ICON.right)) : null,
+    h("span", { class: "vcount" }, "View " + (i + 1) + " of " + ph.length + (c.date ? " · " + fmtDate(c.date) : "")));
+  return box;
+}
+function photoTools(p) {
+  const ph = p.photos || [];
+  if (!ph.length) return null;
+  const i = viewIndex(p), c = ph[i], isMine = (k) => (p.chosen ?? 0) === k && p.verdict === "fountain" && !p.prefilled;
+  return h("div", { style: "display:flex;flex-direction:column;gap:12px;min-width:0" },
+    h("div", { class: "strip", role: "group", "aria-label": "Views of this place, best first" },
+      ph.map((t, k) => h("button", { type: "button", "aria-pressed": String(k === i), "aria-label": "View " + (k + 1) + ", score " + t.owl.toFixed(2),
+        onclick: () => setView(p, k) },
+        h("img", { src: "/crops/" + t.file, alt: "", loading: "lazy" }),
+        isMine(k) ? h("span", { class: "star" }, svg(ICON.star, 10)) : null,
+        h("span", { class: "sc" + (t.owl >= S.seen ? " hi" : "") }, t.owl.toFixed(2))))),
+    h("p", { class: "hint" }, p.ranked ? "Each view has its own score: how sure the model is about the object in its box. It ranks the views of this place, nothing else."
+      : "These views are not ranked by the vision model yet."),
+    h("div", { class: "row" },
+      h("button", { type: "button", class: "btn choose", "aria-pressed": String(isMine(i)), onclick: () => act("/api/decide", { id: p.id, photo: i, verdict: "fountain" }) },
+        svg(ICON.star, 15), isMine(i) ? "Your photo of this fountain" : "This photo shows it"),
+      h("a", { href: c.viewer, target: "_blank", rel: "noopener", class: "small", style: "font-weight:650" }, "Panoramax"),
+      c.license ? h("span", { class: "small muted" }, c.license) : null));
+}
+function verdictBlock(p) {
+  const btn = (v, label, key) => h("button", { type: "button", "data-v": v, "aria-pressed": String(p.verdict === v), onclick: () => decide(p, v) },
+    h("span", {}, label), h("kbd", {}, key));
+  return [
+    h("div", { class: "verdict" + (p.prefilled ? " pre" : ""), role: "group", "aria-label": "Is there a fountain here?" },
+      btn("fountain", "Fountain", "F"), btn("not", "Not one", "N"), btn("unsure", "Not sure", "U")),
+    p.prefilled ? h("p", { class: "hint", style: "margin:-6px 0 0" }, "From the map: counted as a fountain until you say otherwise.") : null,
+  ];
+}
+function decide(p, v) { return act("/api/decide", { id: p.id, verdict: v }); }
+function renderJob() {
+  const el = $("#jobchip"), j = (S.ride && S.ride.jobs.look) || {};
+  if (j.running) { el.hidden = false; el.textContent = j.message || "Looking for photos…"; }
+  else if (j.error) { el.hidden = false; el.textContent = "Photos stopped: " + j.error; }
+  else el.hidden = true;
+}
+
+// ---- 2. check: the 360° panorama ------------------------------------------------------------------
+const pano = { file: null, data: null, url: null, yaw: 0, fov: 100 };
+async function openPano(p) {
+  const c = shownPhoto(p), el = $("#pano");
+  if (!c || !el) return;
+  if (pano.file !== c.file) { pano.yaw = c.heading; pano.fov = 100; pano.data = null; pano.url = null; }
+  pano.file = c.file;
+  if (!pano.data) {
+    try { pano.data = await api("/api/pano?pic=" + encodeURIComponent(c.picture)); }
+    catch (e) { return panoFail("Panoramax did not answer (" + e.message + ")."); }
+  }
+  if (!pano.url) {
+    pano.url = await new Promise((resolve) => {
+      const tryUrl = (urls) => {
+        if (!urls.length) return resolve(null);
+        const im = new Image();
+        im.onload = () => resolve(urls[0]);
+        im.onerror = () => tryUrl(urls.slice(1));
+        im.src = urls[0];
+      };
+      tryUrl([pano.data.hd, pano.data.sd].filter(Boolean));
+    });
+  }
+  if (!pano.url) return panoFail("The 360° photo could not be loaded.");
+  if (pano.file === c.file && $("#pano")) buildPano(p, c);
+}
+function panoFail(msg) {
+  const el = $("#pano");
+  if (el) put(el, h("div", { class: "msg" }, msg, h("button", { type: "button", class: "btn", style: "margin-left:8px", onclick: () => { ui.look = false; renderCheck(true); } }, "Back to the views")));
+}
+function buildPano(p, c) {
+  const el = $("#pano");
+  el.style.backgroundImage = "url(" + JSON.stringify(pano.url) + ")";
+  const strong = c.owl >= S.seen, marks = [];
+  if (c.box && c.box.length === 4 && c.owl > 0) {
+    marks.push(h("span", { class: "box" + (strong ? "" : " weak"), "data-m": "box" }),
+      h("span", { class: "boxlabel" + (strong ? "" : " weak"), "data-m": "label" }, (strong ? (c.label || "fountain") + "? " : "weak · ") + c.owl.toFixed(2)));
+  }
+  if (p.origin !== "you") {
+    marks.push(h("span", { class: "tagline", "data-m": "line" }),
+      h("span", { class: "tag", "data-m": "tag" }, (p.origin === "clue" ? "clue" : "map point") + ", " + distM(c.lat, c.lon, p.lat, p.lon) + " m"));
+  }
+  for (const [lab, deg] of [["N", 0], ["NE", 45], ["E", 90], ["SE", 135], ["S", 180], ["SW", 225], ["W", 270], ["NW", 315]]) marks.push(h("span", { class: "compass", "data-deg": deg }, lab));
+  put(el, [
+    marks,
+    h("button", { type: "button", class: "vbtn look", onclick: () => { ui.look = false; renderCheck(true); } }, "Back to the views"),
+    h("button", { type: "button", class: "vbtn prev", "aria-label": "Turn left", onclick: () => turn(-30) }, svg(ICON.left)),
+    h("button", { type: "button", class: "vbtn next", "aria-label": "Turn right", onclick: () => turn(30) }, svg(ICON.right)),
+    h("div", { class: "zoom" }, h("button", { type: "button", "aria-label": "Zoom out", onclick: () => zoom(1.25) }, "−"), h("button", { type: "button", "aria-label": "Zoom in", onclick: () => zoom(0.8) }, "+")),
+    h("span", { class: "vcount" }, "360° · " + fmtDate(pano.data.date || c.date) + " · drag to look around"),
+  ]);
+  let x0 = null, yaw0 = 0;
+  el.onpointerdown = (e) => { if (e.target.closest("button")) return; x0 = e.clientX; yaw0 = pano.yaw; el.setPointerCapture(e.pointerId); el.classList.add("drag"); };
+  el.onpointermove = (e) => { if (x0 === null) return; pano.yaw = yaw0 - (e.clientX - x0) / el.clientWidth * pano.fov; drawPano(); };
+  el.onpointerup = el.onpointercancel = () => { if (x0 !== null) renderCamera(current()); x0 = null; el.classList.remove("drag"); };
+  el.onwheel = (e) => { e.preventDefault(); zoom(e.deltaY > 0 ? 1.12 : 1 / 1.12); };
+  drawPano();
+}
+function turn(d) { pano.yaw += d; drawPano(); renderCamera(current()); }
+function zoom(k) { pano.fov = Math.min(120, Math.max(25, pano.fov * k)); drawPano(); }
+function drawPano() {
+  const el = $("#pano"), p = current(), c = p && shownPhoto(p);
+  if (!el || !pano.data || !c || pano.file !== c.file) return;
+  const w = el.clientWidth, hh = el.clientHeight, W = 360 / pano.fov * w, H = W / 2, pc = -9;
+  const x = (0.5 + ((((pano.yaw - (pano.data.azimuth || 0)) % 360) + 360) % 360) / 360) * W;
+  el.style.backgroundSize = W + "px " + H + "px";
+  el.style.backgroundPosition = (w / 2 - x) + "px " + (hh / 2 - (0.5 - pc / 180) * H) + "px";
+  const sx = (yaw) => w / 2 + wrap180(yaw - pano.yaw) / 360 * W;
+  const sy = (pitch) => hh / 2 + (pc - pitch) / 180 * H;
+  const show = (e, xx) => { e.hidden = xx < -60 || xx > w + 60; };
+  const box = el.querySelector('[data-m="box"]'), lab = el.querySelector('[data-m="label"]');
+  if (box) {
+    const [x0, y0, x1, y1] = c.box;
+    const yaw0 = c.heading + (x0 / c.w - 0.5) * 100, yaw1 = c.heading + (x1 / c.w - 0.5) * 100;
+    const left = sx(yaw0), right = left + (yaw1 - yaw0) / 360 * W, top = sy(12 - y0 / c.h * 42), bottom = sy(12 - y1 / c.h * 42);
+    box.style.cssText = `left:${left}px;top:${top}px;width:${right - left}px;height:${bottom - top}px`;
+    lab.style.cssText = `left:${left}px;top:${top}px`;
+    show(box, left); show(lab, left);
+  }
+  const line = el.querySelector('[data-m="line"]'), tag = el.querySelector('[data-m="tag"]');
+  if (line) {
+    const xx = sx(bearing(c.lat, c.lon, p.lat, p.lon));
+    line.style.left = xx + "px"; tag.style.left = xx + "px"; show(line, xx); show(tag, xx);
+  }
+  el.querySelectorAll(".compass").forEach((m) => { const xx = sx(Number(m.dataset.deg)); m.style.left = xx + "px"; show(m, xx); });
+}
+window.addEventListener("resize", () => { if (ui.look) drawPano(); });
+
+// ---- keyboard ---------------------------------------------------------------------------------------
+document.addEventListener("keydown", (e) => {
+  if (ui.screen !== "check" || e.target.closest("input, textarea, select, .leaflet-popup") || e.metaKey || e.ctrlKey || e.altKey) return;
+  const p = current();
+  if (!p) return;
+  const k = e.key.toLowerCase(), list = points(), i = list.indexOf(p);
+  if (k === "f") decide(p, "fountain");
+  else if (k === "n") decide(p, "not");
+  else if (k === "u" || k === "?") decide(p, "unsure");
+  else if (k === "j" || k === "enter") { const n = nextToCheck(p) || list[(i + 1) % list.length]; go("check", n.id); }
+  else if (k === "k") go("check", list[(i - 1 + list.length) % list.length].id);
+  else if (k === "l") { ui.look = !ui.look; renderCheck(true); }
+  else if (k === "arrowleft") { if (ui.look) turn(-15); else setView(p, viewIndex(p) - 1); }
+  else if (k === "arrowright") { if (ui.look) turn(15); else setView(p, viewIndex(p) + 1); }
+  else return;
   e.preventDefault();
-  const body = Object.fromEntries(new FormData(form).entries());
-  try { apply(await api("/api/score", body)); schedule(); } catch (x) { $("#scoremsg").textContent = x.message; }
 });
-function renderScore(r) {
-  const st = r.settings || {};
-  const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
-  if (!form.date.value) form.date.value = st.date || today;
-  for (const k of ["start", "flat_kmh", "climb_mh", "gap_km"]) if (st[k] !== undefined && !form.dataset.touched) form[k].value = st[k];
-  form.dataset.touched = "1";
+
+// ---- 3. score -----------------------------------------------------------------------------------------------
+function renderScore() {
+  const r = S.ride, sc = r.score, st = r.settings || {}, j = r.jobs.score || {};
   const kept = r.points.filter((p) => p.verdict === "fountain").length;
-  const j = r.jobs.score || {};
-  $("#scorebtn").textContent = j.running ? "Scoring..." : "Score " + kept + " fountain" + (kept === 1 ? "" : "s");
-  $("#scorebtn").disabled = !!j.running || !kept;
-  $("#scoremsg").textContent = j.error ? "Stopped: " + j.error : (j.running ? j.message || "" : "");
-  const res = $("#results");
-  const sc = r.score;
-  if (!sc) { res.replaceChildren(); return; }
-  const m = sc.meta;
-  const near = sc.fountains.filter((f) => f.reachable), far = sc.fountains.filter((f) => !f.reachable);
-  const row = (f) => h("tr", {},
-    h("td", { class: "num" }, f.km.toFixed(1) + (f.eta ? " · " + f.eta : "")),
-    h("td", {}, h("strong", {}, f.name || f.kind), h("br"), h("span", { class: "small muted" }, (f.detour_m ?? "?") + " m off the route")),
-    h("td", {}, h("span", { class: "band " + f.band }, f.band)),
-    h("td", { class: "small" }, f.reason, ...f.notes.map((n) => [h("br"), "Note: " + n])));
-  const head = h("tr", {}, h("th", {}, "km" + (m.start ? " · time" : "")), h("th", {}, "Fountain"), h("th", {}, "Band"), h("th", {}, "Why"));
-  const pb = m.calibration.per_band;
-  const share = (b) => pb[b] && pb[b].n ? Math.round(100 * pb[b].rate) + " % of " + pb[b].n.toLocaleString("en") : "no case";
-  res.replaceChildren(
-    h("p", {}, h("strong", {}, "Ride on " + fmtDate(m.day) + (m.start ? ", start " + m.start : "")), " · rain from Météo-France gauges up to " + fmtDate(m.gauges_last_day) + (m.forecast_used ? ", then the Météo-France forecast." : ".")),
-    h("p", { class: "warn" }, S.disclaimer),
-    near.length ? h("div", { class: "tablewrap" }, h("table", {}, h("thead", {}, head), h("tbody", {}, near.map(row)))) : h("p", {}, "No fountain within " + m.max_detour_m + " m of the track along roads and paths."),
-    far.length ? [h("p", { class: "small muted", style: "margin-top:12px" }, "Close as the crow flies, but more than " + m.max_detour_m + " m away by road or path:"),
-      h("div", { class: "tablewrap" }, h("table", {}, h("tbody", {}, far.map(row))))] : null,
-    h("div", {}, sc.gaps.map((g) => {
-      const sug = g.stops.filter((s) => s.suggested), rest = g.stops.filter((s) => !s.suggested);
-      return h("div", { class: "gap" },
-        h("strong", {}, "km " + g.from_km.toFixed(1) + " to " + g.to_km.toFixed(1) + " (" + g.length_km + " km) without a likely fountain"),
-        !g.stops.length ? h("p", { class: "small muted" }, "No café, shop or fuel station on the maps within reach.") : [
-          sug.length ? [h("p", { class: "small muted", style: "margin:6px 0 0" }, "Suggested, and in your GPX: about one every " + m.gap_km + " km, open when you pass first, never one known to be closed."),
-            h("ul", {}, sug.map(stopItem))] : h("p", { class: "small muted" }, "None to suggest: the places on the maps are closed when you pass, or just after the start of the stretch."),
-          rest.length ? h("details", {}, h("summary", { class: "small" }, rest.length + " more on the maps"), h("ul", {}, rest.map(stopItem))) : null]);
-    })),
-    h("p", { class: "small muted", style: "margin-top:12px" }, "How to read the bands: when " + m.calibration.n_stations + " Corsican streams were each hidden from the model in turn, “likely” streams were flowing in " + share("likely") + " cases, “uncertain” in " + share("uncertain") + ", “unlikely” in " + share("unlikely") + "."),
-  );
+  const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  const scr = $("#screen-score");
+  const prev = scr.querySelector("form");
+  const val = (n, d) => (prev && prev.elements[n] ? prev.elements[n].value : st[n] ?? d);
+  const form = h("form", { class: "settings", onsubmit: (e) => { e.preventDefault(); act("/api/score", Object.fromEntries(new FormData(e.target).entries())); } },
+    h("label", {}, "Day of the ride", h("input", { type: "date", name: "date", required: true, value: val("date", today) })),
+    h("label", {}, "Start", h("input", { type: "time", name: "start", value: val("start", "") })),
+    h("label", {}, "Pace, km/h", h("input", { type: "number", name: "flat_kmh", min: "5", max: "45", step: "1", value: val("flat_kmh", 20) })),
+    h("label", {}, "Climbing, m/h", h("input", { type: "number", name: "climb_mh", min: "100", max: "1600", step: "50", value: val("climb_mh", 500) })),
+    h("label", {}, "Dry stretch, km", h("input", { type: "number", name: "gap_km", min: "3", max: "60", step: "1", value: val("gap_km", 10) })),
+    h("button", { type: "submit", class: "btn primary", disabled: !!j.running || !kept }, j.running ? "Scoring…" : (sc ? "Score again" : "Score " + kept + " fountain" + (kept === 1 ? "" : "s"))),
+    h("span", { class: "small muted", style: "flex:1;min-width:220px" }, j.running ? (j.message || "") : j.error ? "Stopped: " + j.error
+      : sc ? "Rain: Météo-France gauges to " + fmtDate(sc.meta.gauges_last_day) + (sc.meta.forecast_used ? ", then the forecast." : ".") : "The start time and pace give the time you pass each place."));
+  if (!sc) { put(scr, [form, h("div", { class: "card", style: "padding:28px;text-align:center" }, h("p", { style: "margin:0" }, "Score the fountains you kept for the day of your ride."))]); return; }
+  const m = sc.meta, L = m.length_km || 1, pc = (km) => Math.max(0, Math.min(100, 100 * km / L));
+  const sure = new Set(r.points.filter((p) => p.sure && p.verdict === "fountain").map((p) => p.id));
+  const anyEta = sc.gaps.some((g) => g.stops.some((s) => s.eta));
+  const shownStops = (g) => g.stops.filter((s) => (ui.openOnly ? s.open_then === true : s.suggested));
+  const ribbon = h("section", { class: "card ribbon", "aria-label": "The ride, kilometre by kilometre" },
+    h("div", { class: "bar" },
+      h("div", { class: "water" }),
+      sc.gaps.map((g) => [h("div", { class: "dry", style: `left:${pc(g.from_km)}%;width:${pc(g.to_km) - pc(g.from_km)}%` }),
+        h("span", { class: "drylab", style: `left:${pc((g.from_km + g.to_km) / 2)}%` }, g.length_km + " km without a likely fountain")]),
+      sc.fountains.map((f) => h("button", { type: "button", class: "f", title: "km " + f.km.toFixed(1) + " · " + (f.name || f.kind) + " · " + (sure.has(f.ref) ? "sure" : f.band),
+        style: `left:${pc(f.km)}%;background:var(--${sure.has(f.ref) ? "accent" : f.band})`, onclick: () => { ui.expanded = f.ref; renderScore(); } })),
+      sc.gaps.flatMap(shownStops).map((s) => h("span", { class: "s", title: "km " + s.km.toFixed(1) + " · " + s.kind + (s.name ? ", " + s.name : ""), style: `left:${pc(s.km)}%` },
+        svg(s.kind === "fuel station" ? ICON.fuel : /shop|market|grocer|deli/.test(s.kind) ? ICON.shop : ICON.cup, 12)))),
+    h("div", { class: "ticks" }, Array.from({ length: Math.floor(L / 10) + 1 }, (_, k) => (k * 10 < L - 4 ? h("span", { style: `left:${pc(k * 10)}%` }, String(k * 10)) : null)),
+      h("span", { style: "left:100%;transform:translateX(-100%)" }, L + " km")));
+  const frows = sc.fountains.map((f) => {
+    const s = sure.has(f.ref), open = ui.expanded === f.ref;
+    return h("div", { class: "frow" + (open ? " open" : "") },
+      h("div", { class: "line" },
+        h("span", { class: "when" }, "km " + f.km.toFixed(1) + (f.eta ? " · " + f.eta : "")),
+        h("button", { type: "button", class: "what", "aria-expanded": String(open), onclick: () => { ui.expanded = open ? null : f.ref; renderScore(); } },
+          (f.name || cap(f.kind)) + " ", h("span", {}, f.source)),
+        s ? h("span", { class: "band sure" }, svg(ICON.check, 11), "sure") : h("span", { class: "band " + f.band }, f.band),
+        h("button", { type: "button", class: "sw", role: "switch", "aria-checked": String(s), onclick: () => act("/api/decide", { id: f.ref, sure: !s }) },
+          h("span", { class: "track" }), "I know it runs")),
+      open ? h("div", { class: "chips" }, reasonChips(f, s)) : null);
+  });
+  const gapCards = sc.gaps.map((g) => {
+    const shown = shownStops(g), rest = ui.openOnly ? [] : g.stops.filter((s) => !s.suggested);
+    return h("div", { class: "gap" },
+      h("h3", {}, "km " + g.from_km.toFixed(1) + " → " + g.to_km.toFixed(1) + " · " + g.length_km + " km"),
+      shown.length ? shown.map(stopRow) : h("p", { class: "small muted", style: "margin:0 0 8px" },
+        ui.openOnly ? (anyEta ? "No place on the maps says it is open when you pass." : "Give a start time to see what is open when you pass.")
+          : g.stops.length ? "None to suggest: closed when you pass, or right after the start of the stretch." : "No café, shop or fuel station on the maps within reach."),
+      rest.length ? h("details", { class: "more" }, h("summary", {}, rest.length + " more on the maps"), rest.map(stopRow)) : null);
+  });
+  put(scr, [
+    form,
+    ribbon,
+    h("div", { class: "cols" },
+      h("section", { class: "card flist", "aria-labelledby": "fl" }, h("h2", { id: "fl" }, "Fountains you kept · " + sc.fountains.length), frows,
+        h("p", { class: "note", style: "margin-top:12px" }, bandsNote(m))),
+      h("section", { class: "card stretches", "aria-labelledby": "dl" },
+        h("div", { class: "head" }, h("h2", { id: "dl" }, "Where else to fill up"),
+          h("button", { type: "button", class: "sw", role: "switch", "aria-checked": String(ui.openOnly), disabled: !anyEta && !ui.openOnly,
+            onclick: () => { ui.openOnly = !ui.openOnly; try { localStorage.setItem("fountains.openOnly", ui.openOnly ? "1" : "0"); } catch (e) { /* ignore */ } renderScore(); } },
+            h("span", { class: "track" }), "Open when I pass")),
+        sc.gaps.length ? gapCards : h("p", { class: "note" }, "No stretch of " + m.gap_km + " km or more without a likely fountain."),
+        h("p", { class: "note" }, ui.openOnly ? "Places without opening hours on the map are hidden." : "★ suggested, and in your GPX: about one every " + m.gap_km + " km, open when you pass first."),
+        h("div", { style: "display:flex;justify-content:flex-end;padding:12px 20px 0" }, h("a", { class: "btn primary", href: "#gpx" }, "Next: the GPX →")))),
+  ]);
+}
+function stopRow(s) {
+  const state = s.open_then === true ? ["open", "open " + s.eta] : s.open_then === false ? ["closed", "closed " + s.eta] : ["unknown", s.eta ? "hours unknown" : ""];
+  return h("div", { class: "stop" },
+    h("span", { class: "k" }, "km " + s.km.toFixed(1)),
+    h("span", { class: "n" }, h("span", {}, s.suggested ? h("span", { class: "sug", title: "suggested, in your GPX" }, "★ ") : null, s.name || cap(s.kind)),
+      h("small", {}, (s.name ? s.kind + " · " : "") + s.detour_m + " m off the route")),
+    h("span", { class: "st " + state[0], title: s.opening_hours || "no opening hours on the map" }, state[1]));
+}
+function reasonChips(f, sure) {
+  const r = f.rain || {}, out = [];
+  if (sure) out.push("model: " + f.band);
+  if (r.rain_90 != null) out.push("rain, 90 days: " + Math.round(r.rain_90) + " mm" + (r.ratio_90 != null ? ", " + Math.round(100 * r.ratio_90) + " % of normal" : ""));
+  if (r.rain_30 != null) out.push("30 days: " + Math.round(r.rain_30) + " mm");
+  if (r.forecast_mm) out.push("forecast before the ride: " + Math.round(r.forecast_mm) + " mm");
+  if (f.elevation_m != null) out.push(Math.round(f.elevation_m) + " m up");
+  if (f.stream) out.push("stream " + (f.stream.stream || f.stream.station) + ", " + f.stream.km + " km away: " + (f.stream.flowing ? "flowing" : "not flowing") + " on " + fmtDate(f.stream.date));
+  out.push(f.last_confirmed ? "last checked " + fmtDate(f.last_confirmed) : "no check date on the maps");
+  out.push(f.detour_m != null ? f.detour_m + " m off the route" : "no mapped path to it");
+  for (const n of f.notes || []) out.push(n);
+  return out.map((t) => h("span", {}, t));
+}
+function bandsNote(m) {
+  const cal = m.calibration || {}, pb = cal.per_band || {};
+  const share = (b) => (pb[b] && pb[b].n ? Math.round(100 * pb[b].rate) + " % of " + pb[b].n.toLocaleString("en") : "no case");
+  return "How to read the bands: on " + cal.n_stations + " Corsican streams each hidden from the model in turn, “likely” ones were flowing in " +
+    share("likely") + " cases, “uncertain” in " + share("uncertain") + ", “unlikely” in " + share("unlikely") + ". " + S.note;
 }
 
-function stopItem(s) {
-  const state = s.open_then === true ? "open" : s.open_then === false ? "closed" : "hours unknown";
-  return h("li", {}, "km " + s.km.toFixed(1) + ": " + s.kind + (s.name ? ", " + s.name : "") + ", " + s.detour_m + " m off the route",
-    s.eta ? [" · around " + s.eta + ": ", h("span", { class: s.open_then === true ? "open" : s.open_then === false ? "closed" : "" }, state)] : null,
-    s.opening_hours ? h("span", { class: "small muted" }, " (" + s.opening_hours + ")") : null);
+// ---- 4. gpx ----------------------------------------------------------------------------------------------------
+async function renderGpx() {
+  const scr = $("#screen-gpx");
+  let w = [];
+  try { w = (await api("/api/waypoints?open_only=" + (ui.openOnly ? "1" : "0"))).waypoints; } catch (e) { /* no ride */ }
+  if (ui.screen !== "gpx") return;
+  const n = (bands) => w.filter((x) => bands.includes(x.band)).length;
+  const href = "/api/gpx?open_only=" + (ui.openOnly ? "1" : "0");
+  put(scr, h("div", { class: "gpxbox" },
+    h("h1", {}, "Take it on the ride"),
+    h("div", { class: "tiles" },
+      h("div", { class: "tile" }, h("b", {}, String(n(["sure", "likely", "uncertain", "unlikely", ""]))), "fountains you kept"),
+      h("div", { class: "tile" }, h("b", {}, String(n(["check"]))), "points to check on the spot"),
+      h("div", { class: "tile" }, h("b", {}, String(n(["stop"]))), ui.openOnly ? "places open when you pass" : "places suggested")),
+    S.ride.score ? null : h("p", { class: "small muted", style: "margin:0" }, "Not scored yet: the fountains have no band. ", h("a", { href: "#score" }, "Score them first.")),
+    w.length ? h("div", { class: "card" }, h("ol", { class: "wpts", "aria-label": "Waypoint names, as your bike computer will show them" },
+      w.map((x) => h("li", {}, h("span", { class: "k" }, "km " + x.km.toFixed(1)), h("code", {}, x.name))))) : null,
+    h("div", { class: "row" },
+      h("a", { class: "btn primary", href, download: "" }, "Download the GPX"),
+      h("span", { class: "small muted", style: "flex:1;min-width:240px" }, "Your track and these waypoints, in one file. Garmin: import it as a course in Garmin Connect, then send it to your device."))));
 }
 
-// ---- 4. GPX ----------------------------------------------------------------------
-function renderGpx(r) {
-  const n = (v) => r.points.filter((p) => p.verdict === v).length;
-  const stops = r.score ? r.score.gaps.reduce((a, g) => a + g.stops.filter((s) => s.suggested).length, 0) : 0;
-  $("#gpxnote").textContent = "The track, with a waypoint for each of the " + n("fountain") + " fountains you kept" + (r.score ? " (named after its band)" : " (score them first to get their band)") +
-    ", the " + n("unsure") + " points you were not sure about (“check”)" + (stops ? ", and the " + stops + " cafés and shops suggested on long stretches" : "") +
-    ". Names start with the band, so a bike computer that shortens names still shows it. Garmin: import it as a course in Garmin Connect, then send it to your device.";
-}
-
-refresh(true);
+refresh(true).then(route);
 </script>
 </body>
 </html>

@@ -48,6 +48,8 @@ RIDE_ID = re.compile(r"^[0-9a-f]{12}$")
 PICTURE_ID = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
 SEEN = 0.15  # boxes from this score are drawn solid, weaker ones dashed: a hint, never a decision
 STOP_SYMBOL = {"fuel station": "Gas Station", "supermarket": "Shopping Center", "small shop": "Convenience Store", "bakery": "Restaurant"}
+STOP_SHORT = {"fuel station": "fuel", "supermarket": "shop", "small shop": "shop", "greengrocer": "shop", "delicatessen": "shop",
+              "farm shop": "shop", "restaurant": "food", "snack bar": "food", "ice cream": "ice cream"}  # head units keep about 30 characters
 
 
 def climb_m(ele: list[float | None] | None, step: float = 5.0) -> float | None:
@@ -596,7 +598,7 @@ class App:
             for g in (st.get("score") or {}).get("gaps", []):
                 for s in (s for s in g["stops"] if s.get("suggested") and (s["open_then"] is True or not open_only)):
                     state = {True: "open", False: "closed", None: "hours?"}[s["open_then"]] if s["eta"] else "hours?"
-                    wpts.append({"lat": s["lat"], "lon": s["lon"], "km": s["km"], "name": f"{s['kind']} {state}: {s['name']}"[:30],
+                    wpts.append({"lat": s["lat"], "lon": s["lon"], "km": s["km"], "name": f"{STOP_SHORT.get(s['kind'], s['kind'])} {state}: {s['name']}"[:30],
                                  "desc": " ".join(x for x in (s["name"], s["opening_hours"], f"around {s['eta']}" if s["eta"] else "") if x),
                                  "sym": STOP_SYMBOL.get(s["kind"], "Restaurant"), "type": "Food", "band": "stop"})
         return sorted(wpts, key=lambda w: w["km"])
