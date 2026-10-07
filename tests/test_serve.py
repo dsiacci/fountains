@@ -115,6 +115,7 @@ def test_waypoint_goes_where_the_photo_was_taken_only_when_the_map_may_be_off():
     assert serve.where(clue) == (41.0, 9.0)
     assert serve.where(dict(clue, verdict="unsure")) == (42.2, 9.2)
     assert serve.where(dict(clue, photos=[])) == (42.2, 9.2)
+    assert serve.where(dict(osm, place={"lat": 42.01, "lon": 9.11})) == (42.01, 9.11)  # where the rider placed it wins
 
 
 def test_gpx_has_the_track_and_only_the_points_kept_or_to_check(app, tmp_path):
@@ -253,19 +254,55 @@ def test_only_points_the_rider_added_can_be_removed(app, tmp_path):
         app.remove("M01")
 
 
-def test_the_360_picture_is_looked_up_once_by_its_id(app, monkeypatch):
+def test_the_360_picture_is_looked_up_once_by_its_id_with_its_neighbours_on_the_road(app, monkeypatch):
     from fountains import discover
 
     calls = []
+    prev = "359bf3dc-f2de-47ca-b1dd-c661480aa97d"
     feature = {"features": [{"properties": {"view:azimuth": 83, "datetime": "2025-04-01T13:29:40+00:00", "license": "etalab-2.0"},
+                             "geometry": {"type": "Point", "coordinates": [8.8728628, 41.8201203]},
+                             "links": [{"rel": "prev", "id": prev, "geometry": {"type": "Point", "coordinates": [8.872876, 41.8198624]}},
+                                       {"rel": "next", "id": "../../etc", "geometry": {"type": "Point", "coordinates": [8.8, 41.8]}},
+                                       {"rel": "self", "href": "https://example.org/item"}],
                              "assets": {"hd": {"href": "https://example.org/hd.jpg"}, "sd": {"href": "https://example.org/sd.jpg"}}}]}
     monkeypatch.setattr(discover, "_get_json", lambda url, **kw: calls.append(url) or feature)
     pic = "aa9dedf2-5ff3-4945-bf46-16216bbe6166"
     got = app.pano(pic)
     assert got["azimuth"] == 83 and got["hd"].endswith("hd.jpg") and got["date"] == "2025-04-01"
+    assert (got["lat"], got["lon"]) == (41.8201203, 8.8728628)
+    assert got["prev"] == {"id": prev, "lat": 41.8198624, "lon": 8.872876} and "next" not in got  # an odd id is never passed on
     assert app.pano(pic) == got and len(calls) == 1
     with pytest.raises(ValueError):
         app.pano("../../secret")
+
+
+def test_the_rider_places_a_fountain_where_it_really_is(app, tmp_path):
+    app.upload(track_bytes(tmp_path), "ride.gpx")
+    p = app.ride.point("M02")
+    mapped = (p["lat"], p["lon"], p["km"], p["off_track_m"])
+    app.place("M02", 41.9001, 8.8121)
+    p = app.ride.point("M02")
+    assert p["place"] == {"lat": 41.9001, "lon": 8.8121} and p["verdict"] == "fountain" and not p["prefilled"]
+    assert serve.where(p) == (41.9001, 8.8121) and (p["lat"], p["lon"]) == mapped[:2]
+    assert p["km"] == pytest.approx(1.01, abs=0.02) and p["off_track_m"] == 11
+    names = {w["name"]: (w["lat"], w["lon"]) for w in app.waypoints()}
+    assert names["fountain: fountain"] == (41.9001, 8.8121)
+    with pytest.raises(ValueError, match="from the track"):
+        app.place("M02", 41.95, 8.81)
+    app.place("M02")  # cleared: back where the map puts it
+    p = app.ride.point("M02")
+    assert "place" not in p and (p["km"], p["off_track_m"]) == mapped[2:] and p["verdict"] == "fountain"
+
+
+def test_a_place_is_sent_over_http(server, tmp_path):
+    gpx = track_bytes(tmp_path).decode()
+    call(server, "POST", "/api/ride", json.dumps({"gpx": gpx, "filename": "ride.gpx"}), {"Content-Type": "application/json"})
+    status, _, body = call(server, "POST", "/api/place", json.dumps({"id": "M01", "lat": 41.9002, "lon": 8.8052}), {"Content-Type": "application/json"})
+    assert status == 200 and json.loads(body)["ride"]["points"][0]["place"] == {"lat": 41.9002, "lon": 8.8052}
+    status, _, body = call(server, "POST", "/api/place", json.dumps({"id": "M01", "lat": "north", "lon": 8.8}), {"Content-Type": "application/json"})
+    assert status == 400
+    status, _, body = call(server, "POST", "/api/place", json.dumps({"id": "M01"}), {"Content-Type": "application/json"})
+    assert status == 200 and "place" not in json.loads(body)["ride"]["points"][0]
 
 
 def test_a_ride_can_be_deleted_with_everything_it_holds(app, tmp_path):

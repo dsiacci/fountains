@@ -37,7 +37,7 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 from . import DATA_DIR, DISCLAIMER, in_corsica
-from .geo import Polyline
+from .geo import Polyline, haversine_m
 from .gpx import Track, course_gpx, read_gpx
 from .views import aerial_url, plan_url
 
@@ -87,12 +87,15 @@ def point_label(p: dict) -> str:
 def where(p: dict) -> tuple[float, float]:
     """Where the waypoint goes.
 
-    OpenStreetMap positions are kept. For a place found from clues, or an
-    IGN-only point mapped away from the road, a fountain confirmed on a street
-    photo is put where that photo was taken: on the road, a few metres from
-    it (IGN positions can be tens of metres off, and a clue may lie in the
-    woods).
+    Where the rider placed the fountain, when they did (from the street photos
+    or the map). Otherwise OpenStreetMap positions are kept. For a place found
+    from clues, or an IGN-only point mapped away from the road, a fountain
+    confirmed on a street photo is put where that photo was taken: on the
+    road, a few metres from it (IGN positions can be tens of metres off, and a
+    clue may lie in the woods).
     """
+    if p.get("place"):
+        return p["place"]["lat"], p["place"]["lon"]
     away = p["origin"] == "clue" or (p["source"] == "IGN" and (p.get("road_m") or 0) > 15)
     if p.get("verdict") == "fountain" and away and p.get("photos"):
         ph = p["photos"][min(p.get("chosen", 0), len(p["photos"]) - 1)]
@@ -115,7 +118,7 @@ class Ride:
         self.state = json.loads((folder / "state.json").read_text(encoding="utf-8"))
         for p in self.state["points"]:  # rides made before the wide aerial view existed
             if "aerial_wide" not in p:
-                p["aerial_wide"] = aerial_url(p["lat"], p["lon"], width_m=150, px=(952, 400))
+                p["aerial_wide"] = aerial_url(p["lat"], p["lon"], width_m=150, px=(1428, 600))
 
     @property
     def crops(self) -> Path:
@@ -221,7 +224,7 @@ def _views(p: dict) -> None:
     p.setdefault("chosen", 0)
     p["plan"] = plan_url(p["lat"], p["lon"], width_m=300, px=(480, 270))
     p["aerial"] = aerial_url(p["lat"], p["lon"], width_m=120, px=(480, 270))
-    p["aerial_wide"] = aerial_url(p["lat"], p["lon"], width_m=150, px=(952, 400))  # the shape of a street view
+    p["aerial_wide"] = aerial_url(p["lat"], p["lon"], width_m=150, px=(1428, 600))  # the shape of a street view; the page maps clicks on it
 
 
 class App:
@@ -457,6 +460,9 @@ class App:
                 f.notes.append("not on any map: found from clues" + (f", confirmed by you on a street photo of {ph['date']}" if ph else ", confirmed by you"))
             elif p and p["origin"] == "you":
                 f.notes.append("added by you")
+            if p and p.get("place") and p["origin"] != "you":
+                moved = haversine_m(p["lat"], p["lon"], p["place"]["lat"], p["place"]["lon"])
+                f.notes.append(f"placed by you, {moved:.0f} m from where the {'map' if p['origin'] == 'map' else 'clue'} puts it")
             row = asdict(f)
             row.update(reason=reason(f), waypoint=waypoint_name(f))
             fountains.append(row)
@@ -510,6 +516,31 @@ class App:
                 if not 0 <= photo < max(1, len(p.get("photos", []))):
                     raise ValueError("no such photo")
                 p["chosen"] = photo
+            self._regap(ride)
+            ride.save()
+
+    def place(self, pid: str, lat: float | None = None, lon: float | None = None) -> None:
+        """Where the fountain really is, as the rider saw it on the street photos or the map; no position clears it.
+
+        Placing a fountain says it is one. Its kilometre along the ride follows
+        the new position; the position the map gave is kept.
+        """
+        ride = self._need_ride()
+        with ride.lock:
+            p = ride.point(pid)
+            if lat is None or lon is None:
+                p.pop("place", None)
+                p["km"], p["off_track_m"] = p.pop("mapped_km", (p["km"], p["off_track_m"]))
+            else:
+                if not (math.isfinite(lat) and math.isfinite(lon)):
+                    raise ValueError("not a position")
+                d, s = ride.line.nearest(lat, lon)
+                if d > self.max_detour_m:
+                    raise ValueError(f"this place is {d:.0f} m from the track; points within {self.max_detour_m:.0f} m are scored")
+                p.setdefault("mapped_km", (p["km"], p["off_track_m"]))  # to come back to if the rider clears it
+                p["place"] = {"lat": round(lat, 6), "lon": round(lon, 6)}
+                p["km"], p["off_track_m"] = round(s / 1000, 2), round(d)
+                p["verdict"], p["prefilled"] = "fountain", False
             self._regap(ride)
             ride.save()
 
@@ -571,7 +602,8 @@ class App:
             self.start("look")
 
     def pano(self, pic: str) -> dict:
-        """The 360° picture behind a view: its image addresses and the direction its centre faces."""
+        """A 360° picture: its image addresses, where it was taken, the direction its centre faces,
+        and the pictures taken just before and after it in the same drive (to walk along the road)."""
         from . import cache_dir
         from .discover import PANORAMAX_SEARCH, _get_json
 
@@ -579,7 +611,9 @@ class App:
             raise ValueError("not a Panoramax picture id")
         path = cache_dir("panoramax-pictures") / f"{pic}.json"
         if path.exists():
-            return json.loads(path.read_text())
+            out = json.loads(path.read_text())
+            if "lat" in out:  # looked up before the walk along the road existed: ask again
+                return out
         try:
             feats = _get_json(f"{PANORAMAX_SEARCH}?ids={pic}", timeout=30).get("features", [])
         except Exception as e:  # noqa: BLE001 - shown on the page
@@ -588,9 +622,14 @@ class App:
             raise ValueError("Panoramax does not know this picture any more")
         f = feats[0]
         assets = f.get("assets", {})
+        lon, lat = f["geometry"]["coordinates"][:2]
         out = {"id": pic, "azimuth": f["properties"].get("view:azimuth"), "date": (f["properties"].get("datetime") or "")[:10],
                "hd": assets.get("hd", {}).get("href", ""), "sd": assets.get("sd", {}).get("href", ""),
-               "license": f["properties"].get("license") or ""}
+               "license": f["properties"].get("license") or "", "lat": lat, "lon": lon}
+        for link in f.get("links", []):
+            geom = link.get("geometry") or {}
+            if link.get("rel") in ("prev", "next") and PICTURE_ID.match(link.get("id") or "") and geom.get("type") == "Point":
+                out[link["rel"]] = {"id": link["id"], "lon": geom["coordinates"][0], "lat": geom["coordinates"][1]}
         path.write_text(json.dumps(out))
         return out
 
@@ -772,6 +811,8 @@ class Handler(BaseHTTPRequestHandler):
                 self.app.upload(body["gpx"].encode("utf-8"), body.get("filename") or "ride.gpx")
             elif path == "/api/decide":
                 self.app.decide(body["id"], body.get("verdict"), body.get("photo"), body.get("sure"))
+            elif path == "/api/place":
+                self.app.place(body["id"], *((float(body["lat"]), float(body["lon"])) if body.get("lat") is not None else ()))
             elif path == "/api/remove":
                 self.app.remove(body["id"])
             elif path == "/api/open":
