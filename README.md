@@ -168,12 +168,9 @@ Both targets are met: at least 90 % of the "likely" cases were flowing, at most 
 
 The model assumes that a fountain fed by a spring dries up like a small headwater stream after the same weather. That is plausible for a village fountain on a shallow spring, wrong for a fountain on the town mains (which runs whatever the rain), and unknown for a deep spring that reacts months later. OpenStreetMap almost never says which is which.
 
-This assumption is tested on real fountains in two ways, both small:
+This assumption has not been checked on fountains yet. The first check is a ride: the bands computed the evening before, against what the fountains actually did on the day. Its results will be added here, whatever they say; the model is never adjusted to agree with them.
 
-- **Memories**: what the author remembers seeing at the fountains of his usual routes in September 2026 (`fountains check-memories`). Memories are not measurements, and the sample is small. The model is never adjusted to agree with them.
-- **A ride**: the bands computed before a ride, and what the fountains actually did.
-
-*Results: filled in after the checks.*
+`fountains check-memories` does the same with what a rider remembers seeing (a CSV of fountain, date and state). Memories are not measurements: they say which fountains to look at again, not how good the model is.
 
 ## Limits
 
