@@ -8,6 +8,8 @@ You export your route as a GPX file and drop it on a local page. It lists every 
 
 It works in Corsica only, because that is where the model learned.
 
+![The check screen: Funtana di Leccia, the view the vision model ranks first with its box, and the position marked on the photos, 55 m from where IGN puts it](docs/check-screen.jpg)
+
 **Built with PriorLabs-TabPFN.**
 
 ## Install
